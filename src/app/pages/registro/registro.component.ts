@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Usuario } from '../../Entities/usuario';
 import { Router } from '@angular/router';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-registro',
@@ -13,16 +14,17 @@ export class RegistroComponent implements OnInit {
   usuario : Usuario = {
     uid: '',
     nombre: 'Mariano',
-    apellido: 'Arias',
+    apellido: 'Luis',
     edad: 43,
-    dni: 12312332,
+    dni: 22334455,
     obraSocial: 'Osecac',
-    email: 'algo@utn.com',
+    email: 'mariano@utn.com',
     password: '123456',
     perfil: 'paciente'
   }
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router,
+              private firestore: FirebaseService) { }
 
   ngOnInit(): void {
   }
@@ -34,6 +36,10 @@ export class RegistroComponent implements OnInit {
                 .then( (res)=>{
                   console.log( res.user?.uid);
                   if(res.user){
+                    const id = res.user.uid;
+                    this.usuario.uid = res.user.uid;
+                    this.usuario.password='';
+                    this.firestore.createUsuario(this.usuario);
                     this.router.navigate(['home']);
                   }
                 })
@@ -51,6 +57,5 @@ export class RegistroComponent implements OnInit {
                   // }
       
     });
-    
   }
 }
