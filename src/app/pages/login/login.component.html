@@ -15,13 +15,13 @@
                 </div>
                 <div *ngIf="loginErrorUser">
                   <span class="btn btn-danger">Usuario no encontrado</span>
-                  <a routerLink="./registro">¿Desea registrarse?</a>
+                  <a (click)="ToRegister()">¿Desea registrarse?</a>
                 </div>
                 <div *ngIf="loginErrorPass">
                   <span class="btn btn-danger">Contraseña incorrecta</span>
-                  <a routerLink="./registro">¿Olvidó su contraseña?</a>
+                  <a routerLink="./">¿Olvidó su contraseña?</a>
                 </div>
-                <button class="btn-new" type="submit">Create new Account</button>
+                <button class="btn-new" (click)="ToRegister()">Create new Account</button>
             <!-- </form> -->
         </div>
       </div>
