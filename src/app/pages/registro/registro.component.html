@@ -6,128 +6,193 @@
           class="card card-registration card-registration-2"
           style="border-radius: 15px"
         >
+        <form
+          class="needs-validation"
+          [formGroup]="userForm"
+          (ngSubmit)="Registrar()"
+        >
           <div class="card-body p-0">
             <div class="row g-0">
-              <div class="col-lg-6">
-                <div class="p-5">
-                  <h3 class="fw-normal mb-5" style="color: #4835d4">
-                    Infomación personal
-                  </h3>
+                <div class="col-lg-6">
+                  <div class="p-5">
+                    <h3 class="fw-normal mb-5" style="color: #4835d4">
+                      Infomación personal
+                    </h3>
+                    <div class="row">
+                      <div class="col-md-6 mb-4 pb-2">
+                        <div class="form-outline">
+                          <label class="form-label" for="form3Examplev2"
+                            >Nombre</label
+                          >
+                          <input
+                            formControlName="nombre"
+                            type="text"
+                            id="form3Examplev2"
+                            class="form-control form-control-lg"
+                          />
+                          <small
+                            class="text-danger"
+                            *ngIf="
+                              userForm.controls['nombre'].errors &&
+                              userForm.controls['nombre'].touched
+                            "
+                          >
+                            Este dato es obligatorio
+                          </small>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-4 pb-2">
+                        <div class="form-outline">
+                          <label class="form-label" for="form3Examplev3">
+                            Apellido</label
+                          >
+                          <input
+                            formControlName="apellido"
+                            type="text"
+                            id="form3Examplev3"
+                            class="form-control form-control-lg"
+                          />
+                          <small
+                            class="text-danger"
+                            *ngIf="
+                              userForm.controls['apellido'].errors &&
+                              userForm.controls['apellido'].touched
+                            "
+                          >
+                            Este dato es obligatorio
+                          </small>
+                        </div>
+                      </div>
+                    </div>
 
-                  <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
+                    <div class="row">
+                      <div class="col-md-6 mb-4 pb-2">
+                        <div class="form-outline">
+                          <label class="form-label" for="form3Examplev2"
+                            >Edad</label
+                          >
+                          <input
+                            formControlName="edad"
+                            type="number"
+                            id="form3Examplev2"
+                            class="form-control form-control-lg"
+                          />
+
+                          <small
+                            class="text-danger"
+                            *ngIf="
+                              userForm.controls['edad'].errors &&
+                              userForm.controls['edad'].touched
+                            "
+                          >
+                            Este dato es obligatorio
+                          </small>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-4 pb-2">
+                        <div class="form-outline">
+                          <label class="form-label" for="form3Examplev3"
+                            >DNI</label
+                          >
+                          <input
+                            formControlName="dni"
+                            type="number"
+                            id="form3Examplev3"
+                            class="form-control form-control-lg"
+                          />
+
+                          <small
+                            class="text-danger"
+                            *ngIf="
+                              userForm.controls['dni'].errors &&
+                              userForm.controls['dni'].touched
+                            "
+                          >
+                            Este dato es obligatorio
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-4 pb-2">
                       <div class="form-outline">
+                        <label class="form-label" for="form3Examplev4"
+                          >Obra Social</label
+                        >
                         <input
+                          formControlName="obraSocial"
                           type="text"
-                          id="form3Examplev2"
+                          id="form3Examplev4"
                           class="form-control form-control-lg"
                         />
-                        <label class="form-label" for="form3Examplev2"
-                          >Nombre</label
+
+                        <small
+                          class="text-danger"
+                          *ngIf="
+                            userForm.controls['obraSocial'].errors &&
+                            userForm.controls['obraSocial'].touched
+                          "
+                        >
+                          Este dato es obligatorio
+                        </small>
+                      </div>
+                    </div>
+                    <div class="mb-4 pb-2">
+                      <div class="form-outline">
+                        <input
+                          type="file"
+                          id="form3Examplev4"
+                          class="form-control form-control-lg"
+                        />
+                        <label class="form-label" for="form3Examplev4">
+                          Imagen 1</label
                         >
                       </div>
                     </div>
-                    <div class="col-md-6 mb-4 pb-2">
+
+                    <div class="mb-4 pb-2">
                       <div class="form-outline">
                         <input
-                          type="text"
-                          id="form3Examplev3"
+                          type="file"
+                          id="form3Examplev4"
                           class="form-control form-control-lg"
                         />
-                        <label class="form-label" for="form3Examplev3">
-                          Apellido</label
+                        <label class="form-label" for="form3Examplev4"
+                          >Imagen 2</label
                         >
                       </div>
                     </div>
                   </div>
-
-                  <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <input
-                          type="text"
-                          id="form3Examplev2"
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="form3Examplev2"
-                          >Edad</label
-                        >
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <input
-                          type="text"
-                          id="form3Examplev3"
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="form3Examplev3"
-                          >DNI</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="mb-4 pb-2">
-                    <div class="form-outline">
-                      <input
-                        type="text"
-                        id="form3Examplev4"
-                        class="form-control form-control-lg"
-                      />
-                      <label class="form-label" for="form3Examplev4"
-                        >Obra Social</label
-                      >
-                    </div>
-                  </div>
-                  <div class="mb-4 pb-2">
-                    <div class="form-outline">
-                      <input
-                        type="file"
-                        id="form3Examplev4"
-                        class="form-control form-control-lg"
-                      />
-                      <label class="form-label" for="form3Examplev4"
-                        > Imagen 1</label
-                      >
-                    </div>
-                  </div>
-
-                  <div class="mb-4 pb-2">
-                    <div class="form-outline">
-                      <input
-                        type="file"
-                        id="form3Examplev4"
-                        class="form-control form-control-lg"
-                      />
-                      <label class="form-label" for="form3Examplev4"
-                        >Imagen 2</label
-                      >
-                    </div>
-                  </div>
-
                 </div>
-              </div>
+                <div class="col-lg-6 bg-indigo text-white">
+                  <div class="p-5">
+                    <h3 class="fw-normal mb-5">Datos de contacto y acceso</h3>
 
-              
-              <div class="col-lg-6 bg-indigo text-white">
-                <div class="p-5">
-                  <h3 class="fw-normal mb-5">Datos de contacto y acceso</h3>
+                    <div class="mb-4 pb-2">
+                      <div class="form-outline form-white">
+                        <label class="form-label" for="form3Examplea2"
+                          >Correo electrónico</label
+                        >
+                        <input
+                          formControlName="email"
+                          type="email"
+                          id="form3Examplea2"
+                          class="form-control form-control-lg"
+                        />
 
-                  <div class="mb-4 pb-2">
-                    <div class="form-outline form-white">
-                      <input
-                        type="text"
-                        id="form3Examplea2"
-                        class="form-control form-control-lg"
-                      />
-                      <label class="form-label" for="form3Examplea2"
-                        >Correo electrónico</label
-                      >
+                        <small
+                          class="text-danger"
+                          *ngIf="
+                            userForm.controls['email'].errors &&
+                            userForm.controls['email'].touched
+                          "
+                        >
+                          Este dato es obligatorio
+                        </small>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- <div class="row">
+                    <!-- <div class="row">
                     <div class="col-md-5 mb-4 pb-2">
                       <div class="form-outline form-white">
                         <input
@@ -146,41 +211,63 @@
                           type="text"
                           id="form3Examplea8"
                           class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="form3Examplea8"
+                          />
+                          <label class="form-label" for="form3Examplea8"
                           >Numero de teléfono</label
                         >
                       </div>
                     </div>
                   </div> -->
 
-                  <div class="mb-4 pb-2">
-                    <div class="form-outline form-white">
-                      <input
-                        type="text"
-                        id="form3Examplea3"
-                        class="form-control form-control-lg"
-                      />
-                      <label class="form-label" for="form3Examplea3"
-                        >Elija su contraseña</label
-                      >
-                    </div>
-                  </div>
+                    <div class="mb-4 pb-2">
+                      <div class="form-outline form-white">
+                        <label class="form-label" for="form3Examplea3"
+                          >Elija su contraseña</label
+                        >
+                        <input
+                          formControlName="password"
+                          type="password"
+                          id="form3Examplea3"
+                          class="form-control form-control-lg"
+                        />
 
-                  <div class="mb-4 pb-2">
-                    <div class="form-outline form-white">
-                      <input
-                        type="text"
-                        id="form3Examplea6"
-                        class="form-control form-control-lg"
-                      />
-                      <label class="form-label" for="form3Examplea6"
-                        >Repita contraseña</label
-                      >
+                        <small
+                          class="text-danger"
+                          *ngIf="
+                            userForm.controls['password'].errors &&
+                            userForm.controls['password'].touched
+                          "
+                        >
+                          Este dato es obligatorio
+                        </small>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="mb-4">
+                    <div class="mb-4 pb-2">
+                      <div class="form-outline form-white">
+                        <label class="form-label" for="form3Examplea6"
+                          >Repita contraseña</label
+                        >
+                        <input
+                          formControlName="password2"
+                          type="password"
+                          id="form3Examplea6"
+                          class="form-control form-control-lg"
+                        />
+
+                        <small
+                          class="text-danger"
+                          *ngIf="
+                            userForm.controls['password2'].errors &&
+                            userForm.controls['password2'].touched
+                          "
+                        >
+                          Los password deben ser iguales.
+                        </small>
+                      </div>
+                    </div>
+
+                    <!-- <div class="mb-4">
                     <div class="form-outline form-white">
                       <input
                         type="text"
@@ -191,20 +278,22 @@
                         >Your Email</label
                       >
                     </div>
-                  </div>
+                  </div> -->
 
-                  <button
-                    type="button"
-                    class="btn btn-light btn-lg"
-                    data-mdb-ripple-color="dark"
-                    (click)="Registrar()"
-                  >
-                    Registrarse
-                  </button>
+                    <button
+                      type="button"
+                      class="btn btn-light btn-lg"
+                      data-mdb-ripple-color="dark"
+                      type="submit"
+                      [disabled]="userForm.invalid"
+                    >
+                      Registrarse
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
