@@ -24,4 +24,8 @@ export class AuthService {
     return this.authentication.createUserWithEmailAndPassword(newUser.email, newUser.password);
 
   }
+
+  GetUserLogged(){
+    return this.authentication.authState;
+  }
 }

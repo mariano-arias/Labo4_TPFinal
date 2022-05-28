@@ -9,7 +9,24 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private authService : AuthService, private router: Router) { }
+  userLogged : any | null = null;
+
+  constructor(private authService : AuthService, private router: Router) { 
+      this.authService.GetUserLogged().subscribe( (res)=>{
+      if(res?.uid){
+        console.log("usuer logged: ", res.uid);
+        console.log("usuer logged: ", res.displayName);
+        
+        console.log("usuer logged: ", res.email);
+        this.userLogged = res.email;
+        console.log(this.userLogged);
+      }
+      else{
+        console.log("nadie");
+        
+      }
+    });
+  }
 
   ngOnInit(): void {
   }

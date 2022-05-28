@@ -20,12 +20,12 @@
         </li>
       </ul>
     </div>
-    <div>
-      <button type="button" class="btn btn-info" routerLink="./login">Ingresar</button>
-
-    </div>
-    <div>
+    <div *ngIf="userLogged != null  as user else LoginButton">
+      {{userLogged}}
       <button type="button" class="btn btn-warning" (click)="Salir()">Salir</button>
     </div>
+    <ng-template #LoginButton>
+      <button type="button" class="btn btn-info" routerLink="./login">Ingresar</button>
+    </ng-template>
   </div>
 </nav>
