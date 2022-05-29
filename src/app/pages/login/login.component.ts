@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { InteractionService } from 'src/app/services/interaction.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
 
   loginErrorPass : boolean | undefined;
 
-  constructor(private authService: AuthService, private router: Router ) { }
+  constructor(private authService: AuthService, private router: Router,
+              private interactionService: InteractionService ) { }
 
   ngOnInit(): void {
   }
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
     const res = await this.authService.Login(this.usuario.email, this.usuario.password)
                 .then( (r)=>{
                   if(r.user){
+                    this.interactionService.showSuccess("Login exitoso", "Login OK")
                     this.router.navigate(['home']);
                   }
                 })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Usuario } from '../../Entities/usuario';
@@ -25,8 +25,7 @@ export class RegistroComponent implements OnInit {
   //   perfil: 'paciente'
   // }
 
-  
-  public userForm : FormGroup;
+public userForm! : FormGroup;
 
   usuario : Usuario = new Usuario();
   
@@ -38,11 +37,17 @@ export class RegistroComponent implements OnInit {
 
   createUserError : string | null = null;
 
+  submitted = false;
+
   constructor(private authService: AuthService, private router: Router,
               private firestore: FirebaseService, public formBuilder: FormBuilder, 
-              private validatorService: ValidatorService) 
-              {
-                this.userForm = this.formBuilder.group(
+              private validatorService: ValidatorService,
+              private cd: ChangeDetectorRef
+              ) 
+              {}
+
+  ngOnInit(): void {
+      this.userForm = this.formBuilder.group(
                   {
                     nombre: ['', [Validators.required, Validators.minLength(3)]],
                     apellido: ['', [Validators.required, Validators.minLength(3)]],
@@ -51,17 +56,50 @@ export class RegistroComponent implements OnInit {
                     obraSocial: ['', [Validators.required, Validators.minLength(4)]],
                     email: ['',[Validators.required, Validators.email]],
                     password: ['', [Validators.required, Validators.minLength(6)]],
-                    password2: ['', [Validators.required, Validators.minLength(6)]]
+                    password2: ['', [Validators.required, Validators.minLength(6)]],
+                    file: [null]
                   },
                   {
                     validators: [ this.validatorService.checkPassword('password', 'password2')]
                   }
                 )
-               }
-
-  ngOnInit(): void {
+               
   }
 
+  /*########################## File Upload ########################*/
+  // @ViewChild('fileInput') el: ElementRef;
+  // imageUrl: any = '/assets/dummy-user.jpg';
+  // editFile: boolean = true;
+  // removeUpload: boolean = false;
+  // uploadFile(event) {
+  //   let reader = new FileReader(); // HTML5 FileReader API
+  //   let file = event.target.files[0];
+  //   if (event.target.files && event.target.files[0]) {
+  //     reader.readAsDataURL(file);
+  //     // When file uploads set it to file formcontrol
+  //     reader.onload = () => {
+  //       this.imageUrl = reader.result;
+  //       this.userForm.patchValue({
+  //         file: reader.result
+  //       });
+  //       this.editFile = false;
+  //       this.removeUpload = true;
+  //     }
+  //     // ChangeDetectorRef since file is loading outside the zone
+  //     this.cd.markForCheck();        
+  //   }
+  // }
+  // // Function to remove uploaded file
+  // removeUploadedFile() {
+  //   let newFileList = Array.from(this.el.nativeElement.files);
+  //   this.imageUrl = '/assets/dummy-user.jpg';
+  //   this.editFile = true;
+  //   this.removeUpload = false;
+  //   this.userForm.patchValue({
+  //     file: [null]
+  //   });
+  // }
+  
   async Registrar(){
 
     this.loginError = false;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { InteractionService } from '../../services/interaction.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,7 +12,7 @@ export class MenuComponent implements OnInit {
 
   userLogged : any | null = null;
 
-  constructor(private authService : AuthService, private router: Router) { 
+  constructor(private authService : AuthService, private router: Router, private interacionService : InteractionService) { 
       this.authService.GetUserLogged().subscribe( (res)=>{
       if(res?.uid){
         console.log("usuer logged: ", res.uid);
@@ -32,7 +33,9 @@ export class MenuComponent implements OnInit {
   }
 
   Salir(){
-    this.authService.Logout();
+    this.authService.Logout().then(
+      () =>  this.interacionService.showError("Logout exitoso", "Logout")
+    );
     this.router.navigate(['login']);
 
   }

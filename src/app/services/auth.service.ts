@@ -17,7 +17,7 @@ export class AuthService {
   }
 
   Logout(){
-    this.authentication.signOut();
+    return this.authentication.signOut();
   }
 
   async Register( newUser : Usuario){

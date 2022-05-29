@@ -28,16 +28,15 @@
                             formControlName="nombre"
                             type="text"
                             class="form-control form-control-lg"
-                          />    <small
+                          />
+                          <small
                           class="text-danger"
-                          *ngIf="
-                            userForm.controls['nombre'].errors &&
-                            userForm.controls['nombre'].touched
-                          "
-                        >
-                          Este dato es obligatorio
-                        </small>
-                        </div>
+                          *ngIf=" userForm.controls['nombre'].errors &&
+                                  userForm.controls['apellido'].touched"
+                          >
+                          Minimo tres letras
+                          </small>
+                          </div>
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
@@ -131,6 +130,18 @@
                         </small>
                       </div>
                     </div>
+                    <!-- Upload image
+<div class="avatar-upload">
+  <div class="avatar-edit">
+     <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" />
+     <label for="imageUpload" *ngIf="editFile" [ngClass]="['custom-label', 'upload-image']"></label>
+     <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']" (click)="removeUploadedFile()"></label>
+  </div>
+  <div class="avatar-preview">
+     <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
+     </div>
+  </div>
+</div> -->
                     <div class="mb-4 pb-2">
                       <div class="form-outline">
                         <input
