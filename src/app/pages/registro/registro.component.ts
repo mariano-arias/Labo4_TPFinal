@@ -27,8 +27,17 @@ export class RegistroComponent implements OnInit {
 
   
   public userForm : FormGroup;
+
   usuario : Usuario = new Usuario();
   
+  loginError : boolean | undefined;
+
+  loginErrorUser : boolean | undefined;
+
+  loginErrorPass : boolean | undefined;
+
+  createUserError : string | null = null;
+
   constructor(private authService: AuthService, private router: Router,
               private firestore: FirebaseService, public formBuilder: FormBuilder, 
               private validatorService: ValidatorService) 
@@ -55,6 +64,12 @@ export class RegistroComponent implements OnInit {
 
   async Registrar(){
 
+    this.loginError = false;
+    this.loginErrorUser = false;
+    this.loginErrorPass = false;
+
+    this.createUserError = null;
+
     this.usuario = this.userForm.value;
     
     console.log(this.usuario);
@@ -66,9 +81,33 @@ export class RegistroComponent implements OnInit {
                     const id = res.user.uid;
                     this.usuario.uid = res.user.uid;
                     this.usuario.password='';
-                    this.firestore.createUsuario(this.usuario);
-                    this.router.navigate(['home']);
+                    this.firestore.createUsuario(this.usuario).then
+                    ( (res) => {
+                      this.authService.Login(this.usuario.email, this.usuario.password).then
+                      ((res) => {
+                        if(res.user){
+                         console.log("user creado y logueado");
+                         
+                        }
+                      }).catch(
+                        (error) => {
+                  
+                          var errorCode = error.code;
+        
+                          if (errorCode === 'auth/user-not-found'){
+                            this.loginErrorUser = true;
+                          }
+                          else if (errorCode === 'auth/wrong-password') {
+                            this.loginErrorPass = true;
+                          }
+                          else{
+                            this.loginError = true;
+                          }
+                        }
+                      )
+                    })
                   }
+                  this.router.navigate(['home']);
                 })
                 .catch( (error) => {
                   var errorCode = error.code;
@@ -78,11 +117,15 @@ export class RegistroComponent implements OnInit {
                   console.log(errorMessage);
 
                   console.log(error);
-                  // if (errorCode == 'auth/weak-password') {
-
-                  // } else {
+                  
+                  if (errorCode == 'auth/email-already-in-use') {
+                    this.createUserError = "Correo electronico ya está en uso";
+                  //   console.log("auth/email-already-in-use");
                   // }
-      
-    });
+                  // } else {
+                  }else{
+                    this.createUserError= errorCode;
+                  }
+                });
   }
 }

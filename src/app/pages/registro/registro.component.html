@@ -27,18 +27,16 @@
                           <input
                             formControlName="nombre"
                             type="text"
-                            id="form3Examplev2"
                             class="form-control form-control-lg"
-                          />
-                          <small
-                            class="text-danger"
-                            *ngIf="
-                              userForm.controls['nombre'].errors &&
-                              userForm.controls['nombre'].touched
-                            "
-                          >
-                            Este dato es obligatorio
-                          </small>
+                          />    <small
+                          class="text-danger"
+                          *ngIf="
+                            userForm.controls['nombre'].errors &&
+                            userForm.controls['nombre'].touched
+                          "
+                        >
+                          Este dato es obligatorio
+                        </small>
                         </div>
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
@@ -49,7 +47,6 @@
                           <input
                             formControlName="apellido"
                             type="text"
-                            id="form3Examplev3"
                             class="form-control form-control-lg"
                           />
                           <small
@@ -74,7 +71,6 @@
                           <input
                             formControlName="edad"
                             type="number"
-                            id="form3Examplev2"
                             class="form-control form-control-lg"
                           />
 
@@ -97,7 +93,6 @@
                           <input
                             formControlName="dni"
                             type="number"
-                            id="form3Examplev3"
                             class="form-control form-control-lg"
                           />
 
@@ -122,7 +117,6 @@
                         <input
                           formControlName="obraSocial"
                           type="text"
-                          id="form3Examplev4"
                           class="form-control form-control-lg"
                         />
 
@@ -141,7 +135,6 @@
                       <div class="form-outline">
                         <input
                           type="file"
-                          id="form3Examplev4"
                           class="form-control form-control-lg"
                         />
                         <label class="form-label" for="form3Examplev4">
@@ -154,7 +147,6 @@
                       <div class="form-outline">
                         <input
                           type="file"
-                          id="form3Examplev4"
                           class="form-control form-control-lg"
                         />
                         <label class="form-label" for="form3Examplev4"
@@ -176,7 +168,6 @@
                         <input
                           formControlName="email"
                           type="email"
-                          id="form3Examplea2"
                           class="form-control form-control-lg"
                         />
 
@@ -217,7 +208,7 @@
                         >
                       </div>
                     </div>
-                  </div> -->
+                    </div> -->
 
                     <div class="mb-4 pb-2">
                       <div class="form-outline form-white">
@@ -227,7 +218,6 @@
                         <input
                           formControlName="password"
                           type="password"
-                          id="form3Examplea3"
                           class="form-control form-control-lg"
                         />
 
@@ -251,7 +241,6 @@
                         <input
                           formControlName="password2"
                           type="password"
-                          id="form3Examplea6"
                           class="form-control form-control-lg"
                         />
 
@@ -278,7 +267,7 @@
                         >Your Email</label
                       >
                     </div>
-                  </div> -->
+                    </div> -->
 
                     <button
                       type="button"
@@ -289,6 +278,13 @@
                     >
                       Registrarse
                     </button>
+                    <br>
+                    <small
+                    class="btn btn-danger" style="margin-top: 10px;"
+                    *ngIf="createUserError"
+                    >
+                    Se ha producido un error: {{createUserError}}
+                  </small>
                   </div>
                 </div>
               </div>
