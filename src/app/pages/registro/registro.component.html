@@ -6,6 +6,10 @@
           class="card card-registration card-registration-2"
           style="border-radius: 15px"
         >
+        
+        <ngx-spinner  template="<div class='spinner-border text-info' role='status'>" 
+          bdColor = "rgba(19,52,122,0.8)" size = "default" color = "#fff" 
+          type = "pacman" [fullScreen] = "false"><p style="color: white" > Ingresando... </p></ngx-spinner>
         <form
           class="needs-validation"
           [formGroup]="userForm"
@@ -262,7 +266,9 @@
                             userForm.controls['password2'].touched
                           "
                         >
+                        <div class="btn btn-warning">
                           Los password deben ser iguales.
+                        </div>
                         </small>
                       </div>
                     </div>

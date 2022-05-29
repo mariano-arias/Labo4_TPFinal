@@ -8,5 +8,6 @@ export class Usuario {
     obraSocial! : string;
     email! : string;
     password! : string;
+    password2! : string;
     perfil! : string;
 }

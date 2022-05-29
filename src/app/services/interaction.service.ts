@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class InteractionService {
 
-  constructor(private toastr : ToastrService) { }
+  constructor(private toastr : ToastrService, private spinner: NgxSpinnerService) { }
 
   showSuccess(message: string | undefined, title: string | undefined){
     this.toastr.success(message, title, {
@@ -32,5 +33,13 @@ showWarning(message: string | undefined, title: string | undefined){
       {
         timeOut :  7000
       })
+}
+
+showSpinner(){
+  this.spinner.show();
+  setTimeout(() => {
+
+    this.spinner.hide();
+  }, 2500);
 }
 }

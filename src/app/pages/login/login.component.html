@@ -3,26 +3,25 @@
     <div class="col">
       <div class="colm-form">
         <div class="form-container">
+          <ngx-spinner  template="<div class='spinner-border text-info' role='status'>" bdColor = "rgba(19,52,122,0.8)" size = "default" color = "#fff" type = "pacman" [fullScreen] = "false"><p style="color: white" > Ingresando... </p></ngx-spinner>
             <!-- <form action=""> -->
-                <input type="text" placeholder="Email address or phone number" [(ngModel)]="usuario.email" />
-                <input type="password" placeholder="Password" [(ngModel)]="usuario.password"/>
-                <button class="btn-login" type="submit" (click)="Ingresar()">Login</button>
-
-                <div *ngIf="loginError">
-                  <span class="btn btn-danger">Error de usuario o contraseña</span>
-                  <a href="#">¿Olvidó su contraseña?</a>
-                  <a>¿Desea registrarse?</a>
-                </div>
-                <div *ngIf="loginErrorUser">
-                  <span class="btn btn-danger">Usuario no encontrado</span>
-                  <a (click)="ToRegister()">¿Desea registrarse?</a>
-                </div>
-                <div *ngIf="loginErrorPass">
-                  <span class="btn btn-danger">Contraseña incorrecta</span>
-                  <a routerLink="./">¿Olvidó su contraseña?</a>
-                </div>
-                <button class="btn-new" (click)="ToRegister()">Registrarse</button>
-            <!-- </form> -->
+              <input type="text" placeholder="Email address or phone number" [(ngModel)]="usuario.email" />
+              <input type="password" placeholder="Password" [(ngModel)]="usuario.password"/>
+              <button class="btn-login" type="submit" (click)="Ingresar()">Login</button>
+              
+              <div *ngIf="loginError">
+                <span class="btn btn-danger">Error de usuario o contraseña</span>
+              </div>
+              <div *ngIf="loginErrorUser">
+                <span class="btn btn-danger">Usuario no encontrado</span>
+                <a (click)="ToRegister()">¿Desea registrarse?</a>
+              </div>
+              <div *ngIf="loginErrorPass">
+                <span class="btn btn-danger">Contraseña incorrecta</span>
+                <a routerLink="./">¿Olvidó su contraseña?</a>
+              </div>
+              <button class="btn-new" (click)="ToRegister()">Registrarse</button>
+              <!-- </form> -->
         </div>
       </div>
     </div>

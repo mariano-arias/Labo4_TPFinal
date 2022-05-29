@@ -5,6 +5,7 @@ import { Usuario } from '../../Entities/usuario';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../../services/firebase.service';
 import { ValidatorService } from 'src/app/services/validator.service';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
   selector: 'app-registro',
@@ -42,7 +43,7 @@ public userForm! : FormGroup;
   constructor(private authService: AuthService, private router: Router,
               private firestore: FirebaseService, public formBuilder: FormBuilder, 
               private validatorService: ValidatorService,
-              private cd: ChangeDetectorRef
+              private interactionService : InteractionService
               ) 
               {}
 
@@ -102,48 +103,35 @@ public userForm! : FormGroup;
   
   async Registrar(){
 
+    this.interactionService.showSpinner();
+
     this.loginError = false;
     this.loginErrorUser = false;
     this.loginErrorPass = false;
 
     this.createUserError = null;
 
+    // this.usuario.nombre = this.userForm.value.nombre;
+    // this.usuario.apellido= this.userForm.value.apellido;
+    // this.usuario.edad = this.userForm.value.edad;
+    // this.usuario.dni = this.userForm.value.dni;
+    // this.usuario.obraSocial= this.userForm.value.obraSocial;
+    // this.usuario.perfil = "paciente";
+     
     this.usuario = this.userForm.value;
-    
-    console.log(this.usuario);
+   // console.log(this.usuario);
 
     const res = await this.authService.Register(this.usuario)
                 .then( (res)=>{
                   console.log( res.user?.uid);
                   if(res.user){
-                    const id = res.user.uid;
                     this.usuario.uid = res.user.uid;
                     this.usuario.password='';
+                    this.usuario.password2 = '';
                     this.firestore.createUsuario(this.usuario).then
-                    ( (res) => {
-                      this.authService.Login(this.usuario.email, this.usuario.password).then
-                      ((res) => {
-                        if(res.user){
-                         console.log("user creado y logueado");
-                         
-                        }
-                      }).catch(
-                        (error) => {
-                  
-                          var errorCode = error.code;
-        
-                          if (errorCode === 'auth/user-not-found'){
-                            this.loginErrorUser = true;
-                          }
-                          else if (errorCode === 'auth/wrong-password') {
-                            this.loginErrorPass = true;
-                          }
-                          else{
-                            this.loginError = true;
-                          }
-                        }
-                      )
-                    })
+                    ( () => {
+                         this.interactionService.showSuccess("Se ha registrado un nuevo usuario e ingresado al sistema.", "Registro exitoso")
+                        })
                   }
                   this.router.navigate(['home']);
                 })

@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
 
   async Ingresar(){
 
+    this.interactionService.showSpinner();
+
     this.loginError = false;
     this.loginErrorUser = false;
     this.loginErrorPass = false;
