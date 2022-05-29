@@ -7,10 +7,12 @@
           style="border-radius: 15px"
         >
         
-        <ngx-spinner  template="<div class='spinner-border text-info' role='status'>" 
-          bdColor = "rgba(19,52,122,0.8)" size = "default" color = "#fff" 
-          type = "pacman" [fullScreen] = "false"><p style="color: white" > Ingresando... </p></ngx-spinner>
-        <form
+        <ngx-spinner  template="<button class='btn btn-primary text-nowrap'>
+          <span class='spinner-border spinner-border-sm mr-2'></span>
+          Enviando datos...</button>"
+          bdColor = "rgba(19,52,122,0.8)" type="pacman" size = "default" color = "#fff" [fullScreen] = "false"></ngx-spinner>
+        
+          <form
           class="needs-validation"
           [formGroup]="userForm"
           (ngSubmit)="Registrar()"
@@ -23,6 +25,27 @@
                       Infomación personal
                     </h3>
                     <div class="row">
+                      <!-- Radio Buttons -->
+<div class="group-gap">
+  <h5 class="fw-normal mb-5" style="color: #4835d4">
+    Usted se registra como...
+  </h5>
+
+     
+     <div class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" name="perfil" 
+              formControlName="perfil" value="paciente"
+           checked>
+        <label class="custom-control-label" for="Paciente">Paciente</label>
+     </div>
+     <div class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" name="perfil" 
+            formControlName="perfil" value="especialista">
+        <label class="custom-control-label" for="Especialista">Especialista</label>
+     </div>
+
+</div>
+<!-- end radio buttons-->
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
                           <label class="form-label" for="form3Examplev2"

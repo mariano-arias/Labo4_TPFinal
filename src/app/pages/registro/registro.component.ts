@@ -58,6 +58,7 @@ public userForm! : FormGroup;
                     email: ['',[Validators.required, Validators.email]],
                     password: ['', [Validators.required, Validators.minLength(6)]],
                     password2: ['', [Validators.required, Validators.minLength(6)]],
+                    perfil:[''],
                     file: [null]
                   },
                   {
@@ -148,7 +149,10 @@ public userForm! : FormGroup;
                     this.createUserError = "Correo electronico ya está en uso";
                   //   console.log("auth/email-already-in-use");
                   // }
-                  // } else {
+                  // } else {auth/invalid-email
+                  }
+                  else if(errorCode == 'auth/invalid-email'){
+                    this.createUserError = "El correo electronico no tiene formato valido";
                   }else{
                     this.createUserError= errorCode;
                   }
