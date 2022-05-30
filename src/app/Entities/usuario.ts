@@ -6,8 +6,13 @@ export class Usuario {
     edad! : number;
     dni! : number;
     obraSocial! : string;
+    especialidad! : string;
     email! : string;
     password! : string;
     password2! : string;
     perfil! : string;
+
+    imagen1Name!: string;
+    
+    imagen2Name!: string;
 }

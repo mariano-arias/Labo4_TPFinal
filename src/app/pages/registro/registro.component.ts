@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FirebaseService } from '../../services/firebase.service';
 import { ValidatorService } from 'src/app/services/validator.service';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-registro',
@@ -40,10 +41,18 @@ public userForm! : FormGroup;
 
   submitted = false;
 
+  perfil : string | undefined = "paciente";
+
+  imgFile1: any = null;
+  imgFile2: any = null;
+
+  filesAdjuntos : any;
+
   constructor(private authService: AuthService, private router: Router,
               private firestore: FirebaseService, public formBuilder: FormBuilder, 
               private validatorService: ValidatorService,
-              private interactionService : InteractionService
+              private interactionService : InteractionService,
+              private storageService : StorageService
               ) 
               {}
 
@@ -54,12 +63,12 @@ public userForm! : FormGroup;
                     apellido: ['', [Validators.required, Validators.minLength(3)]],
                     edad: ['', [Validators.required, Validators.min(18),Validators.max(125)]],
                     dni: ['', [Validators.required, Validators.minLength(7)]],
-                    obraSocial: ['', [Validators.required, Validators.minLength(4)]],
+                   obraSocial: [''],
+                    especialidad: [''],
                     email: ['',[Validators.required, Validators.email]],
                     password: ['', [Validators.required, Validators.minLength(6)]],
                     password2: ['', [Validators.required, Validators.minLength(6)]],
-                    perfil:[''],
-                    file: [null]
+                    perfil:['', [Validators.required] ],
                   },
                   {
                     validators: [ this.validatorService.checkPassword('password', 'password2')]
@@ -68,6 +77,55 @@ public userForm! : FormGroup;
                
   }
 
+  SetPerfil(p : string){
+    console.log(p);
+    
+    if(p!='paciente'){
+      this.perfil = 'especialista'
+  }
+}
+
+
+uploadFile(event : any){
+
+  if (event.target.files && event.target.files[0]){
+  console.log(event.target.files);
+  if(event.target.files.length > 1 && this.perfil!='paciente'){
+    this.interactionService.showWarning("Especialista solo puede cargar una imagen", "Error");
+    event.target.files = null;
+    return;
+  }
+  if(event.target.files.length > 2){
+    this.interactionService.showWarning("Paciente puede cargar sólo hasta dos imagenes", "Error");
+    event.target.files = null;
+    return;
+  }
+
+  this.filesAdjuntos = event.target.files;
+
+  let reader = new FileReader();
+
+  reader.readAsDataURL(this.filesAdjuntos[0]);
+  reader.onloadend=
+    ()=>{
+      console.log(reader.result);
+      this.imgFile1 = reader.result;
+    };
+    
+    if(this.filesAdjuntos.length>1){
+
+      let reader2 = new FileReader();
+      reader2.readAsDataURL(this.filesAdjuntos[1]);
+      reader2.onloadend=
+      ()=>{
+      console.log(reader2.result);
+      this.imgFile2 = reader2.result;
+    };
+
+    }
+
+  }
+}
   /*########################## File Upload ########################*/
   // @ViewChild('fileInput') el: ElementRef;
   // imageUrl: any = '/assets/dummy-user.jpg';
@@ -129,6 +187,29 @@ public userForm! : FormGroup;
                     this.usuario.uid = res.user.uid;
                     this.usuario.password='';
                     this.usuario.password2 = '';
+                    
+                    let fileName =this.usuario.uid+'_'+Date.now();
+
+                    this.storageService.FileUpload(fileName, this.imgFile1)
+                    .then( (res) => {
+                      this.usuario.imagen1Name = fileName;
+                      console.log("imagen subida ok");
+                     // console.log(res); undefined
+                    } )
+
+                    if(this.imgFile2){
+                      
+                      fileName =this.usuario.uid+'_'+Date.now();
+
+                      this.storageService.FileUpload(fileName, this.imgFile2)
+                      .then( (res) => {
+                        this.usuario.imagen2Name = fileName;
+                        console.log("imagen subida ok");
+                       // console.log(res); undefined
+                      } )
+                    }
+
+
                     this.firestore.createUsuario(this.usuario).then
                     ( () => {
                          this.interactionService.showSuccess("Se ha registrado un nuevo usuario e ingresado al sistema.", "Registro exitoso")

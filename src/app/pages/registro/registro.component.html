@@ -6,19 +6,24 @@
           class="card card-registration card-registration-2"
           style="border-radius: 15px"
         >
-        
-        <ngx-spinner  template="<button class='btn btn-primary text-nowrap'>
+          <ngx-spinner
+            template="<button class='btn btn-primary text-nowrap'>
           <span class='spinner-border spinner-border-sm mr-2'></span>
           Enviando datos...</button>"
-          bdColor = "rgba(19,52,122,0.8)" type="pacman" size = "default" color = "#fff" [fullScreen] = "false"></ngx-spinner>
-        
+            bdColor="rgba(19,52,122,0.8)"
+            type="pacman"
+            size="default"
+            color="#fff"
+            [fullScreen]="false"
+          ></ngx-spinner>
+
           <form
-          class="needs-validation"
-          [formGroup]="userForm"
-          (ngSubmit)="Registrar()"
-        >
-          <div class="card-body p-0">
-            <div class="row g-0">
+            class="needs-validation"
+            [formGroup]="userForm"
+            (ngSubmit)="Registrar()"
+          >
+            <div class="card-body p-0">
+              <div class="row g-0">
                 <div class="col-lg-6">
                   <div class="p-5">
                     <h3 class="fw-normal mb-5" style="color: #4835d4">
@@ -26,26 +31,48 @@
                     </h3>
                     <div class="row">
                       <!-- Radio Buttons -->
-<div class="group-gap">
-  <h5 class="fw-normal mb-5" style="color: #4835d4">
-    Usted se registra como...
-  </h5>
-
-     
-     <div class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" name="perfil" 
-              formControlName="perfil" value="paciente"
-           checked>
-        <label class="custom-control-label" for="Paciente">Paciente</label>
-     </div>
-     <div class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" name="perfil" 
-            formControlName="perfil" value="especialista">
-        <label class="custom-control-label" for="Especialista">Especialista</label>
-     </div>
-
-</div>
-<!-- end radio buttons-->
+                      <div class="group-gap">
+                        <h5 class="fw-normal mb-5" style="color: #4835d4">
+                          Usted se registra como...
+                        </h5>
+                        <div class="col-md-6 mb-4 pb-2">
+                          <div class="custom-control custom-radio">
+                            <input
+                              type="radio"
+                              class="custom-control-input"
+                              name="perfil"
+                              formControlName="perfil"
+                              value="paciente"
+                              (click)="SetPerfil('paciente')"
+                            />
+                            <label class="custom-control-label" for="Paciente"
+                              >Paciente</label
+                            >
+                          </div>
+                          <div class="custom-control custom-radio">
+                            <input
+                              type="radio"
+                              class="custom-control-input"
+                              name="perfil"
+                              formControlName="perfil"
+                              value="especialista"
+                              (click)="SetPerfil('especialista')"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="Especialista"
+                              >Especialista</label
+                            >
+                          </div>
+                          <small
+                            class="text-danger"
+                            *ngIf="userForm.controls['perfil'].errors"
+                          >
+                            Debe elegir una opcion
+                          </small>
+                        </div>
+                      </div>
+                      <!-- end radio buttons-->
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
                           <label class="form-label" for="form3Examplev2"
@@ -57,13 +84,15 @@
                             class="form-control form-control-lg"
                           />
                           <small
-                          class="text-danger"
-                          *ngIf=" userForm.controls['nombre'].errors &&
-                                  userForm.controls['apellido'].touched"
+                            class="text-danger"
+                            *ngIf="
+                              userForm.controls['nombre'].errors &&
+                              userForm.controls['nombre'].touched
+                            "
                           >
-                          Minimo tres letras
+                            Minimo tres letras
                           </small>
-                          </div>
+                        </div>
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
@@ -136,7 +165,10 @@
                     </div>
 
                     <div class="mb-4 pb-2">
-                      <div class="form-outline">
+                      <div
+                        class="form-outline"
+                        *ngIf="perfil == 'paciente'; else especialista"
+                      >
                         <label class="form-label" for="form3Examplev4"
                           >Obra Social</label
                         >
@@ -146,7 +178,7 @@
                           class="form-control form-control-lg"
                         />
 
-                        <small
+                        <!-- <small
                           class="text-danger"
                           *ngIf="
                             userForm.controls['obraSocial'].errors &&
@@ -154,8 +186,27 @@
                           "
                         >
                           Este dato es obligatorio
-                        </small>
+                        </small> -->
                       </div>
+                      <ng-template #especialista>
+                        <label class="form-label" for="form3Examplev4"
+                          >Especialidad</label
+                        >
+                        <input
+                          formControlName="especialidad"
+                          type="text"
+                          class="form-control form-control-lg"
+                        />
+                        <small
+                          class="text-danger"
+                          *ngIf="
+                            userForm.controls['especialidad'].errors &&
+                            userForm.controls['especialidad'].touched
+                          "
+                        >
+                          Este dato es obligatorio
+                        </small>
+                      </ng-template>
                     </div>
                     <!-- Upload image
 <div class="avatar-upload">
@@ -169,31 +220,41 @@
      </div>
   </div>
 </div> -->
+                    <!-- SUBIDA ARCHIVOS -->
+                    <div class="avatar-upload">
                     <div class="mb-4 pb-2">
                       <div class="form-outline">
                         <input
                           type="file"
                           class="form-control form-control-lg"
+                          accept=".png, .jpg, .jpeg"
+                          (change)="uploadFile($event)"
+                          multiple
                         />
                         <label class="form-label" for="form3Examplev4">
-                          Imagen 1</label
+                          Adjuntar archivo</label
                         >
                       </div>
                     </div>
-
-                    <div class="mb-4 pb-2">
-                      <div class="form-outline">
-                        <input
-                          type="file"
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="form3Examplev4"
-                          >Imagen 2</label
-                        >
+                    <!-- <div *ngIf="perfil == 'paciente'">
+                      <div class="mb-4 pb-2">
+                        <div class="form-outline">
+                          <input
+                            type="file"
+                            accept=".png, .jpg, .jpeg"
+                            class="form-control form-control-lg"
+                          />
+                          <label class="form-label" for="form3Examplev4"
+                            >Imagen 2</label
+                          >
+                        </div>
                       </div>
+                    </div> -->
                     </div>
+  <!--END FILES UPLOAD-->
                   </div>
                 </div>
+
                 <div class="col-lg-6 bg-indigo text-white">
                   <div class="p-5">
                     <h3 class="fw-normal mb-5">Datos de contacto y acceso</h3>
@@ -289,9 +350,9 @@
                             userForm.controls['password2'].touched
                           "
                         >
-                        <div class="btn btn-warning">
-                          Los password deben ser iguales.
-                        </div>
+                          <div class="btn btn-warning">
+                            Los password deben ser iguales.
+                          </div>
                         </small>
                       </div>
                     </div>
@@ -318,13 +379,14 @@
                     >
                       Registrarse
                     </button>
-                    <br>
+                    <br />
                     <small
-                    class="btn btn-danger" style="margin-top: 10px;"
-                    *ngIf="createUserError"
+                      class="btn btn-danger"
+                      style="margin-top: 10px"
+                      *ngIf="createUserError"
                     >
-                    Se ha producido un error: {{createUserError}}
-                  </small>
+                      Se ha producido un error: {{ createUserError }}
+                    </small>
                   </div>
                 </div>
               </div>
