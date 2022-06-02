@@ -16,6 +16,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { GestionUsuariosModule } from './gestion-usuarios.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AngularFireAuthModule,
     AngularFirestoreModule,
     ToastrModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    GestionUsuariosModule
   ],
   providers: [],
   bootstrap: [AppComponent]

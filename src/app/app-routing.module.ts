@@ -3,10 +3,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { LoginComponent } from './pages/login/login.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
+import { MenuComponent } from './shared/menu/menu.component';
+import { UsuarioDetalleComponent } from './components/usuario-detalle/usuario-detalle.component';
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent
+    path: '', component: MenuComponent,
+    children: [
+      {
+        path: 'usuarios', component: UsuarioComponent
+      },
+      {
+        path:"usuario-detalle", component: UsuarioDetalleComponent
+      }
+    ]
   },
   {
     path: 'home', component: HomeComponent
@@ -17,6 +28,7 @@ const routes: Routes = [
   {
     path: 'registro', component: RegistroComponent
   },
+ 
   {
     path: '**', redirectTo:''
   }

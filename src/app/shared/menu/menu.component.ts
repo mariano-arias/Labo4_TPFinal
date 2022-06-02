@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { InteractionService } from '../../services/interaction.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { Usuario } from 'src/app/Entities/usuario';
 
 @Component({
   selector: 'app-menu',
@@ -12,18 +14,23 @@ export class MenuComponent implements OnInit {
 
   userLogged : any | null = null;
 
-  constructor(private authService : AuthService, private router: Router, private interacionService : InteractionService) { 
+  collection : string = 'Usuarios';
+
+  perfilUserLogged!: string | undefined;
+
+  usuario! : Usuario | undefined;
+
+  constructor(private authService : AuthService, private router: Router, 
+              private interacionService : InteractionService, private firebaseService : FirebaseService) { 
       this.authService.GetUserLogged().subscribe( (res)=>{
       if(res?.uid){
-        console.log("usuer logged: ", res.uid);
-        console.log("usuer logged: ", res.displayName);
-        
-        console.log("usuer logged: ", res.email);
+        //console.log("usuer logged: ", res);
+        console.log("user logged: ", res.email);
         this.userLogged = res.email;
-        console.log(this.userLogged);
+        this.GetDataUser(res.uid);
       }
       else{
-        console.log("nadie");
+        console.log("no user logged");
         
       }
     });
@@ -38,5 +45,11 @@ export class MenuComponent implements OnInit {
     );
     this.router.navigate(['login']);
 
+  }
+
+  GetDataUser (user : any){
+    
+     this.firebaseService.GetDocFromFirebase<Usuario>(user, this.collection)
+      .subscribe((res)=> this.perfilUserLogged = res?.perfil)
   }
 }

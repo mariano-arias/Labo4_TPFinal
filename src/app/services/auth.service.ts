@@ -11,7 +11,7 @@ export class AuthService {
 
   constructor(private authentication: AngularFireAuth) { }
 
-  async Login(email : string, password: string){
+  Login(email : string, password: string){
 
     return this.authentication.signInWithEmailAndPassword(email, password);
     //.then((c)=> console.log(c));
@@ -38,4 +38,5 @@ export class AuthService {
   GetUserLogged(){
     return this.authentication.authState;
   }
+
 }

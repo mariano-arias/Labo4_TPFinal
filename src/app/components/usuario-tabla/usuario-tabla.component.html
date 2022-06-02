@@ -1,0 +1,96 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+        <span class="h3">Listado de usuarios - Por Perfil: {{perfil}}</span>
+        <!--chk box -->
+        <div class="custom-control custom-radio">
+          <input
+          type="radio"
+          class="custom-control-input"
+          name="perfil"
+          formControlName="perfil"
+          value="paciente"
+            (click)="SetPerfil('paciente')"
+          />
+          <label class="custom-control-label" for="Paciente"
+          >Paciente</label
+          >
+        </div>
+        <div class="custom-control custom-radio">
+          <input
+          type="radio"
+          class="custom-control-input"
+          name="perfil"
+          formControlName="perfil"
+          value="especialista"
+          (click)="SetPerfil('especialista')"
+          />
+          <label
+          class="custom-control-label"
+          for="Especialista"
+          >Especialista</label
+          >
+        </div>
+        <div class="custom-control custom-radio">
+          <input
+          type="radio"
+          class="custom-control-input"
+          name="perfil"
+          formControlName="perfil"
+          value="admin"
+          (click)="SetPerfil('admin')"
+          />
+          <label
+          class="custom-control-label"
+          for="admin"
+          >Administrador</label
+          >
+        </div>
+        <!-- END chekbox-->
+        <br>
+
+          <button class="btn btn-info btn-lg float-right" router-link="../registro">Crear usuario</button>
+<br>
+ Busqueda: <input type="text">
+
+        <h4 *ngIf='usuarios.length==0'>No se encontraron usuarios</h4>
+        <table class="table table-striped mt-5" *ngIf="usuarios.length > 0">
+        <thead>
+          <tr>
+            <th style="display: none"></th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Documento</th>
+            <th>Contacto</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of usuarios" class="linea">
+            <td style="display: none">{{ p.uid }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.apellido }}</td>
+            <td>{{ p.dni }}</td>
+            <td>{{ p.email }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-info btn-circle"
+                (click)="Editar(p)"
+              >
+                <i class="fa fa-check">Editar</i>
+              </button>
+            </td>
+            <td >
+                <button class="btn btn-danger btn-circle">
+                    <i class="fa fa-check" (click)="Eliminar(p)">Eliminar</i>
+
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

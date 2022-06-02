@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand">
+    <a class="navbar-brand" routerLink="">
       <img src="./assets/logo.jpg" alt="" width="60" height="48">
       Clinica OnLine
     </a>
@@ -10,17 +10,17 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page">Home</a>
+          <a class="nav-link active" aria-current="page" routerLink="">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link">Usuarios</a>
+        <li class="nav-item" *ngIf="perfilUserLogged== 'admin'" >
+          <a class="nav-link" routerLink="./usuarios">Usuarios</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link">Registro</a>
+        <li class="nav-item" *ngIf="!userLogged">
+          <a class="nav-link" routerLink="registro">Registro</a>
         </li>
       </ul>
     </div>
-    <div *ngIf="userLogged != null  as user else LoginButton">
+    <div *ngIf="userLogged != null  else LoginButton">
       {{userLogged}}
       <button type="button" class="btn btn-warning" (click)="Salir()">Salir</button>
     </div>
@@ -29,3 +29,4 @@
     </ng-template>
   </div>
 </nav>
+<router-outlet></router-outlet>

@@ -9,12 +9,15 @@
               <input type="password" placeholder="Password" [(ngModel)]="usuario.password"/>
               <button class="btn-login" type="submit" (click)="Ingresar()">Login</button>
               
-              <div *ngIf="loginError">
+              <div *ngIf="loginError && !loginErrorValidationMail">
                 <span class="btn btn-danger">Error de usuario o contraseña</span>
               </div>
               <div *ngIf="loginErrorUser">
                 <span class="btn btn-danger">Usuario no encontrado</span>
                 <a (click)="ToRegister()">¿Desea registrarse?</a>
+              </div>
+              <div *ngIf="loginErrorValidationMail">
+                <span class="btn btn-danger">Debe validar su correo electronico para ingresar</span>
               </div>
               <div *ngIf="loginErrorPass">
                 <span class="btn btn-danger">Contraseña incorrecta</span>
