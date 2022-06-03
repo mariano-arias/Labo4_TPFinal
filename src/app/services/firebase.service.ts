@@ -39,7 +39,6 @@ export class FirebaseService {
         (x)=>console.log(x)
          
       )
-    
-
   }
+
 }

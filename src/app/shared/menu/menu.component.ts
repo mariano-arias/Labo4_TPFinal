@@ -25,7 +25,6 @@ export class MenuComponent implements OnInit {
       this.authService.GetUserLogged().subscribe( (res)=>{
       if(res?.uid){
         //console.log("usuer logged: ", res);
-        console.log("user logged: ", res.email);
         this.userLogged = res.email;
         this.GetDataUser(res.uid);
       }

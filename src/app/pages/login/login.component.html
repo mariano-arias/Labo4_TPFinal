@@ -53,8 +53,10 @@
       <div class="colm-form">
         <div class="form-container">
           <h4>Accesos</h4>
-          <div *ngFor="let p of usuarios" class="btn-new">{{p.nombre}} {{p.apellido}} {{p.perfil | uppercase}} 
-            <img src="{{p.photoURL}}" width="50" height="50" alt="photo"></div>
+          <a *ngFor="let p of usuarios" class="btn btn-new" (click)="Login(p)">
+            {{p.nombre}} {{p.apellido}} - {{p.perfil | uppercase}} 
+            <img src={{p.photoPerfilURL}} width="50" height="50" alt="photo">
+          </a>
         </div>
       </div>
     </div>

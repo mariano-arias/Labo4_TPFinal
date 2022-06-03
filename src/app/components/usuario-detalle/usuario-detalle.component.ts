@@ -12,7 +12,6 @@ export class UsuarioDetalleComponent implements OnInit {
 
   @Input() usuario : Usuario | undefined;
   
-  @Input() photo : string | undefined;
 
   constructor() { 
     

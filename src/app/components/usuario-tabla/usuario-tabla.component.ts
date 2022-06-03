@@ -1,4 +1,3 @@
-import { identifierName } from '@angular/compiler';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/Entities/usuario';
@@ -18,7 +17,7 @@ export class UsuarioTablaComponent implements OnInit {
   perfil: string = "Todos";
   aux : any;
   
-  @Output() photoUrl : EventEmitter<any> = new EventEmitter<any>();
+  // @Output() photoUrl : EventEmitter<any> = new EventEmitter<any>();
   @Output() usuarioAEditar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(  private firebase: FirebaseService, private routes : Router,
@@ -26,21 +25,18 @@ export class UsuarioTablaComponent implements OnInit {
                 private storageService : StorageService
               ) { }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void 
+  {
     this.firebase.GetDocs<Usuario>('Usuarios').subscribe(
       (res)=> {
         this.usuarios = res;
         // this.usuarios.forEach(
-        //   (u)=> {
-            
-        //     u.photoURL = this.storageService.GetFile(u.imagen1Name);
-        //     console.log(u);
+        //   (x)=>{
+        //     x.photoPerfilURL =  this.storageService.GetFile(x.imagen1Name);
         //   }
         // )
       }
     )
-    
   }
 
   filterTable(){
@@ -49,8 +45,6 @@ export class UsuarioTablaComponent implements OnInit {
         this.usuarios = [];
         res.forEach((element: any) =>{
           this.usuarios?.push({
-
-            
             id : element.payload.doc.id,
             ...element.payload.doc.data()
           }
@@ -61,7 +55,6 @@ export class UsuarioTablaComponent implements OnInit {
   }
 
   SetPerfil(p: string) {
-    console.log(p);
 
       this.perfil = p;
 
@@ -71,15 +64,15 @@ export class UsuarioTablaComponent implements OnInit {
 
   Editar(usuario : Usuario){
     this.usuarioAEditar.emit(usuario);
-    console.log(usuario);
-    this.aux = this.storageService.GetFile(usuario.imagen1Name);
-    this.photoUrl.emit(this.aux);
 
-   // this.routes.navigate(["usuario-detalle"]);
+   // this.aux = this.storageService.GetFile(usuario.imagen1Name);
+
   }
 
   Eliminar(usuario : Usuario){
-    this.firebase.DeleteById(usuario.uid, this.collection).then(
+
+    this.firebase.DeleteById(usuario.uid, this.collection)
+    .then(
       () => this.interaction.showSuccess("Usuario eliminado con éxito", "Usuario eliminado")
     )
     .catch( (error) => this.interaction.showSuccess("Hubo un error", "Error")

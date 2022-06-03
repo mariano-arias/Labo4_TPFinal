@@ -17,5 +17,6 @@ export class Usuario {
     
     imagen2Name!: string;
 
-    photoURL! : string;
+    photoPerfilURL! : string;
+    photoAuxURL! : string;
 }

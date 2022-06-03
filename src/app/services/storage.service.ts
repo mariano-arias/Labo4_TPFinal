@@ -3,7 +3,7 @@ import {  } from '@angular/fire/compat/storage';
 import firebase from 'firebase/compat/app';
 import { environment } from '../../environments/environment.prod';
 import { getApp } from "firebase/app";
-import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, UploadResult, uploadString } from "firebase/storage";
 import { runInThisContext } from 'vm';
 import { Observable } from 'rxjs';
 
@@ -29,36 +29,33 @@ export class StorageService {
 //   console.log('Uploaded a blob or file!');
 // });
 
-  async FileUpload(nameFile: string, imgFile : any){
+  async FileUpload(nameFile: string, imgFile : any) {
 
      
     const store = getStorage();
     const storageRef = ref(store, 'Usuarios/'+nameFile);
 
-
     uploadString(storageRef, imgFile, 'data_url').then((snapshot) => {
       console.log('Uploaded a base64 string!');
-      this.res = snapshot.metadata.fullPath;
-      return this.res;
-    });
-    return this.res;
+    }).catch(
+      ()=> console.log("Error en metodo FileUpload - StorageSservice")
+    )
     //  const aux = await this.storageRef.uploadBytes (imgBase64, "data_url")
     //             .catch( (err)=> {
     //               console.log(err);
     //             });
     // return await aux.ref.getDownloadURL();
+
   }
 
-  GetFile(nameFile : string | undefined) {
+ async  GetFile(nameFile : string | undefined) {
 
     const store = getStorage();
     const storageRef = ref(store, 'Usuarios/'+nameFile);
-    
 
-    getDownloadURL(storageRef).then( (url)=>{
-      console.log(url);
+    const url = await getDownloadURL(storageRef).then( (url)=>{
       this.path = url;
-
+      return this.path;
     }).catch(
       ()=>{
         console.log("Error n getfile");

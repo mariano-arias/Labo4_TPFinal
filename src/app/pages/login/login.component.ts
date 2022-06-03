@@ -41,20 +41,20 @@ export class LoginComponent implements OnInit {
               private storageService : StorageService,
               private interactionService: InteractionService ) { }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void 
+  {
     this.firebaseService.GetDocs<Usuario>('Usuarios').subscribe(
       (res)=> {
         this.usuarios = res;
-        this.usuarios.forEach(
-          (u)=> {
-    
-           u.photoURL = this.storageService.GetFile(u.imagen1Name);
-          }
-        )
+        // this.usuarios.forEach(
+        //   (u)=> 
+        //   {
+        //    u.photoPerfilURL = this.storageService.GetFile(u.imagen1Name);
+        //   }
+        // )
       }
     );
-
+    this.usuarios = this.usuarios.slice(0,5);
     }
 
 
@@ -138,38 +138,13 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['registro']);
   }
 
-  LoginPaciente(){
-    const email ="";
-    const password ="";
-    this.authService.Login(email, password).then( (r)=>
-    {
-            this.interactionService.showSuccess("Login exitoso", "Login OK")
-            this.router.navigate(['home']);
-    }
-    )
+  Login(p : Usuario){
+    this.usuario.email = p.email;
+    this.usuario.password ="123123"
+    this.Ingresar();
   }
 
-  LoginEspecialista(){
-    const email ="";
-    const password ="";
-    this.authService.Login(email, password).then( (r)=>
-    {
-            this.interactionService.showSuccess("Login exitoso", "Login OK")
-            this.router.navigate(['home']);
-    }
-    )
-  }
 
-  LoginAdmin(){
-    const email ="marianoluisarias@gmail.com";
-    const password ="123456";
-    this.authService.Login(email, password).then( (r)=>
-    {
-            this.interactionService.showSuccess("Login exitoso", "Login OK")
-            this.router.navigate(['home']);
-    }
-    )
-  }
 
 
 }

@@ -26,17 +26,6 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./registro.component.css'],
 })
 export class RegistroComponent implements OnInit {
-  // usuario : Usuario = {
-  //   uid: '',
-  //   nombre: 'Mariano',
-  //   apellido: 'Luis',
-  //   edad: 43,
-  //   dni: 22334455,
-  //   obraSocial: 'Osecac',
-  //   email: 'mariano@utn.com',
-  //   password: '123456',
-  //   perfil: 'paciente'
-  // }
 
   public userForm!: FormGroup;
 
@@ -143,7 +132,7 @@ export class RegistroComponent implements OnInit {
     }
   }
 
-  async Registrar() {
+ async Registrar() {
     this.interactionService.showSpinner();
 
     this.loginError = false;
@@ -152,21 +141,13 @@ export class RegistroComponent implements OnInit {
 
     this.createUserError = null;
 
-    // this.usuario.nombre = this.userForm.value.nombre;
-    // this.usuario.apellido= this.userForm.value.apellido;
-    // this.usuario.edad = this.userForm.value.edad;
-    // this.usuario.dni = this.userForm.value.dni;
-    // this.usuario.obraSocial= this.userForm.value.obraSocial;
-    // this.usuario.perfil = "paciente";
-
     this.usuario = this.userForm.value;
-    // console.log(this.usuario);
 
     const res = await this.authService
       .Register(this.usuario)
       .then((res) => {
-        console.log(res.user?.uid);
-        if (res.user) {
+        if (res.user) 
+        {
           this.usuario.uid = res.user.uid;
           this.usuario.password = '';
           this.usuario.password2 = '';
@@ -174,51 +155,48 @@ export class RegistroComponent implements OnInit {
           let fileName = this.usuario.uid + '_' + Date.now();
 
           if (this.imgFile1) {
-            this.usuario.imagen1Name = fileName;
             this.storageService
-              .FileUpload(fileName, this.imgFile1)
-              .then((res) => {
-                this.usuario.photoURL = res;
-                // this.usuario.imagen1Name = fileName;
+            .FileUpload(fileName, this.imgFile1)
+            .then(() => {
+                this.usuario.imagen1Name = fileName;
                 console.log('imagen 1 subida ok');
-                // console.log(res); undefined
-                this.usuario.photoURL = this.storageService.GetFile(this.usuario.imagen1Name);
               })
-              .catch(() => console.log('Error en subida imagen1'));
+            .catch(() => console.log('Error en subida imagen1'));
           }
 
           if (this.imgFile2) {
             fileName = this.usuario.uid + '_' + Date.now();
-            this.usuario.imagen1Name = fileName;
+
             this.storageService
               .FileUpload(fileName, this.imgFile2)
               .then((res) => {
                 this.usuario.imagen2Name = fileName;
                 console.log('imagen 2 subida ok');
-                this.usuario.photoURL = this.storageService.GetFile(this.usuario.imagen2Name);
               })
               .catch(() => console.log('Error en subida imagen 2'));
           }
 
+          this.usuario.photoPerfilURL = "null"
+          this.usuario.photoAuxURL = "null";
 
-          this.firestore.createUsuario(this.usuario).then(() => {
+          this.firestore.createUsuario(this.usuario).then(
+            () => {
             this.interactionService.showSuccess(
-              'Se ha registrado un nuevo usuario e ingresado al sistema.',
+              'Se ha registrado un nuevo usuario.',
               'Registro exitoso'
             );
+            this.interactionService.showWarning(
+              "Debe validar su email. Se ha enviado un correo electronico a la direccion informada",
+              "Validar Email");
           });
           this.authService.sendEmail(res.user);
+         // this.authService.Logout(); //si hago esto no completa el metodo de crear el usuario;
+          this.router.navigate(['']);
         }
-        this.router.navigate(['home']);
       })
       .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
-
-        console.log(errorCode);
-        console.log(errorMessage);
-
-        console.log(error);
 
         if (errorCode == 'auth/email-already-in-use') {
           this.createUserError = 'Correo electronico ya está en uso';
