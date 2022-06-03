@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Usuario } from 'src/app/Entities/usuario';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -13,11 +12,15 @@ export class UsuarioDetalleComponent implements OnInit {
   @Input() usuario : Usuario | undefined;
   
 
-  constructor() { 
+  constructor(private storageService : StorageService) { 
     
   }
 
   ngOnInit(): void {
+   
+   console.log(this.storageService.GetFile(this.usuario?.uid));
+   
+
   }
 
   

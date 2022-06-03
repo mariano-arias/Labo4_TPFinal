@@ -154,11 +154,11 @@ export class RegistroComponent implements OnInit {
 
           let fileName = this.usuario.uid + '_' + Date.now();
 
+          this.usuario.imagen1Name = fileName;
           if (this.imgFile1) {
             this.storageService
             .FileUpload(fileName, this.imgFile1)
             .then(() => {
-                this.usuario.imagen1Name = fileName;
                 console.log('imagen 1 subida ok');
               })
             .catch(() => console.log('Error en subida imagen1'));
@@ -166,11 +166,11 @@ export class RegistroComponent implements OnInit {
 
           if (this.imgFile2) {
             fileName = this.usuario.uid + '_' + Date.now();
+            this.usuario.imagen2Name = fileName;
 
             this.storageService
               .FileUpload(fileName, this.imgFile2)
               .then((res) => {
-                this.usuario.imagen2Name = fileName;
                 console.log('imagen 2 subida ok');
               })
               .catch(() => console.log('Error en subida imagen 2'));

@@ -40,5 +40,7 @@ export class FirebaseService {
          
       )
   }
-
+  Update<tipo>(id: string, data: any){
+    return this.firebase.collection<tipo>("Usuarios").doc(id).update(data);
+  }
 }
