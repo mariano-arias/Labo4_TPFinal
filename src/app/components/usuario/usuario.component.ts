@@ -9,7 +9,7 @@ import { Usuario } from 'src/app/Entities/usuario';
 export class UsuarioComponent implements OnInit {
 
   @Input() usuario: Usuario | undefined;
-
+  @Input() photo: string | undefined;
   constructor() { }
 
   ngOnInit(): void {
@@ -17,6 +17,12 @@ export class UsuarioComponent implements OnInit {
   
   GetUser(e : any){
     this.usuario = e;
+  }
+  
+  GetPhoto( ph: any){
+    this.photo = ph;
+    console.log(ph);
+    
   }
 
 }

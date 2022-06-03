@@ -1,5 +1,7 @@
 <p>usuario works!</p>
-<app-usuario-detalle [usuario]="usuario" *ngIf="usuario"></app-usuario-detalle>
+<app-usuario-detalle [usuario]="usuario" [photo]= "photo" *ngIf="usuario"></app-usuario-detalle>
 
-<app-usuario-tabla (usuarioAEditar)="GetUser($event)"></app-usuario-tabla>
+<app-usuario-tabla (usuarioAEditar)="GetUser($event)" (photoUrl)="GetPhoto($event)"></app-usuario-tabla>
+
+
 

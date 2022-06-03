@@ -16,4 +16,6 @@ export class Usuario {
     imagen1Name!: string;
     
     imagen2Name!: string;
+
+    photoURL! : string;
 }

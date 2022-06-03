@@ -1,5 +1,20 @@
 <div class="container">
-<h3>Edicion de usuario</h3>
-    <p>usuario-detalle works!</p>
-    <p>usuario: {{usuario | json }}</p>
+  <h3>Edicion de usuario</h3>
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+            <p class="aboutus-text">{{usuario?.nombre}}</p>
+            <p class="aboutus-text">{{usuario?.apellido}}</p>
+            <p class="aboutus-text">{{usuario?.dni}}</p>
+            <p class="aboutus-text">{{usuario?.edad}}</p>
+            <p class="aboutus-text" >{{usuario?.email}}</p>
+            <p class="aboutus-text" >{{usuario?.obraSocial}}</p>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+            <img class="gb_Da gbii"
+            src={{photo}}  alt="Photo" aria-hidden="true" data-noaft="">
+    </div>
+
+  <p>usuario-detalle works!</p>
+  <p>usuario: {{ usuario | json }}</p>
+  <!-- <button type="button" class="btn btn-primary">Volver</button> -->
 </div>

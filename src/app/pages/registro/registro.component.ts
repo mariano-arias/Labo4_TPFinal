@@ -128,7 +128,7 @@ export class RegistroComponent implements OnInit {
 
       reader.readAsDataURL(this.filesAdjuntos[0]);
       reader.onloadend = () => {
-        console.log(reader.result);
+
         this.imgFile1 = reader.result;
       };
 
@@ -136,45 +136,12 @@ export class RegistroComponent implements OnInit {
         let reader2 = new FileReader();
         reader2.readAsDataURL(this.filesAdjuntos[1]);
         reader2.onloadend = () => {
-          console.log(reader2.result);
+
           this.imgFile2 = reader2.result;
         };
       }
     }
   }
-  /*########################## File Upload ########################*/
-  // @ViewChild('fileInput') el: ElementRef;
-  // imageUrl: any = '/assets/dummy-user.jpg';
-  // editFile: boolean = true;
-  // removeUpload: boolean = false;
-  // uploadFile(event) {
-  //   let reader = new FileReader(); // HTML5 FileReader API
-  //   let file = event.target.files[0];
-  //   if (event.target.files && event.target.files[0]) {
-  //     reader.readAsDataURL(file);
-  //     // When file uploads set it to file formcontrol
-  //     reader.onload = () => {
-  //       this.imageUrl = reader.result;
-  //       this.userForm.patchValue({
-  //         file: reader.result
-  //       });
-  //       this.editFile = false;
-  //       this.removeUpload = true;
-  //     }
-  //     // ChangeDetectorRef since file is loading outside the zone
-  //     this.cd.markForCheck();
-  //   }
-  // }
-  // // Function to remove uploaded file
-  // removeUploadedFile() {
-  //   let newFileList = Array.from(this.el.nativeElement.files);
-  //   this.imageUrl = '/assets/dummy-user.jpg';
-  //   this.editFile = true;
-  //   this.removeUpload = false;
-  //   this.userForm.patchValue({
-  //     file: [null]
-  //   });
-  // }
 
   async Registrar() {
     this.interactionService.showSpinner();
@@ -206,29 +173,33 @@ export class RegistroComponent implements OnInit {
 
           let fileName = this.usuario.uid + '_' + Date.now();
 
-          if (this.imgFile2) {
+          if (this.imgFile1) {
+            this.usuario.imagen1Name = fileName;
             this.storageService
               .FileUpload(fileName, this.imgFile1)
               .then((res) => {
-                this.usuario.imagen1Name = fileName;
-                console.log('imagen subida ok');
+                this.usuario.photoURL = res;
+                // this.usuario.imagen1Name = fileName;
+                console.log('imagen 1 subida ok');
                 // console.log(res); undefined
+                this.usuario.photoURL = this.storageService.GetFile(this.usuario.imagen1Name);
               })
               .catch(() => console.log('Error en subida imagen1'));
           }
 
           if (this.imgFile2) {
             fileName = this.usuario.uid + '_' + Date.now();
-
+            this.usuario.imagen1Name = fileName;
             this.storageService
               .FileUpload(fileName, this.imgFile2)
               .then((res) => {
                 this.usuario.imagen2Name = fileName;
-                console.log('imagen subida ok');
-                // console.log(res); undefined
+                console.log('imagen 2 subida ok');
+                this.usuario.photoURL = this.storageService.GetFile(this.usuario.imagen2Name);
               })
               .catch(() => console.log('Error en subida imagen 2'));
           }
+
 
           this.firestore.createUsuario(this.usuario).then(() => {
             this.interactionService.showSuccess(
@@ -251,9 +222,7 @@ export class RegistroComponent implements OnInit {
 
         if (errorCode == 'auth/email-already-in-use') {
           this.createUserError = 'Correo electronico ya está en uso';
-          //   console.log("auth/email-already-in-use");
-          // }
-          // } else {auth/invalid-email
+
         } else if (errorCode == 'auth/invalid-email') {
           this.createUserError =
             'El correo electronico no tiene formato valido';

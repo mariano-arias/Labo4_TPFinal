@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/Entities/usuario';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { AuthService } from '../../services/auth.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -26,14 +28,35 @@ export class LoginComponent implements OnInit {
 
   perfil : string | undefined;
 
+  usuarios : Usuario [] = [];
+  
+  collection: string = "Usuarios";
+
+  imagenes!: string;
+
   constructor(
               private router: Router,
               private authService: AuthService, 
               private firebaseService : FirebaseService,
+              private storageService : StorageService,
               private interactionService: InteractionService ) { }
 
   ngOnInit(): void {
-  }
+
+    this.firebaseService.GetDocs<Usuario>('Usuarios').subscribe(
+      (res)=> {
+        this.usuarios = res;
+        this.usuarios.forEach(
+          (u)=> {
+    
+           u.photoURL = this.storageService.GetFile(u.imagen1Name);
+          }
+        )
+      }
+    );
+
+    }
+
 
   async Ingresar(){
 
@@ -114,4 +137,39 @@ export class LoginComponent implements OnInit {
   ToRegister(){
     this.router.navigate(['registro']);
   }
+
+  LoginPaciente(){
+    const email ="";
+    const password ="";
+    this.authService.Login(email, password).then( (r)=>
+    {
+            this.interactionService.showSuccess("Login exitoso", "Login OK")
+            this.router.navigate(['home']);
+    }
+    )
+  }
+
+  LoginEspecialista(){
+    const email ="";
+    const password ="";
+    this.authService.Login(email, password).then( (r)=>
+    {
+            this.interactionService.showSuccess("Login exitoso", "Login OK")
+            this.router.navigate(['home']);
+    }
+    )
+  }
+
+  LoginAdmin(){
+    const email ="marianoluisarias@gmail.com";
+    const password ="123456";
+    this.authService.Login(email, password).then( (r)=>
+    {
+            this.interactionService.showSuccess("Login exitoso", "Login OK")
+            this.router.navigate(['home']);
+    }
+    )
+  }
+
+
 }
