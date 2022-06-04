@@ -11,25 +11,25 @@
                   <h4 class="text-right">Perfil Usuario</h4>
               </div>
               <div class="row mt-2">
-                  <div class="col-md-6"><label class="labels">Nombre</label><input type="text" class="form-control" value="{{usuario?.nombre}}"></div>
-                  <div class="col-md-6"><label class="labels">Apellido</label><input type="text" class="form-control" value="{{usuario?.apellido}}" placeholder="surname"></div>
+                  <div class="col-md-6"><label class="labels">Nombre</label><input type="text" class="form-control disabled" value="{{usuario?.nombre}}"></div>
+                  <div class="col-md-6"><label class="labels">Apellido</label><input type="text" class="form-control disabled" value="{{usuario?.apellido}}" placeholder="surname"></div>
               </div>
               <div class="row mt-3">
-                  <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email id" value="{{usuario?.email}}"></div>
-                  <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                  <div class="col-md-12"><label class="labels">DNI</label><input type="text" class="form-control" placeholder="enter address line 1" value="{{usuario?.dni}}"></div>
-                  <div class="col-md-12"><label class="labels">Edad</label><input type="text" class="form-control" placeholder="enter address line 2" value="{{usuario?.edad}}"></div>
-                  <div class="col-md-12" *ngIf="usuario?.obraSocial"><label class="labels">Obra Social</label><input type="text" class="form-control" placeholder="enter address line 2" value="{{usuario?.obraSocial}}"></div>
-                  <div class="col-md-12" *ngIf="usuario?.especialidad"><label class="labels">Especialidad</label><input type="text" class="form-control" placeholder="enter address line 2" value="{{usuario?.especialidad}}"></div>
-                  <div class="col-md-12" *ngIf="usuario?.especialidad"><label class="labels">Perfil Activo</label><input type="text" class="form-control" placeholder="" value="{{usuario?.activo}}">
+                  <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control disabled" placeholder="enter email id" value="{{usuario?.email}}"></div>
+                  <!-- <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div> -->
+                  <div class="col-md-12"><label class="labels">DNI</label><input type="text" class="form-control disabled" placeholder="enter address line 1" value="{{usuario?.dni}}"></div>
+                  <div class="col-md-12"><label class="labels">Edad</label><input type="text" class="form-control disabled" placeholder="enter address line 2" value="{{usuario?.edad}}"></div>
+                  <div class="col-md-12" *ngIf="usuario?.obraSocial"><label class="labels">Obra Social</label><input type="text" class="form-control disabled" placeholder="enter address line 2" value="{{usuario?.obraSocial}}"></div>
+                  <div class="col-md-12" *ngIf="usuario?.especialidad"><label class="labels">Especialidad</label><input type="text" class="form-control disabled" placeholder="enter address line 2" value="{{usuario?.especialidad}}"></div>
+                  <div class="col-md-12" *ngIf="usuario?.especialidad"><label class="labels">Perfil Activo</label><input type="text" class="form-control disabled" placeholder="" value="{{usuario?.activo}}">
                   <!-- <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div> -->
               </div>
               <!-- <div class="row mt-3">
                   <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
                   <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
               </div> -->
-              <div class="mt-5 text-center" *ngIf="usuario?.especialidad"><button class="btn btn-info profile-button" type="button">Activar Usuario</button></div>
-              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Guardar Cambios</button></div>
+              <div class="mt-5 text-center" *ngIf="usuario?.especialidad"><button class="btn btn-info profile-button" type="button" (click)="ActivarUsuario()">Activar Usuario</button></div>
+              <!-- <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" (click)="GuardarCambios()">Guardar Cambios</button></div> -->
           </div>
       </div>
       <!-- <div class="col-md-4">
