@@ -31,6 +31,9 @@ export class RegistroComponent implements OnInit {
 
   usuario: Usuario = new Usuario();
 
+  isLogged : boolean = false;
+  isAdmin : boolean = true;
+
   loginError: boolean | undefined;
 
   loginErrorUser: boolean | undefined;
@@ -40,6 +43,7 @@ export class RegistroComponent implements OnInit {
   createUserError: string | null = null;
 
   submitted = false;
+  activo = false;
 
   perfil: string | undefined = 'paciente';
 
@@ -47,16 +51,33 @@ export class RegistroComponent implements OnInit {
   imgFile2: any = null;
 
   filesAdjuntos: any;
+  collection : string = "Usuarios";
+
+  userLogged : any | null = null;
 
   constructor(
     private authService: AuthService,
+    private firebaseService : FirebaseService,
     private router: Router,
     private firestore: FirebaseService,
     public formBuilder: FormBuilder,
     private validatorService: ValidatorService,
     private interactionService: InteractionService,
     private storageService: StorageService
-  ) {}
+  ) {
+    this.authService.GetUserLogged().subscribe( (res)=>{
+      if(res?.uid){
+        //console.log("usuer logged: ", res);
+        this.isLogged = true;
+       // this.GetDataUser(res.uid); //para que hacia esto?
+      }
+      else{
+        this.isLogged = false;
+        console.log("no user logged", this.isLogged);
+      }
+    });
+  
+  }
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group(
@@ -81,13 +102,34 @@ export class RegistroComponent implements OnInit {
         ],
       }
     );
+
+    // this.authService.GetUserLogged().subscribe( (res)=>{
+    //   if(res?.uid){
+    //     console.log("usuer logged: ", res);
+    //     this.isLogged = true; 
+    //     this.firebaseService.GetDocFromFirebase<Usuario>(res.uid, this.collection)
+    //     .subscribe((res)=> {
+    //      // console.log('Perfil component',res);
+    //       this.isAdmin = res?.perfil == 'admin' ? true: false;
+    //      })
+    //   }
+    // });
+    // console.log(this.isAdmin);
   }
 
   SetPerfil(p: string) {
     console.log(p);
-
-    if (p != 'paciente') {
-      this.perfil = 'especialista';
+    switch(p){
+      case 'paciente':
+        this.perfil = p;
+        this.activo = true;
+        break;
+      case 'especialista':
+        this.perfil = p;
+        break;
+      case 'admin':
+        this.perfil = p;
+        this.activo = true;
     }
   }
 
@@ -208,5 +250,9 @@ export class RegistroComponent implements OnInit {
           this.createUserError = errorCode;
         }
       });
+  }
+
+  Cancelar(){
+    this.router.navigate(['']);
   }
 }

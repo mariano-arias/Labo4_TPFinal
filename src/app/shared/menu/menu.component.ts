@@ -26,7 +26,7 @@ export class MenuComponent implements OnInit {
       if(res?.uid){
         //console.log("usuer logged: ", res);
         this.userLogged = res.email;
-        this.GetDataUser(res.uid);
+        this.GetDataUser(res.uid); //para que hacia esto?
       }
       else{
         console.log("no user logged");

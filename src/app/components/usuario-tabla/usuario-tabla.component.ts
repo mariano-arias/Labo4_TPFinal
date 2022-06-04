@@ -20,7 +20,7 @@ export class UsuarioTablaComponent implements OnInit {
   // @Output() photoUrl : EventEmitter<any> = new EventEmitter<any>();
   @Output() usuarioAEditar: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(  private firebase: FirebaseService, private routes : Router,
+  constructor(  private firebase: FirebaseService, private router : Router,
                 private interaction : InteractionService,
                 private storageService : StorageService
               ) { }
@@ -90,5 +90,9 @@ console.log(usuario);
       ()=> this.interaction.showInfo("Se realizó activación de usuario", "Activacion Usuario")
       )
     }
+  }
+
+  ToRegister(){
+    this.router.navigate(['registro']);
   }
 }

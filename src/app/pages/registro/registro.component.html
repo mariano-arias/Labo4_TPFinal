@@ -29,11 +29,11 @@
                     <h3 class="fw-normal mb-5" style="color: #4835d4">
                       Infomación personal
                     </h3>
-                    <div class="row">
+                    <div class="row" *ngIf="isLogged">
                       <!-- Radio Buttons -->
                       <div class="group-gap">
                         <h5 class="fw-normal mb-5" style="color: #4835d4">
-                          Usted se registra como...
+                          Seleccione perfil del usuario a crear...
                         </h5>
                         <div class="col-md-6 mb-4 pb-2">
                           <div class="custom-control custom-radio">
@@ -63,6 +63,21 @@
                               for="Especialista"
                               >Especialista</label
                             >
+                            <div class="custom-control custom-radio">
+                              <input
+                                type="radio"
+                                class="custom-control-input"
+                                name="perfil"
+                                formControlName="perfil"
+                                value="admin"
+                                (click)="SetPerfil('admin')"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="admin"
+                                >Administrador</label
+                              >
+                            </div>
                           </div>
                           <small
                             class="text-danger"
@@ -72,7 +87,9 @@
                           </small>
                         </div>
                       </div>
+                    </div>
                       <!-- end radio buttons-->
+                    <div class="row">
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
                           <label class="form-label" for="form3Examplev2"
@@ -164,7 +181,7 @@
                       </div>
                     </div>
 
-                    <div class="mb-4 pb-2">
+                    <div class="mb-4 pb-2" *ngIf="!isLogged">
                       <div
                         class="form-outline"
                         *ngIf="perfil == 'paciente'; else especialista"
@@ -372,13 +389,20 @@
 
                     <button
                       type="button"
-                      class="btn btn-light btn-lg"
+                      class="btn btn-light btn-lg m-2"
                       data-mdb-ripple-color="dark"
                       type="submit"
                       [disabled]="userForm.invalid"
                     >
-                      Registrarse
+                      Registrar Usuario
                     </button>
+                    <button
+                    type="button"
+                    class="btn btn-danger btn-lg m-2"
+                    data-mdb-ripple-color="dark"
+                    (click) = 'Cancelar()'>
+                    Cancelar
+                  </button>
                     <br />
                     <small
                       class="btn btn-danger"

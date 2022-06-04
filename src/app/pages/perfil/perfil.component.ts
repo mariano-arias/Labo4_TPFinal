@@ -30,7 +30,6 @@ export class PerfilComponent implements OnInit {
             }
             )
         })
-          
         //this.firebaseService.Update(res?.uid, res );
       }
       else{

@@ -67,15 +67,11 @@ export class LoginComponent implements OnInit {
     this.loginErrorPass = false;
     this.loginErrorValidationMail = false;
 
-    console.log(this.usuario);
-
     const res =  this.authService.Login(this.usuario.email, this.usuario.password)
                 .then( (r)=>
                 {
                   if(r.user)
                   {
-                    console.log(r.user);
-                    
                     if(r.user.emailVerified)
                     {
 
@@ -111,7 +107,7 @@ export class LoginComponent implements OnInit {
                   }
                 });
     //this.router.navigate(['home']);
-    // console.log();
+
   }
   
   ToRegister(){

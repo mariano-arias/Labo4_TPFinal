@@ -21,6 +21,10 @@ const routes: Routes = [
       {
         path: 'perfil', component: PerfilComponent
       },
+      {
+        path: 'turnos', 
+        loadChildren: () => import('./turnos-gestion/turnos-gestion.module').then(m => m.TurnosGestionModule)
+      }
     ]
   },
   {
@@ -32,7 +36,6 @@ const routes: Routes = [
   {
     path: 'registro', component: RegistroComponent
   },
- 
   {
     path: '**', redirectTo:''
   }
