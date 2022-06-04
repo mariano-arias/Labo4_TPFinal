@@ -78,30 +78,10 @@ export class LoginComponent implements OnInit {
                     
                     if(r.user.emailVerified)
                     {
-                        this.interactionService.showSuccess("Login exitoso", "Login OK")
-                        this.router.navigate(['home']);
-                    
-                      // this.firebaseService.GetDocFromFirebase<Usuario>(r.user.uid, 'Usuarios')
-                      // .subscribe((res)=> 
-                      // {
-                        // if(res?.perfil == 'paciente')
-                        // {
-                        // }
-                        // if(res?.perfil == 'especialista')
-                        // {
-                        //   if(res?.activo)
-                        //   {
-                        //     this.interactionService.showSuccess("Login exitoso", "Login OK")
-                        //     this.router.navigate(['home']);
-                        //   }
-                          // else
-                          // {
-                          //   this.interactionService.showWarning("Cuenta pendiente de activacion por administrador.", "Pendiente aprobacion");
-                          //   this.authService.Logout();
 
-                          // }
-                        
-                    
+                          this.interactionService.showSuccess("Login exitoso", "Login OK")
+                          this.router.navigate(['home']);
+
                     }
                     else
                     {

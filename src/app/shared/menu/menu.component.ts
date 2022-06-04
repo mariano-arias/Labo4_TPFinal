@@ -30,7 +30,6 @@ export class MenuComponent implements OnInit {
       }
       else{
         console.log("no user logged");
-        
       }
     });
   }
@@ -49,6 +48,7 @@ export class MenuComponent implements OnInit {
   GetDataUser (user : any){
     
      this.firebaseService.GetDocFromFirebase<Usuario>(user, this.collection)
-      .subscribe((res)=> this.perfilUserLogged = res?.perfil)
+      .subscribe((res)=> {this.perfilUserLogged = res?.perfil;
+      })
   }
 }

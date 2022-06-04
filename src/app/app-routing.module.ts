@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { UsuarioDetalleComponent } from './components/usuario-detalle/usuario-detalle.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,10 @@ const routes: Routes = [
       },
       {
         path:"usuario-detalle", component: UsuarioDetalleComponent
-      }
+      },
+      {
+        path: 'perfil', component: PerfilComponent
+      },
     ]
   },
   {

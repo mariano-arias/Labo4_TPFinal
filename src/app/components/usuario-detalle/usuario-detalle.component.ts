@@ -16,6 +16,7 @@ export class UsuarioDetalleComponent implements OnInit {
   userUpdated : Usuario | undefined;
   constructor(private storageService : StorageService, private firebaseService : FirebaseService,
               private interactionService: InteractionService) { 
+    console.log("Detalle Compo",this.usuario);
     
   }
 
@@ -27,6 +28,7 @@ export class UsuarioDetalleComponent implements OnInit {
  
     this.GuardarCambios()
   }
+
 
   GuardarCambios( ){
 // console.log(this.usuario);

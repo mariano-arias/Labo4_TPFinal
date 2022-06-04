@@ -5,6 +5,7 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { UsuarioTablaComponent } from './components/usuario-tabla/usuario-tabla.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 
 
@@ -13,6 +14,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     UsuarioComponent, 
     UsuarioTablaComponent,
     UsuarioDetalleComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   [ 
     UsuarioComponent, 
     UsuarioTablaComponent,
-    UsuarioDetalleComponent
+    UsuarioDetalleComponent,
+    PerfilComponent
   ]
 })
 export class GestionUsuariosModule { }
