@@ -17,7 +17,7 @@ export class UsuarioDetalleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   console.log(this.usuario?.uid);
+   console.log("usuario seleccionado: ",this.usuario?.uid);
    
 
   }
