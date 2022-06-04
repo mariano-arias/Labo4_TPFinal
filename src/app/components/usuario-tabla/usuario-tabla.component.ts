@@ -70,14 +70,12 @@ export class UsuarioTablaComponent implements OnInit {
   }
 
   Eliminar(usuario : Usuario){
-
+    this.interaction.showSpinner();
     this.firebase.DeleteById(usuario.uid, this.collection)
     .then(
       () => this.interaction.showSuccess("Usuario eliminado con éxito", "Usuario eliminado")
     )
     .catch( (error) => this.interaction.showSuccess("Hubo un error", "Error")
     )
-
   }
-
 }

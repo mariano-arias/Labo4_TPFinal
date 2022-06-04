@@ -68,6 +68,15 @@
           </tr>
         </thead>
         <tbody>
+          <ngx-spinner
+            template="<div class='spinner-border text-info' role='status'>"
+            bdColor="rgba(19,52,122,0.8)"
+            size="default"
+            color="#fff"
+            type="pacman"
+            [fullScreen]="false">
+            <p style="color: white">Procesando...</p>
+            </ngx-spinner>
           <tr *ngFor="let p of usuarios" class="linea">
             <td style="display: none">{{ p.uid }}</td>
             <td>{{ p.nombre }}</td>

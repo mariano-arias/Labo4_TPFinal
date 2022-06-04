@@ -39,6 +39,9 @@ import { GestionUsuariosModule } from './gestion-usuarios.module';
     NgxSpinnerModule,
     GestionUsuariosModule
   ],
+  exports:[
+    NgxSpinnerModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

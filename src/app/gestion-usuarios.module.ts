@@ -4,6 +4,7 @@ import { UsuarioDetalleComponent } from './components/usuario-detalle/usuario-de
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { UsuarioTablaComponent } from './components/usuario-tabla/usuario-tabla.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -15,7 +16,8 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   imports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxSpinnerModule
   ],
   exports:
   [ 

@@ -17,8 +17,7 @@ export class UsuarioDetalleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
-   console.log(this.storageService.GetFile(this.usuario?.uid));
+   console.log(this.usuario?.uid);
    
 
   }
