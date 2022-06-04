@@ -50,10 +50,14 @@ export class StorageService {
 
  async  GetFile(nameFile : string | undefined) {
 
+  console.log(nameFile);
+  
     const store = getStorage();
     const storageRef = ref(store, 'Usuarios/'+nameFile);
 
     const url = await getDownloadURL(storageRef).then( (url)=>{
+      console.log(url);
+      
       this.path = url;
       return this.path;
     }).catch(

@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/services/storage.service';
 export class UsuarioDetalleComponent implements OnInit {
 
   @Input() usuario : Usuario | undefined;
+  @Input() userPhoto : string | undefined;
   
   userUpdated : Usuario | undefined;
   constructor(private storageService : StorageService, private firebaseService : FirebaseService,
