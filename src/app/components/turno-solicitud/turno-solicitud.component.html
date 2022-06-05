@@ -1,1 +1,42 @@
-<p>turno-solicitud works!</p>
+<div class="card mt-50 mb-50">
+    <div class="card-title mx-auto">
+        Solicitud de turno
+    </div>
+    <div class="nav">
+        <ul class="mx-auto">
+            <li class="active">{{usuario?.nombre}}</li>
+        </ul>
+    </div>
+
+        <ngx-spinner
+        template="<button class='btn btn-primary text-nowrap'>
+      <span class='spinner-border spinner-border-sm mr-2'></span>
+      Enviando datos...</button>"
+        bdColor="rgba(19,52,122,0.8)"
+        type="pacman"
+        size="default"
+        color="#fff"
+        [fullScreen]="false"
+      ></ngx-spinner>
+      
+        <span id="card-header">Paciente:</span>
+        <div class="row row-1">
+            <div class="col-7">
+                <input type="text" value='{{usuario?.apellido}}, {{usuario?.nombre}}' disabled>
+            </div>
+        </div>
+        <span id="card-header">Especialista:</span>
+        <div class="row-1">
+            <div class="row row-2">
+                <input type="text" placeholder="Seleccione" value="{{especialista?.apellido}}">
+            </div>
+        </div>
+        <span id="card-header">Fecha y hora:</span>
+        <div class="container">
+
+          <full-calendar [options]="calendarOptions"></full-calendar>
+        </div>
+
+        <button class="btn d-flex mx-auto" (click)="Registrar()"><b>Elegir</b></button>
+
+</div>

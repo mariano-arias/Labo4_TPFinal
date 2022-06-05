@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Turno } from '../Entities/turno';
 import { Usuario } from '../Entities/usuario';
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +42,9 @@ export class FirebaseService {
   Update<tipo>(id: string, data: any){
     return this.firebase.collection<tipo>("Usuarios").doc(id).update(data);
   }
+
+  async CreateDoc<Turno>(collection : string, data : any){
+    return this.firebase.collection<Turno>(collection)
+    .doc().set({...data});
+}
 }

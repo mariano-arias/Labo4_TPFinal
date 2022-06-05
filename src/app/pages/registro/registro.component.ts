@@ -1,9 +1,6 @@
 import {
-  ChangeDetectorRef,
   Component,
-  ElementRef,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -220,6 +217,7 @@ export class RegistroComponent implements OnInit {
 
           this.usuario.photoPerfilURL = "null"
           this.usuario.photoAuxURL = "null";
+          this.usuario.activo = this.activo;
 
           this.firestore.createUsuario(this.usuario).then(
             () => {

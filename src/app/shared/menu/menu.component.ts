@@ -26,7 +26,7 @@ export class MenuComponent implements OnInit {
       if(res?.uid){
         //console.log("usuer logged: ", res);
         this.userLogged = res.email;
-        this.GetDataUser(res.uid); //para que hacia esto?
+        this.GetDataUser(res.uid);
       }
       else{
         console.log("no user logged");
@@ -45,10 +45,13 @@ export class MenuComponent implements OnInit {
 
   }
 
+
   GetDataUser (user : any){
     
      this.firebaseService.GetDocFromFirebase<Usuario>(user, this.collection)
-      .subscribe((res)=> {this.perfilUserLogged = res?.perfil;
+      .subscribe((res)=> {
+        this.perfilUserLogged = res?.perfil;
+        this.usuario = res;
       })
   }
 }

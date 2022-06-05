@@ -17,6 +17,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GestionUsuariosModule } from './gestion-usuarios.module';
+import { TurnosGestionModule } from './turnos-gestion/turnos-gestion.module';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { GestionUsuariosModule } from './gestion-usuarios.module';
     AngularFirestoreModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
-    GestionUsuariosModule
+    GestionUsuariosModule,
+    TurnosGestionModule
   ],
   exports:[
     NgxSpinnerModule
