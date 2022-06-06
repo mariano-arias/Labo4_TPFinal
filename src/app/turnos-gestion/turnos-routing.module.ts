@@ -10,6 +10,9 @@ const routes: Routes = [
   },
   {
     path: 'solicitud', component: TurnoSolicitudComponent
+  },
+  {
+    path: 'mis-turnos', component: TurnosComponent
   }
   ]
 

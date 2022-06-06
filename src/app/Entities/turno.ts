@@ -5,5 +5,5 @@ export class Turno {
     fecha!: Date;
     startStr! : string;
     endStr! : string;
-    activo! : boolean;
+   // activo! : boolean;
 }

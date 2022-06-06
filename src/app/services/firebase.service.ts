@@ -22,6 +22,10 @@ export class FirebaseService {
     return this.firebase.collection(collection, ref => ref.where('perfil', '==', filtro)).snapshotChanges();
   }
 
+  GetDocsByFilter<tipo>(collection : string, filtroClave : string, filtroValor: string){
+    return this.firebase.collection<tipo>(collection, ref => ref.where(filtroClave, '==', filtroValor)).snapshotChanges();
+  }
+
   GetDocFromFirebase<tipo>(id : any, collection : string){
 
     return this.firebase.collection(collection).doc<tipo>(id).valueChanges();

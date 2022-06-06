@@ -10,6 +10,8 @@ import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { TurnosTablaComponent } from '../components/turnos-tabla/turnos-tabla.component';
+import { TurnosComponent } from '../pages/turnos/turnos.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -20,6 +22,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 @NgModule({
   declarations: [
     TurnoSolicitudComponent,
+    TurnosComponent,
+    TurnosTablaComponent,
     CalendarComponent
   ],
   imports: [

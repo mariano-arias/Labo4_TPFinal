@@ -23,24 +23,32 @@ export class TurnoSolicitudComponent implements OnInit {
 
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridDay',
+    slotMinTime: '09:00:00',
+    slotMaxTime: '19:00:00',
     selectable: true,
     dateClick: this.handleDateClick.bind(this), // bind is important!
     select: this.SelectedTurno.bind(this),
-    events: [
-      { title: 'event 1', date: '2022-06-06' },
-      { title: 'event 2', date: '2022-06-05' }
-    ],
+    events: [ ],
     headerToolbar:{
       left: 'prev,next',
-      center: 'title',
+      center: 'title,addEventBtn',
       right: 'timeGridDay,dayGridMonth',
     },
     locale: esLocale,
-    weekends: false,
+    hiddenDays: [0],
     businessHours: {
-      startTime: '08:00',
-      endTime: '18:00'
+      startTime: '09:00',
+      endTime: '19:00'
     },
+    // duration: { days: 4 },
+    // visibleRange: function(currentDate){
+    //   const startDate = new Date(currentDate.valueOf());
+    //   const endDate = new Date(currentDate.valueOf());
+    //   startDate.setDate(startDate.getDate()); 
+    //   endDate.setDate(endDate.getDate() + 5); 
+  
+    //   return { start: startDate, end: endDate };
+    // }
     
    // dayMaxEvents: 5
 
@@ -48,11 +56,20 @@ export class TurnoSolicitudComponent implements OnInit {
 
 
 SelectedTurno(info : any){
+  console.log(info);
+  
   console.log('selected ' + info.startStr + ' to ' + info.endStr);
     
   this.turno.startStr = info.startStr;
   this.turno.endStr = info.endStr;
   console.log(this.turno);
+  this.calendarOptions.events=[
+    {
+      ...info
+    }
+  ]
+  //this.calendarOptions.eventsSet(info)
+  //this.calendarOptions.eventAdd();
   
 }
 
@@ -102,8 +119,9 @@ SelectedTurno(info : any){
       
        this.firebaseService.CreateDoc<Turno>(this.collectionTurnos, this.turno).then(
         (res)=>{
+    
         //  console.log(res);
-          this.interactionService.showSuccess("Se ha registrado su turno", "Turno");
+          this.interactionService.showSuccess("Se ha registrado su turno. Verifique en seccion Mis Turnos", "Turno");
           this.router.navigate(['']);
         }
         ).catch
