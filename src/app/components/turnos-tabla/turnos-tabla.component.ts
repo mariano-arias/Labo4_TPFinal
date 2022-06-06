@@ -59,4 +59,17 @@ export class TurnosTablaComponent implements OnInit {
        this.usuario = res;
      })
 }
+Cancelar(){
+
+}
+VerResenia(){
+
+}
+
+Encuestar(){
+
+}
+Calificar(){
+
+}
 }
