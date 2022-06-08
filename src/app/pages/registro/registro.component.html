@@ -387,6 +387,14 @@
                     </div>
                     </div> -->
 
+                    <!-- CAPTCHA-->
+                    <div class="captcha">        
+                      <ngx-recaptcha2 #captchaElem
+                      [siteKey]="siteKey"
+                      formControlName="recaptcha">
+                    </ngx-recaptcha2>
+                  </div>
+                  <!--end Captcha-->
                     <button
                       type="button"
                       class="btn btn-light btn-lg m-2"

@@ -18,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GestionUsuariosModule } from './gestion-usuarios.module';
 import { TurnosGestionModule } from './turnos-gestion/turnos-gestion.module';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { TurnosGestionModule } from './turnos-gestion/turnos-gestion.module';
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     GestionUsuariosModule,
-    TurnosGestionModule
+    TurnosGestionModule,
+    NgxCaptchaModule
   ],
   exports:[
     NgxSpinnerModule

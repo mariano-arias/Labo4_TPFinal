@@ -52,6 +52,8 @@ export class RegistroComponent implements OnInit {
 
   userLogged : any | null = null;
 
+  siteKey: string = "6LfdalEgAAAAAF2Fe-SBZLqwZa4x1rF56aPcnY7b";
+
   constructor(
     private authService: AuthService,
     private firebaseService : FirebaseService,
@@ -81,17 +83,16 @@ export class RegistroComponent implements OnInit {
       {
         nombre: ['', [Validators.required, Validators.minLength(3)]],
         apellido: ['', [Validators.required, Validators.minLength(3)]],
-        edad: [
-          '',
-          [Validators.required, Validators.min(18), Validators.max(125)],
-        ],
+        edad: ['', [Validators.required, Validators.min(18), Validators.max(125)]],
         dni: ['', [Validators.required, Validators.minLength(7)]],
         obraSocial: [''],
         especialidad: [''],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         password2: ['', [Validators.required, Validators.minLength(6)]],
-        perfil: ['', [Validators.required]],
+       // perfil: ['', [Validators.required]],
+        perfil: ['', ],
+        recaptcha: ['', Validators.required]
       },
       {
         validators: [
@@ -253,4 +254,6 @@ export class RegistroComponent implements OnInit {
   Cancelar(){
     this.router.navigate(['']);
   }
+
+
 }
