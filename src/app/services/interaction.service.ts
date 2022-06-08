@@ -42,4 +42,8 @@ showSpinner(){
     this.spinner.hide();
   }, 2500);
 }
+
+showModal(){
+  this.spinner.show();
+}
 }

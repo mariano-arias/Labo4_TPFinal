@@ -1,5 +1,6 @@
 import {
   Component,
+  Input,
   OnInit,
 } from '@angular/core';
 import {
@@ -42,7 +43,7 @@ export class RegistroComponent implements OnInit {
   submitted = false;
   activo = false;
 
-  perfil: string | undefined = 'paciente';
+  @Input() perfil: string | null = null;
 
   imgFile1: any = null;
   imgFile2: any = null;
@@ -90,7 +91,6 @@ export class RegistroComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         password2: ['', [Validators.required, Validators.minLength(6)]],
-       // perfil: ['', [Validators.required]],
         perfil: ['', ],
         recaptcha: ['', Validators.required]
       },
@@ -113,10 +113,11 @@ export class RegistroComponent implements OnInit {
     //   }
     // });
     // console.log(this.isAdmin);
+  //  this.interactionService.showModal();
   }
 
   SetPerfil(p: string) {
-    console.log(p);
+
     switch(p){
       case 'paciente':
         this.perfil = p;
@@ -133,7 +134,7 @@ export class RegistroComponent implements OnInit {
 
   uploadFile(event: any) {
     if (event.target.files && event.target.files[0]) {
-      console.log(event.target.files);
+      //console.log(event.target.files);
       if (event.target.files.length > 1 && this.perfil != 'paciente') {
         this.interactionService.showWarning(
           'Especialista solo puede cargar una imagen',

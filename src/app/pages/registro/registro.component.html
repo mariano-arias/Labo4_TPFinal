@@ -4,8 +4,14 @@
       <div class="col-12">
         <div
           class="card card-registration card-registration-2"
-          style="border-radius: 15px"
-        >
+          style="border-radius: 15px">
+          <div *ngIf="perfil == null">
+          <app-registro-perfil (emitPerfilRegister)="SetPerfil($event)"></app-registro-perfil>
+          </div>
+          
+          <div *ngIf="perfil != null">
+
+        
           <ngx-spinner
             template="<button class='btn btn-primary text-nowrap'>
           <span class='spinner-border spinner-border-sm mr-2'></span>
@@ -225,18 +231,7 @@
                         </small>
                       </ng-template>
                     </div>
-                    <!-- Upload image
-<div class="avatar-upload">
-  <div class="avatar-edit">
-     <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" />
-     <label for="imageUpload" *ngIf="editFile" [ngClass]="['custom-label', 'upload-image']"></label>
-     <label *ngIf="removeUpload" [ngClass]="['custom-label', 'remove-image']" (click)="removeUploadedFile()"></label>
-  </div>
-  <div class="avatar-preview">
-     <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
-     </div>
-  </div>
-</div> -->
+                   
                     <!-- SUBIDA ARCHIVOS -->
                     <div class="avatar-upload">
                     <div class="mb-4 pb-2">
@@ -268,7 +263,7 @@
                       </div>
                     </div> -->
                     </div>
-  <!--END FILES UPLOAD-->
+            <!--END FILES UPLOAD-->
                   </div>
                 </div>
 
@@ -424,6 +419,7 @@
               </div>
             </div>
           </form>
+        </div>
         </div>
       </div>
     </div>
