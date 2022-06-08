@@ -75,8 +75,8 @@ export class LoginComponent implements OnInit {
                     if(r.user.emailVerified)
                     {
 
-                          this.interactionService.showSuccess("Login exitoso", "Login OK")
-                          this.router.navigate(['home']);
+                      this.interactionService.showSuccess("Login exitoso", "Login OK")
+                      this.router.navigate(['home']);
 
                     }
                     else

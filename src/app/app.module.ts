@@ -19,6 +19,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { GestionUsuariosModule } from './gestion-usuarios.module';
 import { TurnosGestionModule } from './turnos-gestion/turnos-gestion.module';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { RegistroPerfilComponent } from './components/registro-perfil/registro-perfil.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     MenuComponent,
     HomeComponent,
     RegistroComponent,
-    LoginComponent
+    LoginComponent,
+    RegistroPerfilComponent
   ],
   imports: [
     BrowserModule,

@@ -13,10 +13,10 @@
         <thead>
           <tr>
             <th style="display: none"></th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Documento</th>
-            <th>Contacto</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Especialista</th>
+            <th>Estado turno</th>
             <th></th>
             <th></th>
             <th></th>
@@ -34,9 +34,10 @@
             </ngx-spinner> -->
           <tr *ngFor="let p of turnos" class="linea">
             <td style="display: none">{{ p.uid }}</td>
-            <td>{{ p.fecha }}</td>
-            <td>{{ p.startStr }}</td>
+            <td>{{ p.fecha | date: "dd-MM-yyyy" }}</td>
+            <td>{{ p.startStr | date: "HH:mm" }}</td>
             <td>{{ p.especialistaId }}</td>
+            <td>estado</td>
             <td>
               <button
                 type="button"

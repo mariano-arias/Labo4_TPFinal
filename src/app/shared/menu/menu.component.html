@@ -19,12 +19,12 @@
           <a class="nav-link" routerLink="./usuarios">Usuarios</a>
         </li>
         <li class="nav-item" *ngIf="perfilUserLogged== 'admin'" >
-          <a class="nav-link">Turnos</a>
+          <a class="nav-link" routerLink="./turnos/mis-turnos">Turnos</a>
         </li>
-        <li class="nav-item" *ngIf="userLogged">
+        <li class="nav-item" *ngIf="userLogged && perfilUserLogged != 'admin'">
           <a class="nav-link" routerLink="./turnos/mis-turnos">Mis Turnos</a>
         </li>
-        <li class="nav-item" *ngIf="userLogged">
+        <li class="nav-item" *ngIf="userLogged && perfilUserLogged != 'especialista'">
           <a class="nav-link" routerLink="./turnos/solicitud">Solicitar Turno</a>
         </li>
         <li class="nav-item" *ngIf="userLogged">

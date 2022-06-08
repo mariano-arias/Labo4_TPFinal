@@ -21,6 +21,7 @@ export class TurnosComponent implements OnInit {
       this.authService.GetUserLogged().subscribe( (res)=>{
       if(res?.uid){
       this.usuario = res.uid;
+      
 }
 else{
 console.log("no user logged");
