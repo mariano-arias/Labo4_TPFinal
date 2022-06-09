@@ -1,7 +1,7 @@
 
-<app-usuario-detalle [usuario]="usuario"  *ngIf="usuario"></app-usuario-detalle>
+<app-usuario-detalle [usuario]="usuario"  *ngIf="usuario" [userPhoto]="usuarioPhoto" ></app-usuario-detalle>
 
-<app-usuario-tabla (usuarioAEditar)="GetUser($event)"></app-usuario-tabla>
+<app-usuario-tabla  (usuarioAEditar)="GetUser($event)" (usuarioAEditarPhoto)="GetUserPhoto($event)"></app-usuario-tabla>
 
 
 

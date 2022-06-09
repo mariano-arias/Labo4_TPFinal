@@ -9,6 +9,7 @@ import { Usuario } from 'src/app/Entities/usuario';
 export class UsuarioComponent implements OnInit {
 
   @Input() usuario: Usuario | undefined;
+  @Input() usuarioPhoto: string | undefined;
  
   constructor() { }
 
@@ -17,6 +18,10 @@ export class UsuarioComponent implements OnInit {
   
   GetUser(e : any){
     this.usuario = e;
+  }
+
+  GetUserPhoto(e : any){
+    this.usuarioPhoto = e;
   }
   
 

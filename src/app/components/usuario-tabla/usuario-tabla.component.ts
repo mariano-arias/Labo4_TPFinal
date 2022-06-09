@@ -16,9 +16,11 @@ export class UsuarioTablaComponent implements OnInit {
   collection: string = "Usuarios";
   perfil: string = "Todos";
   aux : any;
+  userPhoto! : string | undefined;
   
   // @Output() photoUrl : EventEmitter<any> = new EventEmitter<any>();
   @Output() usuarioAEditar: EventEmitter<any> = new EventEmitter<any>();
+  @Output() usuarioAEditarPhoto: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(  private firebase: FirebaseService, private router : Router,
                 private interaction : InteractionService,
@@ -64,7 +66,12 @@ export class UsuarioTablaComponent implements OnInit {
 
   Editar(usuario : Usuario){
     this.usuarioAEditar.emit(usuario);
-
+    this.storageService.GetFile(usuario.imagen1Name).then(
+      (res)=> {
+        this.userPhoto = res;
+        this.usuarioAEditarPhoto.emit(this.userPhoto)
+      }
+      )
    // this.aux = this.storageService.GetFile(usuario.imagen1Name);
 
   }
