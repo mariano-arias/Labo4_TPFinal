@@ -25,12 +25,8 @@
                 <input type="text" value='{{usuario?.apellido}}, {{usuario?.nombre}}' disabled>
             </div>
         </div>
-        <span id="card-header">Especialista:</span>
-        <div class="row-1">
-            <div class="row row-2">
-                <input type="text" placeholder="Seleccione" value="{{especialista?.apellido}}">
-            </div>
-        </div>
+        <span id="card-header">Especialidad:</span>
+        <app-input (especialistaElegido)="GetEspecialista($event)"></app-input>
         <span id="card-header">Fecha y hora:</span>
         <div class="container">
 

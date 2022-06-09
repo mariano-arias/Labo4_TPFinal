@@ -6,6 +6,6 @@ export class Turno {
     fecha!: Date;
     startStr! : string;
     endStr! : string;
-    estado! : number; // aceptado -realizado -cancelado rechazado
+    estado! : string; // solicitado - aceptado -realizado -cancelado rechazado
    // activo! : boolean;
 }

@@ -40,10 +40,8 @@ showSpinner(){
   setTimeout(() => {
 
     this.spinner.hide();
-  }, 2500);
+  }, 3000);
 }
 
-showModal(){
-  this.spinner.show();
-}
+
 }

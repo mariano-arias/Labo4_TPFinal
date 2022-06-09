@@ -12,6 +12,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TurnosTablaComponent } from '../components/turnos-tabla/turnos-tabla.component';
 import { TurnosComponent } from '../pages/turnos/turnos.component';
+import { InputComponent } from '../components/input/input.component';
+import { FormsModule } from '@angular/forms';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -24,10 +26,12 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TurnoSolicitudComponent,
     TurnosComponent,
     TurnosTablaComponent,
-    CalendarComponent
+    CalendarComponent,
+    InputComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     TurnosRoutingModule,
     FullCalendarModule, // register FullCalendar with you app
     NgxSpinnerModule

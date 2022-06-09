@@ -53,7 +53,9 @@ export class TurnoSolicitudComponent implements OnInit {
    // dayMaxEvents: 5
 
   };
-
+GetEspecialista(e: string){
+  this.turno.especialistaId=e;
+}
 
 SelectedTurno(info : any){
   console.log(info);
@@ -113,7 +115,6 @@ SelectedTurno(info : any){
     if(this.turno.fecha && this.turno.startStr){
 
       this.turno.pacienteId = this.usuario!.uid;
-      this.turno.especialistaId = "WJlzj3uJ0mPHSip1AC7G0RMGftc2";
       
      // console.log("objeto completo",this.turno);
       
