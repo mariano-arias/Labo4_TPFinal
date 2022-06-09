@@ -8,6 +8,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ## Clinica
 
+Trabajo práctico para la materia Laboratorio 4. 
+
 ## Descripcion
 “La clínica OnLine, especialista en salud, cuenta actualmente con consultorios (6 en la actualidad), dos laboratorios (físicos en la clínica), y una sala de espera general. Está abierta al público de lunes a viernes en el horario de 8:00 a 19:00, y los sábados en el horario de 8:00 a 14:00.
 
@@ -18,7 +20,7 @@ administración de la misma.
 
 ## Registro
 
-Los usuarios pueden registrarse segun su perfil: paciente o especialista. Existe el perfinl de administrador que solo puede ser generado por otro administrador.
+Los usuarios pueden registrarse segun su perfil: paciente o especialista. Existe el perfil de administrador que solo puede ser generado por otro administrador.
 Los usuarios con perfil Paciente solo pueden ingresar si verificaron su mail al
 momento de registrarse.
 Los usuarios con perfil Especialista solo pueden ingresar si un usuario administrador
@@ -26,8 +28,15 @@ aprobó su cuenta y verificó el mail al momento de registrarse.
 
 ## Turnos
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+El sistema permite la carga, gestion y visualizacion de turnos en funcion del perfil del usuario.
+El estado de los turnos puede ser Solicitado, Realizado, Cancelado o Rechazado.
 
-## Further help
+## Secciones
+
+Las mismas son visibles en funcion del perfil del usuario.
+
+### Mi Perfil
+
+### Mis Turnos
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

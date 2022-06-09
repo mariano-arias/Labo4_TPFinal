@@ -30,7 +30,7 @@ export class RegistroComponent implements OnInit {
   usuario: Usuario = new Usuario();
 
   isLogged : boolean = false;
-  isAdmin : boolean = true;
+  isAdmin : boolean = false;
 
   loginError: boolean | undefined;
 
@@ -69,7 +69,15 @@ export class RegistroComponent implements OnInit {
       if(res?.uid){
         //console.log("usuer logged: ", res);
         this.isLogged = true;
-       // this.GetDataUser(res.uid); //para que hacia esto?
+    //     this.firebaseService.GetDocsBy(res.uid, "Usuarios").subscribe
+    //     (
+    //       (res) => {
+    //        if(res.perfil== 'admin'){
+    //          this.isAdmin= true;
+    //        }
+
+    //      }
+    // )
       }
       else{
         this.isLogged = false;
