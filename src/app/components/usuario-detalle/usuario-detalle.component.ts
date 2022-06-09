@@ -17,8 +17,6 @@ export class UsuarioDetalleComponent implements OnInit {
   userUpdated : Usuario | undefined;
   constructor(private storageService : StorageService, private firebaseService : FirebaseService,
               private interactionService: InteractionService) { 
-    console.log("Detalle Compo",this.usuario);
-    
   }
 
   ngOnInit(): void {

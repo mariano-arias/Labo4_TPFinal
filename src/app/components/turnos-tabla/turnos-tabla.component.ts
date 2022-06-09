@@ -25,13 +25,7 @@ export class TurnosTablaComponent implements OnInit {
 
   constructor(private authService:AuthService, private firebaseService : FirebaseService,
               private interactionService : InteractionService, private router : Router) 
-              { 
-            
-                // this.firebaseService.GetDocs<Turno>(this.turnosCollection).subscribe
-                // (
-                //   (res)=> console.log(res)
-                // )
-
+              {
 
               }
 
@@ -44,42 +38,52 @@ export class TurnosTablaComponent implements OnInit {
       (res)=>{
       if(res?.uid){
       this.usuarioId = res.uid;
-    console.log(this.usuarioId);
+
     this.firebaseService.GetDocFromFirebase<Usuario>( this.usuarioId, this.usuariosCollection)
     .subscribe((res)=> {
       this.usuario = res;
-      console.log(this.usuario);
       if(this.usuario?.perfil == 'admin'){
         this.firebaseService.GetDocs<Turno>("Turnos") 
         .subscribe(
-           (res)=> {this.turnos = res
-           }
+           (res)=> {
+             this.turnos = res;
+             this.turnos.forEach(
+              (x)=> {
+                this.firebaseService.GetDocFromFirebase<Usuario>(x.especialistaId, this.usuariosCollection)
+               .subscribe((res)=> {
+                 x.especialistaId = res?.apellido! + "- " + res?.especialidad
+                })
+              })
+            }
          )
       }else{
         this.firebaseService.GetDocsByFilter<Turno>(this.turnosCollection, "pacienteId",this.usuario!.uid)
         .subscribe(
           (res)=> {
-            console.log(res);
-            
             this.turnos = [];
             res.forEach((element: any) =>{
               this.turnos?.push({
                 id : element.payload.doc.id,
                 ...element.payload.doc.data()
-              }
-                )
+              })
             });
+            this.turnos.forEach(
+              (x)=> {
+                this.firebaseService.GetDocFromFirebase<Usuario>(x.especialistaId, this.usuariosCollection)
+               .subscribe((res)=> {
+                 x.especialistaId = res?.apellido! + "- " + res?.especialidad
+                })
+              })
           }
         )
       }
-      
     })
-
-}
-  })
-   // this.firebaseService.GetDocsByFilter<Turno>(this.turnosCollection, 'pacienteId', this.usuarioId)
-  
   }
+}
+)}
+
+   // this.firebaseService.GetDocsByFilter<Turno>(this.turnosCollection, 'pacienteId', this.usuarioId)
+
 
   GetDataUser (user : any){
     

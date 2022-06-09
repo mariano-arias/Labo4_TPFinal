@@ -43,7 +43,7 @@ export class RegistroComponent implements OnInit {
   submitted = false;
   activo = false;
 
-  @Input() perfil: string | null = null;
+  perfil: string | null = null;
 
   imgFile1: any = null;
   imgFile2: any = null;
@@ -91,7 +91,7 @@ export class RegistroComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         password2: ['', [Validators.required, Validators.minLength(6)]],
-        perfil: ['', ],
+        perfil: [''],
         recaptcha: ['', Validators.required]
       },
       {
@@ -130,6 +130,8 @@ export class RegistroComponent implements OnInit {
         this.perfil = p;
         this.activo = true;
     }
+    console.log(this.perfil);
+    
   }
 
   uploadFile(event: any) {
@@ -192,6 +194,10 @@ export class RegistroComponent implements OnInit {
           this.usuario.uid = res.user.uid;
           this.usuario.password = '';
           this.usuario.password2 = '';
+          this.usuario.photoPerfilURL = "null"
+          this.usuario.photoAuxURL = "null";
+          this.usuario.activo = this.activo;
+          this.usuario.perfil = this.perfil!;
 
           let fileName = this.usuario.uid + '_' + Date.now();
 
@@ -217,9 +223,7 @@ export class RegistroComponent implements OnInit {
               .catch(() => console.log('Error en subida imagen 2'));
           }
 
-          this.usuario.photoPerfilURL = "null"
-          this.usuario.photoAuxURL = "null";
-          this.usuario.activo = this.activo;
+      
 
           this.firestore.createUsuario(this.usuario).then(
             () => {
@@ -249,7 +253,11 @@ export class RegistroComponent implements OnInit {
         } else {
           this.createUserError = errorCode;
         }
-      });
+      })
+      // .finally(
+      //   ()=>{this.authService.Logout();
+      //   this.router.navigate([''])}
+      // );
   }
 
   Cancelar(){

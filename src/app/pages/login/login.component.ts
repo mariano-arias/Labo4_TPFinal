@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   perfil : string | undefined;
 
   usuarios : Usuario [] = [];
+  usuariosAux : Usuario [] = [];
   
   collection: string = "Usuarios";
 
@@ -45,16 +46,16 @@ export class LoginComponent implements OnInit {
   {
     this.firebaseService.GetDocs<Usuario>('Usuarios').subscribe(
       (res)=> {
-        this.usuarios = res;
+        this.usuarios  = res;
         // this.usuarios.forEach(
         //   (u)=> 
         //   {
         //    u.photoPerfilURL = this.storageService.GetFile(u.imagen1Name);
         //   }
         // )
+        this.usuarios.splice(6);
       }
     );
-    this.usuarios = this.usuarios.slice(0,5);
     }
 
 
