@@ -20,17 +20,29 @@
       ></ngx-spinner>
       
         <span id="card-header">Paciente:</span>
-        <div class="row row-1">
+
+        <div class="row row-1" *ngIf="usuario?.perfil !='admin' else SearchComponent">
             <div class="col-7">
                 <input type="text" value='{{usuario?.apellido}}, {{usuario?.nombre}}' disabled>
             </div>
         </div>
+
+        <ng-template #SearchComponent>
+          <app-search-result-table *ngIf="!pacienteTurno" [perfil]="perfilPaciente" (usuarioSeleccionado)="GetPaciente($event)"></app-search-result-table>
+        </ng-template>
+
+        <div class="row row-1" *ngIf="pacienteTurno">
+          <div class="col-7">
+              <input type="text" value='{{pacienteTurno?.apellido}}, {{pacienteTurno?.nombre}} - {{pacienteTurno?.obraSocial}}' disabled>
+          </div>
+        </div>
         <span id="card-header">Especialidad:</span>
+
         <div class="row row-1" *ngIf="especialista">
           <div class="col-7">
               <input type="text" value='{{especialista?.apellido}}, {{especialista?.nombre}} - {{especialista?.especialidad}}' disabled>
           </div>
-      </div>
+        </div>
         <app-especialista-search *ngIf="!especialista" (espSeleccionado)="GetEspecialista($event)"></app-especialista-search>
 
         <span id="card-header">Fecha y hora:</span>

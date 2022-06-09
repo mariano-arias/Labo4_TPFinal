@@ -15,6 +15,7 @@ import { TurnosComponent } from '../pages/turnos/turnos.component';
 import { InputComponent } from '../components/input/input.component';
 import { FormsModule } from '@angular/forms';
 import { EspecialistaSearchComponent } from '../components/especialista-search/especialista-search.component';
+import { SearchResultTableComponent } from '../components/search-result-table/search-result-table.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -29,7 +30,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TurnosTablaComponent,
     CalendarComponent,
     InputComponent,
-    EspecialistaSearchComponent
+    EspecialistaSearchComponent,
+    SearchResultTableComponent
   ],
   imports: [
     CommonModule,

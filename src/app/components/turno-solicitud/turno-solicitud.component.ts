@@ -19,9 +19,10 @@ export class TurnoSolicitudComponent implements OnInit {
   collectionTurnos : string = 'Turnos';
   collectionUsuarios : string = 'Usuarios';
   turno : Turno  = new Turno;
-
+  perfilPaciente : string = "paciente";
   usuario : Usuario | undefined;
   especialista : Usuario | undefined;
+  pacienteTurno : Usuario | undefined;
   
   Events: any[] = [];
 
@@ -63,9 +64,10 @@ export class TurnoSolicitudComponent implements OnInit {
               private interactionService : InteractionService, private router : Router) 
   {
     this.authService.GetUserLogged().subscribe( (res)=>{
-      if(res?.uid){
-      //console.log("usuer logged: ", res);
-      this.GetDataUser(res.uid);
+      if(res?.uid)
+      {
+      //seteo en el metodo
+        this.GetDataUser(res.uid);
       }
       else
       {
@@ -82,75 +84,78 @@ export class TurnoSolicitudComponent implements OnInit {
 
   }
 
-GetEspecialista(e: string){
-  this.turno.especialistaId=e;
-  this.setEspecialistaView(this.turno.especialistaId);
-}
+  GetEspecialista(e: string){
+    this.turno.especialistaId=e;
+    this.setEspecialistaView(this.turno.especialistaId);
+  }
 
-SelectedTurno(info : any){
-  console.log(info);
-  
-  console.log('selected ' + info.startStr + ' to ' + info.endStr);
-    
-  this.turno.startStr = info.startStr;
-  this.turno.endStr = info.endStr;
+  GetPaciente(e: string){
+    this.turno.pacienteId = e;
+    this.setPacienteView(this.turno.pacienteId);
+  }
 
-  this.calendarOptions.events=[
+  SelectedTurno(info : any){
+    //console.log(info);
+    //console.log('selected ' + info.startStr + ' to ' + info.endStr);
+    this.turno.startStr = info.startStr;
+    this.turno.endStr = info.endStr;
+    this.calendarOptions.events=[
     {
       ...info
-    }
-  ]
-  //this.calendarOptions.eventsSet(info)
-  //this.calendarOptions.eventAdd();
-  
-}
+    }]
+    //this.calendarOptions.eventsSet(info)
+    //this.calendarOptions.eventAdd();
+  }
 
   handleDateClick(arg: any) {
     this.turno.fecha = arg.dateStr;
   }
 
-
-
-  Registrar(){
+  Registrar()
+  {
     this.interactionService.showSpinner();
-    
-    if(this.turno.fecha && this.turno.startStr){
 
+    if(this.turno.fecha && this.turno.startStr)
+    {
       this.turno.pacienteId = this.usuario!.uid;
       this.turno.estado='solicitado';
-      
      // console.log("objeto completo",this.turno);
-      
-       this.firebaseService.CreateDoc<Turno>(this.collectionTurnos, this.turno).then(
-        (res)=>{
-    
+      this.firebaseService.CreateDoc<Turno>(this.collectionTurnos, this.turno).then(
+      (res)=>
+      {
         //  console.log(res);
-          this.interactionService.showSuccess("Se ha registrado su turno. Verifique en seccion Mis Turnos", "Turno");
-          this.router.navigate(['']);
-        }
-        ).catch
-        (
-          ()=>
-          this.interactionService.showError("Hubo un error","Error")
-          //(res) => console.log(res)
-          )
-          
-      }else{
-        this.interactionService.showError("Debe seleccionar un dia y hora","Error");
+        this.interactionService.showSuccess("Se ha registrado su turno. Verifique en seccion Mis Turnos", "Turno");
+        this.router.navigate(['']);
       }
+      ).catch
+      (
+        ()=> this.interactionService.showError("Hubo un error","Error")
+          //(res) => console.log(res)
+      )
+    }
+    else
+    {
+      this.interactionService.showError("Debe seleccionar un dia y hora","Error");
+    }
   }
 
- GetDataUser (user : any){
-    
-     this.firebaseService.GetDocFromFirebase<Usuario>(user, this.collectionUsuarios)
-      .subscribe((res)=> {
-        this.usuario = res;
-      })
+  GetDataUser (user : any){
+    this.firebaseService.GetDocFromFirebase<Usuario>(user, this.collectionUsuarios)
+    .subscribe((res)=> {
+      this.usuario = res;
+    })
   }
 
   setEspecialistaView(uid : string){
-    this.firebaseService.GetDocFromFirebase<Usuario>(uid, this.collectionUsuarios).subscribe(
+    this.firebaseService.GetDocFromFirebase<Usuario>(uid, this.collectionUsuarios)
+    .subscribe(
       (res) => this.especialista = res
+    )
+  }
+  setPacienteView(uid : string){
+    this.firebaseService.GetDocFromFirebase<Usuario>(uid, this.collectionUsuarios)
+    .subscribe(
+      (res) => this.pacienteTurno = res
     )
   }
 }
