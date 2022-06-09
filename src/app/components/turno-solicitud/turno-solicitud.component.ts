@@ -40,6 +40,7 @@ export class TurnoSolicitudComponent implements OnInit {
       startTime: '09:00',
       endTime: '19:00'
     },
+    allDaySlot: false
     // duration: { days: 4 },
     // visibleRange: function(currentDate){
     //   const startDate = new Date(currentDate.valueOf());
