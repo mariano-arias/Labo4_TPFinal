@@ -13,33 +13,16 @@ export class InputComponent implements OnInit {
   termino! : string;
   usuarios: Usuario[]= [];
 
-  @Output() especialistaElegido : EventEmitter<any> = new EventEmitter<any>();
+  @Output() onEnterTermino : EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private firebaseService : FirebaseService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   Buscar(){
     console.log(this.termino);
-    this.flagSearch==true;
-    this.firebaseService.GetDocsByFilter<Usuario>("Usuarios", "especialidad", this.termino)
-    .subscribe(
-      (res)=>{
-        this.usuarios = [];
-        console.log(res);
-        
-        res.forEach((element: any) =>{
-          this.usuarios?.push({
-            id : element.payload.doc.id,
-            ...element.payload.doc.data()
-          }
-            )
-        });
-      }
-    )
-  }
-  SeleccionEsp(p : string){
-    this.especialistaElegido.emit(p);
+    
+    this.onEnterTermino.emit(this.termino);
   }
 }

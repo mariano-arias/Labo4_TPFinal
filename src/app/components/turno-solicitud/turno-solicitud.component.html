@@ -26,7 +26,9 @@
             </div>
         </div>
         <span id="card-header">Especialidad:</span>
-        <app-input (especialistaElegido)="GetEspecialista($event)"></app-input>
+
+        <app-especialista-search (espSeleccionado)="GetEspecialista($event)"></app-especialista-search>
+
         <span id="card-header">Fecha y hora:</span>
         <div class="container">
 

@@ -37,7 +37,7 @@
             <td>{{ p.fecha | date: "dd-MM-yyyy" }}</td>
             <td>{{ p.startStr | date: "HH:mm" }}</td>
             <td>{{ p.especialistaId }}</td>
-            <td>estado</td>
+            <td>{{p.estado | titlecase}</td>
             <td>
               <button
                 type="button"

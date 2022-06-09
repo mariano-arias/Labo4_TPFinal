@@ -64,7 +64,7 @@ SelectedTurno(info : any){
     
   this.turno.startStr = info.startStr;
   this.turno.endStr = info.endStr;
-  console.log(this.turno);
+
   this.calendarOptions.events=[
     {
       ...info
@@ -115,6 +115,7 @@ SelectedTurno(info : any){
     if(this.turno.fecha && this.turno.startStr){
 
       this.turno.pacienteId = this.usuario!.uid;
+      this.turno.estado='solicitado';
       
      // console.log("objeto completo",this.turno);
       
