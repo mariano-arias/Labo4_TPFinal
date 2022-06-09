@@ -26,8 +26,12 @@
             </div>
         </div>
         <span id="card-header">Especialidad:</span>
-
-        <app-especialista-search (espSeleccionado)="GetEspecialista($event)"></app-especialista-search>
+        <div class="row row-1" *ngIf="especialista">
+          <div class="col-7">
+              <input type="text" value='{{especialista?.apellido}}, {{especialista?.nombre}} - {{especialista?.especialidad}}' disabled>
+          </div>
+      </div>
+        <app-especialista-search *ngIf="!especialista" (espSeleccionado)="GetEspecialista($event)"></app-especialista-search>
 
         <span id="card-header">Fecha y hora:</span>
         <div class="container">

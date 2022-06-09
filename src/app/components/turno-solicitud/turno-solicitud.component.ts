@@ -13,12 +13,16 @@ import { Router } from '@angular/router';
   templateUrl: './turno-solicitud.component.html',
   styleUrls: ['./turno-solicitud.component.css']
 })
+
 export class TurnoSolicitudComponent implements OnInit {
 
   collectionTurnos : string = 'Turnos';
   collectionUsuarios : string = 'Usuarios';
   turno : Turno  = new Turno;
 
+  usuario : Usuario | undefined;
+  especialista : Usuario | undefined;
+  
   Events: any[] = [];
 
   calendarOptions: CalendarOptions = {
@@ -53,10 +57,34 @@ export class TurnoSolicitudComponent implements OnInit {
     // }
     
    // dayMaxEvents: 5
-
   };
+
+  constructor(private authService:AuthService, private firebaseService : FirebaseService,
+              private interactionService : InteractionService, private router : Router) 
+  {
+    this.authService.GetUserLogged().subscribe( (res)=>{
+      if(res?.uid){
+      //console.log("usuer logged: ", res);
+      this.GetDataUser(res.uid);
+      }
+      else
+      {
+        //  console.log("no user logged");
+      }
+    })
+//test traer especialista
+// this.firebaseService.GetDocFromFirebase<Usuario>("WJlzj3uJ0mPHSip1AC7G0RMGftc2", this.collectionUsuarios).subscribe(
+// (res) => this.especialista = res
+// )
+  }
+
+  ngOnInit(): void {
+
+  }
+
 GetEspecialista(e: string){
   this.turno.especialistaId=e;
+  this.setEspecialistaView(this.turno.especialistaId);
 }
 
 SelectedTurno(info : any){
@@ -78,38 +106,10 @@ SelectedTurno(info : any){
 }
 
   handleDateClick(arg: any) {
-    console.log('date click! ' + arg.dateStr)
     this.turno.fecha = arg.dateStr;
   }
-  
-  
-  usuario : Usuario | undefined;
-  especialista : Usuario | undefined;
-
-  constructor(private authService:AuthService, private firebaseService : FirebaseService,
-              private interactionService : InteractionService, private router : Router) { 
-    this.authService.GetUserLogged().subscribe( (res)=>{
-      if(res?.uid){
-        //console.log("usuer logged: ", res);
-        this.GetDataUser(res.uid);
-      }
-      else{
-        console.log("no user logged");
-      }
-      
-    })
-
-    //test traer especialista
-    this.firebaseService.GetDocFromFirebase<Usuario>("WJlzj3uJ0mPHSip1AC7G0RMGftc2", this.collectionUsuarios).subscribe(
-      (res) => this.especialista = res
-    )
-  }
-  
-  ngOnInit(): void {
 
 
-
-  }
 
   Registrar(){
     this.interactionService.showSpinner();
@@ -146,5 +146,11 @@ SelectedTurno(info : any){
       .subscribe((res)=> {
         this.usuario = res;
       })
+  }
+
+  setEspecialistaView(uid : string){
+    this.firebaseService.GetDocFromFirebase<Usuario>(uid, this.collectionUsuarios).subscribe(
+      (res) => this.especialista = res
+    )
   }
 }
