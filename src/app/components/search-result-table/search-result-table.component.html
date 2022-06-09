@@ -1,38 +1,45 @@
-
 <app-input (onEnterTermino)="Buscar($event)"></app-input>
 
-<div *ngIf="listaUsuarios.length!=0">
-
-    <div class="row">
-        <div class="col">
-            <table class="table table-striped mt-5">
-                <thead>
-                  <tr>
-                    <th style="display: none"></th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th >Especialidad</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-    
-                  <tr *ngFor="let u of listaUsuarios" class="linea">
-                    <td style="display: none"></td>
-                    <td>{{u.nombre}}</td>
-                    <td>{{u.apellido}}</td>
-                    <td>{{u.especialidad | titlecase}}</td>
-                    <td><button class="btn btn-warning" (click)="SeleccionEsp(u.uid)">Elegir</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-        </div>
-
+<div *ngIf="listaUsuarios.length != 0">
+  <div class="row">
+    <div class="col">
+      <table class="table table-striped mt-5">
+        <thead>
+          <tr>
+            <th style="display: none"></th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th *ngIf="perfil == 'paciente'; else Especialidad">Obra Social</th>
+            <ng-template #Especialidad>
+              <th>Especialidad</th>
+            </ng-template>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of listaUsuarios" class="linea">
+            <td style="display: none"></td>
+            <td>{{ u.nombre }}</td>
+            <td>{{ u.apellido }}</td>
+            <td *ngIf="perfil == 'especialista'; else Especialidad">
+              {{ u.obraSocial | titlecase }}
+            </td>
+            <ng-template #Especialidad>
+              <td>{{ u.especialidad | titlecase }}</td>
+            </ng-template>
+            <td>
+              <button class="btn btn-warning" (click)="SeleccionEsp(u.uid)">
+                Elegir
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 <div *ngIf="termino">
-<div class="alert alert-danger" *ngIf="listaUsuarios.length == 0">
-  No se encontró especialista con el termino {{termino}}
+  <div class="alert alert-danger" *ngIf="listaUsuarios.length == 0">
+    No se encontró especialista con el termino {{ termino }}
+  </div>
 </div>
-</div>
-
