@@ -11,8 +11,6 @@ export class EspecialistaSearchComponent implements OnInit {
 
   @Output() espSeleccionado : EventEmitter<any> =  new EventEmitter<any>();
   especialistas: Usuario[]= [];
-  
-  flagSearch: boolean = false;
   termino! : string;
 
   constructor(private firebaseService : FirebaseService) { }
@@ -27,13 +25,11 @@ export class EspecialistaSearchComponent implements OnInit {
   
   Buscar( busqueda :any){
     this.termino = busqueda;
-    this.flagSearch==true;
     this.firebaseService.GetDocsByFilter<Usuario>("Usuarios", "especialidad", this.termino)
     .subscribe(
       (res)=>{
         this.especialistas = [];
         console.log(res);
-        
         res.forEach((element: any) =>{
           this.especialistas?.push({
             id : element.payload.doc.id,

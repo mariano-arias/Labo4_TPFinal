@@ -1,10 +1,6 @@
 <app-input (onEnterTermino)="Buscar($event)"></app-input>
 
-<div *ngIf="flagSearch==true">
-    <div class="alert alert-danger" *ngIf="especialistas.length == 0">
-        No se encontró especialista con el termino {{termino}}
-    </div>
-</div>
+<div *ngIf="especialistas.length!=0">
         <!-- BUSQUEDA ESPECIALISTA-->
         <div class="row">
             <div class="col">
@@ -32,3 +28,9 @@
                 </div>
             </div>
             <!--END BUSQUEDA ESPECIALISTA -->
+</div>
+<div *ngIf="termino">
+  <div class="alert alert-danger" *ngIf="especialistas.length == 0">
+      No se encontró especialista con el termino {{termino}}
+  </div>
+</div>
