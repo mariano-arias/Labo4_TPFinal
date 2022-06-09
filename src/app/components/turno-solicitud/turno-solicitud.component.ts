@@ -31,8 +31,9 @@ export class TurnoSolicitudComponent implements OnInit {
     events: [ ],
     headerToolbar:{
       left: 'prev,next',
-      center: 'title,addEventBtn',
-      right: 'timeGridDay,dayGridMonth',
+      center: 'title',
+      //right: 'timeGridDay',
+      right: ''
     },
     locale: esLocale,
     hiddenDays: [0],
