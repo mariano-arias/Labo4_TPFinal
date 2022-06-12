@@ -27,8 +27,10 @@ export class SearchResultTableComponent implements OnInit {
   }
 
   Buscar( busqueda :any){
-
     this.termino = busqueda;
+    // if(this.perfil == 'especialista'){
+      
+    // }
     this.firebaseService.GetDocsByFilter<Usuario>(this.usuariosCollection, "apellido", this.termino)
     .subscribe(
       (res)=>{

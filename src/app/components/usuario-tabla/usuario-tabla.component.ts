@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/Entities/usuario';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { DownloadFileComponent } from 'src/app/Utils/download-file/download-file.component';
 
 @Component({
   selector: 'app-usuario-tabla',
@@ -24,7 +25,8 @@ export class UsuarioTablaComponent implements OnInit {
 
   constructor(  private firebase: FirebaseService, private router : Router,
                 private interaction : InteractionService,
-                private storageService : StorageService
+                private storageService : StorageService,
+                private download : DownloadFileComponent
               ) { }
 
   ngOnInit(): void 
@@ -102,4 +104,9 @@ console.log(usuario);
   ToRegister(){
     this.router.navigate(['registro']);
   }
+
+  ToExport(){
+    this.download.DataToCVS(this.usuarios, this.perfil);
+  }
+
 }

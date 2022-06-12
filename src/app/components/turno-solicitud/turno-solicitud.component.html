@@ -43,7 +43,7 @@
               <input type="text" value='{{especialista?.apellido}}, {{especialista?.nombre}} - {{especialista?.especialidad}}' disabled>
           </div>
         </div>
-        <app-especialista-search *ngIf="!especialista" (espSeleccionado)="GetEspecialista($event)"></app-especialista-search>
+        <app-search-result-table *ngIf="!especialista"  [perfil]="perfilEspecialista" (usuarioSeleccionado)="GetEspecialista($event)"></app-search-result-table>
 
         <span id="card-header">Fecha y hora:</span>
         <div class="container">

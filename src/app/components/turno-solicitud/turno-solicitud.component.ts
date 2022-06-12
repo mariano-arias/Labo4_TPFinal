@@ -20,6 +20,7 @@ export class TurnoSolicitudComponent implements OnInit {
   collectionUsuarios : string = 'Usuarios';
   turno : Turno  = new Turno;
   perfilPaciente : string = "paciente";
+  perfilEspecialista : string = "especialista";
   usuario : Usuario | undefined;
   especialista : Usuario | undefined;
   pacienteTurno : Usuario | undefined;
@@ -84,12 +85,12 @@ export class TurnoSolicitudComponent implements OnInit {
 
   }
 
-  GetEspecialista(e: string){
+  GetEspecialista(e: any){
     this.turno.especialistaId=e;
     this.setEspecialistaView(this.turno.especialistaId);
   }
 
-  GetPaciente(e: string){
+  GetPaciente(e: any){
     this.turno.pacienteId = e;
     this.setPacienteView(this.turno.pacienteId);
   }
