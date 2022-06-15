@@ -40,7 +40,8 @@ export class TurnosTablaComponent implements OnInit {
       this.usuarioId = res.uid;
 
     this.firebaseService.GetDocFromFirebase<Usuario>( this.usuarioId, this.usuariosCollection)
-    .subscribe((res)=> {
+    .subscribe((res)=> 
+    {
       this.usuario = res;
       if(this.usuario?.perfil == 'admin'){
         this.firebaseService.GetDocs<Turno>("Turnos") 
@@ -56,7 +57,8 @@ export class TurnosTablaComponent implements OnInit {
               })
             }
          )
-      }else{
+      }else if (this.usuario?.perfil == 'paciente')
+      {
         this.firebaseService.GetDocsByFilter<Turno>(this.turnosCollection, "pacienteId",this.usuario!.uid)
         .subscribe(
           (res)=> {
@@ -77,10 +79,27 @@ export class TurnosTablaComponent implements OnInit {
           }
         )
       }
+      else
+      {
+        console.log("soy");
+        this.firebaseService.GetDocsByFilter<Turno>(this.turnosCollection, "especialistaId",this.usuario!.uid)
+        .subscribe(
+          (res)=> {
+            this.turnos = [];
+            res.forEach((element: any) =>{
+              this.turnos?.push(
+                {
+                id : element.payload.doc.id,
+                ...element.payload.doc.data()
+                })
+              });
+            });
+      }
     })
   }
+  })
 }
-)}
+
 
    // this.firebaseService.GetDocsByFilter<Turno>(this.turnosCollection, 'pacienteId', this.usuarioId)
 

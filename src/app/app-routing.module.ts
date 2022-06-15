@@ -10,7 +10,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent,
+    path: '', component: MenuComponent,
     children: [
       {
         path: 'usuarios', component: UsuarioComponent
