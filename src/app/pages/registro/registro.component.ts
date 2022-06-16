@@ -283,8 +283,6 @@ export class RegistroComponent implements OnInit {
               .catch(() => console.log('Error en subida imagen 2'));
           }
 
-      
-
           this.firestore.createUsuario(this.usuario).then(
             () => {
             this.interactionService.showSuccess(
@@ -321,7 +319,7 @@ export class RegistroComponent implements OnInit {
   }
 
   Cancelar(){
-    this.router.navigate(['']);
+    this.router.navigate(['home']);
   }
 
 

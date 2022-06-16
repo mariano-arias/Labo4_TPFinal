@@ -1,7 +1,11 @@
-
+<!-- <h4>Usted se registra como:</h4> -->
 <div class="container">
-<h4>Usted se registra como:</h4>
-    <button (click)="Click('paciente')" class="btn btn-primary" >Paciente</button>
-    <button (click)="Click('especialista')" class="btn btn-info">Especialista</button>
-    
+  <div id="paciente" (click)="Click('paciente')" class="btn btn-primary">
+    <img src="/assets/paciente.jpg" alt="Perfil paciente" />
+    <h2><span>Paciente</span></h2>
+  </div>
+  <div id="profesional" (click)="Click('especialista')" class="btn btn-info">
+    <img src="/assets/medico.jpg" alt="Perfil profesional" />
+    <h2><span> Especialista </span></h2>
+  </div>
 </div>
