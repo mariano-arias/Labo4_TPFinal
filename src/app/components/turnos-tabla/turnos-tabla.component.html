@@ -43,28 +43,40 @@
             <td>{{ p.pacienteId }}</td>
             <td>{{p.estado | titlecase}}</td>
             <td>
-              <button
+              <button *ngIf="p.estado=='solicitado'"
                 type="button"
                 class="btn btn-info btn-circle"
-                (click)="VerResenia()"
+                (click)="Aceptar(p)"
               >
-                <i class="fa fa-check">Ver reseña</i>
+                <i class="fa fa-check">Aceptar</i>
               </button>
-            </td>
-            <td >
-                <button class="btn btn-danger btn-circle">
-                    <i class="fa fa-check" (click)="Cancelar()">Cancelar</i>
+              <button *ngIf="p.estado=='aceptado'"
+                type="button"
+                class="btn btn-primary btn-circle"
+                (click)="Finalizar(p)"
+              >
+                <i class="fa fa-check">Finalizar</i>
+              </button>
 
-                </button>
+              <button *ngIf="p.estado=='realizado'"
+                type="button"
+                class="btn btn-warning btn-circle"
+                (click)="VerResenia(p)"
+              >Ver Reseña</button>
             </td>
             <td >
-              <button class="btn btn-green btn-circle">
+                  <button *ngIf="p.estado=='solicitado'" class="btn btn-danger btn-circle">
+                      <i class="fa fa-check" (click)="Cancelar(p)">Cancelar</i>
+                    </button>
+            </td>
+            <td >
+              <button *ngIf="usuario?.perfil=='paciente'" class="btn btn-green btn-circle">
                   <i class="fa fa-check" (click)="Encuestar()">Completar encuesta</i>
 
               </button>
           </td>
           <td >
-            <button class="btn btn-green btn-circle">
+            <button *ngIf="usuario?.perfil=='paciente'" class="btn btn-green btn-circle">
                 <i class="fa fa-check" (click)="Calificar()">Calificar atención</i>
             </button>
         </td>

@@ -130,13 +130,21 @@ export class TurnosTablaComponent implements OnInit {
        
      })
 }
-Cancelar(){
+Aceptar(p: Turno){
+  p.estado='aceptado';
+}
+Finalizar(p: Turno){
+  p.estado='realizado';
+}
+Cancelar(p: Turno){
+  p.estado='cancelado';
+}
+VerResenia(p: Turno){
 
 }
-VerResenia(){
+Rechazar(p: Turno){
 
 }
-
 Encuestar(){
 
 }
