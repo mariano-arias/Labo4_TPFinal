@@ -84,7 +84,8 @@ export class TurnosTablaComponent implements OnInit {
         console.log("soy");
         this.firebaseService.GetDocsByFilter<Turno>(this.turnosCollection, "especialistaId",this.usuario!.uid)
         .subscribe(
-          (res)=> {
+          (res)=> 
+          {
             this.turnos = [];
             res.forEach((element: any) =>{
               this.turnos?.push(
@@ -93,10 +94,26 @@ export class TurnosTablaComponent implements OnInit {
                 ...element.payload.doc.data()
                 })
               });
-            });
-      }
-    })
-  }
+
+            this.turnos.forEach(
+              (x)=> {
+                this.firebaseService.GetDocFromFirebase<Usuario>(x.especialistaId, this.usuariosCollection)
+                .subscribe((res)=> {
+                  x.especialistaId = res?.apellido! + ", " + res?.nombre;
+                })
+              })
+              this.turnos.forEach(
+                (x)=> {
+                  this.firebaseService.GetDocFromFirebase<Usuario>(x.pacienteId, this.usuariosCollection)
+                  .subscribe((res)=> {
+                    x.pacienteId = res?.apellido! + ", " + res?.nombre;
+                  })
+                })
+         }
+         );
+         }
+       })
+     }
   })
 }
 
