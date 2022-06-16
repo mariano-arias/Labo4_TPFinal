@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Input, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,7 @@ import { TurnosGestionModule } from './turnos-gestion/turnos-gestion.module';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { RegistroPerfilComponent } from './components/registro-perfil/registro-perfil.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { InputComponent } from './components/input/input.component';
 
 
 @NgModule({

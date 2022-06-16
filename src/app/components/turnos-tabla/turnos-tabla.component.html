@@ -16,6 +16,8 @@
             <th>Fecha</th>
             <th>Hora</th>
             <th>Especialista</th>
+            <th>Especialidad</th>
+            <th>Paciente</th>
             <th>Estado turno</th>
             <th></th>
             <th></th>
@@ -37,6 +39,8 @@
             <td>{{ p.fecha | date: "dd-MM-yyyy" }}</td>
             <td>{{ p.startStr | date: "HH:mm" }}</td>
             <td>{{ p.especialistaId }}</td>
+            <td>{{ p.especialidadId }}</td>
+            <td>{{ p.pacienteId }}</td>
             <td>{{p.estado | titlecase}}</td>
             <td>
               <button

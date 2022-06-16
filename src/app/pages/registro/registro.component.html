@@ -214,13 +214,65 @@
                       </div>
                       <ng-template #especialista>
                         <label class="form-label" for="form3Examplev4"
-                          >Especialidad</label
-                        >
-                        <input
+                          >Especialidad</label>
+                        <app-input *ngIf="!especialidadElegida else EspecialidadSeleccionada" (onEnterTermino)="BuscarEspecialidad($event)"></app-input>
+                        <ng-template #EspecialidadSeleccionada>
+                          <div class="row">
+                            <div class="col">
+                              <strong>{{especialidadElegida?.nombre}}</strong>
+                            </div>
+                          </div>
+
+                         
+                        </ng-template>
+                        <div *ngIf="especialidades.length>0 && !especialidadElegida">
+                          <div class="row">
+                            <div class="col">
+                              <table class="table table-striped mt-5">
+                                <tbody>
+                                  <tr *ngFor="let u of especialidades" class="linea">
+                                    <td>{{ u.nombre | titlecase }}</td>
+                                    <td>
+                                      <div class="btn btn-warning" (click)="SetEspecialidad(u)">
+                                        Elegir
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                          <div *ngIf="buscoEspecialidad && especialidades.length==0">
+                            <div class="row">
+                              <div class="col">
+                                <table class="table table-striped mt-5">
+                                  <tbody>
+                                    <tr class="linea">
+                                      <td>No se encontró <strong> {{especialidadBusqueda | uppercase}}</strong>.
+                                        <br> ¿Desea agregar su especialidad a la base de datos?</td>
+                                      <td></td>
+                                      <td>
+                                        <div class="btn btn-warning" (click)="CreateEspecialidad(especialidadBusqueda)">
+                                          Si
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <div class="btn btn-warning" (click)="AgregoEspecialidad(false)">
+                                          No
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- <input
                           formControlName="especialidad"
                           type="text"
                           class="form-control form-control-lg"
-                        />
+                        /> -->
                         <small
                           class="text-danger"
                           *ngIf="

@@ -3,6 +3,7 @@ export class Turno {
     uid! : string;
     pacienteId! : string;
     especialistaId! : string;
+    especialidadId!: string;
     fecha!: Date;
     startStr! : string;
     endStr! : string;

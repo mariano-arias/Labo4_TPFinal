@@ -27,6 +27,8 @@ export class SearchResultTableComponent implements OnInit {
   }
 
   Buscar( busqueda :any){
+    console.log(busqueda);
+    
     this.termino = busqueda;
     // if(this.perfil == 'especialista'){
       

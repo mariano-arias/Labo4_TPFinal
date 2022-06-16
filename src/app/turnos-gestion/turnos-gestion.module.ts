@@ -29,9 +29,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TurnosComponent,
     TurnosTablaComponent,
     CalendarComponent,
-    InputComponent,
     EspecialistaSearchComponent,
-    SearchResultTableComponent
+    SearchResultTableComponent,
+    InputComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +41,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgxSpinnerModule
   ],
   exports:
-  [CalendarComponent]
+  [CalendarComponent,
+  InputComponent]
 })
 export class TurnosGestionModule { }

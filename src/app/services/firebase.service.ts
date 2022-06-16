@@ -50,5 +50,5 @@ export class FirebaseService {
   async CreateDoc<Turno>(collection : string, data : any){
     return this.firebase.collection<Turno>(collection)
     .doc().set({...data});
-}
+  }
 }

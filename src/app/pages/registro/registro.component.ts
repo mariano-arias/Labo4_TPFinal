@@ -17,6 +17,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { ValidatorService } from 'src/app/services/validator.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { Especialidad } from 'src/app/Entities/especialidad';
 
 @Component({
   selector: 'app-registro',
@@ -52,6 +53,15 @@ export class RegistroComponent implements OnInit {
   collection : string = "Usuarios";
 
   userLogged : any | null = null;
+
+  //searchProfession!: string;
+  especialidades: Especialidad[] = [];
+  especialidad! : Especialidad;
+  especialidadElegida! : Especialidad;
+  buscoEspecialidad : boolean | undefined;
+  especialidadBusqueda! : string;
+  agregoEspecialidad: boolean | undefined;
+  agregoImagenEspecialidad: boolean | undefined;
 
   siteKey: string = "6LfdalEgAAAAAF2Fe-SBZLqwZa4x1rF56aPcnY7b";
 
@@ -122,6 +132,48 @@ export class RegistroComponent implements OnInit {
     // });
     // console.log(this.isAdmin);
   //  this.interactionService.showModal();
+  }
+
+  BuscarEspecialidad($event : any){
+    console.log($event);
+    this.firebaseService.GetDocsByFilter<Especialidad>("Especialidades", "nombre", $event)
+    .subscribe( (res)=>
+    {
+      this.especialidades = [];
+      res.forEach((element: any) =>{
+        this.especialidades?.push({
+          id : element.payload.doc.id,
+          ...element.payload.doc.data()
+        })
+      });
+      console.log(this.especialidades);
+    })
+    this.buscoEspecialidad = true;
+    this.especialidadBusqueda = $event;
+  }
+
+  SetEspecialidad(p: Especialidad){
+    
+    this.especialidadElegida = p;
+    console.log(this.especialidadElegida);
+  }
+  AgregoEspecialidad(response : boolean){
+    this.agregoEspecialidad =  response;
+    if(!this.agregoEspecialidad){
+      this.buscoEspecialidad = false;
+      this.especialidadBusqueda = "";
+    }
+  }
+
+  CreateEspecialidad( especialidadBusqueda: string){
+    this.especialidad = new Especialidad;
+    this.especialidad.nombre = especialidadBusqueda.toUpperCase();
+    this.especialidad.imageURL="";
+    this.firebaseService.CreateDoc("Especialidades", this.especialidad)
+    .then(()=> {
+      this.especialidades.push(this.especialidad);
+      this.interactionService.showSuccess("Se agregó su especialidad a la base de datos","Nueva especialidad");
+    })
   }
 
   SetPerfil(p: string) {
