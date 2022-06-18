@@ -1,14 +1,12 @@
 <div class="container mt-5">
-  <div class="card">
+  <div class="card" *ngIf="!finalizar">
     <div class="card-body">
         <span class="h3">Listado </span>
-        <!--chk box -->
-        
-        <!-- END chekbox-->
 <br>
  Busqueda: <input type="text">
 
-        <h4 *ngIf='turnos.length==0'>No se encontraron usuarios</h4>
+        <h4 *ngIf='turnos.length==0'>No se encontraron turnos</h4>
+        <div class="modal-container">
         <table class="table table-striped mt-5" *ngIf="turnos.length > 0">
         <thead>
           <tr>
@@ -35,22 +33,22 @@
             <p style="color: white">Procesando...</p>
             </ngx-spinner> -->
           <tr *ngFor="let p of turnos" class="linea">
-            <td style="display: none">{{ p.uid }}</td>
+            <td style="display: none">{{ p.id }}</td>
             <td>{{ p.fecha | date: "dd-MM-yyyy" }}</td>
             <td>{{ p.startStr | date: "HH:mm" }}</td>
-            <td>{{ p.especialistaId }}</td>
-            <td>{{ p.especialidadId }}</td>
-            <td>{{ p.pacienteId }}</td>
+            <td>{{ p.especialistaNombre | titlecase }}</td>
+            <td>{{ p.especialidadNombre | titlecase }}</td>
+            <td>{{ p.pacienteNombre | titlecase }}</td>
             <td>{{p.estado | titlecase}}</td>
             <td>
-              <button *ngIf="p.estado=='solicitado'"
+              <button *ngIf="p.estado=='solicitado' && usuario.perfil=='especialista'"
                 type="button"
                 class="btn btn-info btn-circle"
                 (click)="Aceptar(p)"
               >
                 <i class="fa fa-check">Aceptar</i>
               </button>
-              <button *ngIf="p.estado=='aceptado'"
+              <button *ngIf="p.estado=='aceptado' && usuario.perfil=='especialista'"
                 type="button"
                 class="btn btn-primary btn-circle"
                 (click)="Finalizar(p)"
@@ -58,31 +56,40 @@
                 <i class="fa fa-check">Finalizar</i>
               </button>
 
-              <button *ngIf="p.estado=='realizado'"
+              <button *ngIf="p.estado=='realizado' && p.comentario "
                 type="button"
                 class="btn btn-warning btn-circle"
                 (click)="VerResenia(p)"
               >Ver Reseña</button>
             </td>
+         
             <td >
-                  <button *ngIf="p.estado=='solicitado'" class="btn btn-danger btn-circle">
+                  <button *ngIf="p.estado=='solicitado' || p.estado=='aceptado'" class="btn btn-danger btn-circle">
                       <i class="fa fa-check" (click)="Cancelar(p)">Cancelar</i>
                     </button>
             </td>
             <td >
-              <button *ngIf="usuario?.perfil=='paciente'" class="btn btn-green btn-circle">
+              <button *ngIf="p.estado=='solicitado'  && usuario.perfil=='especialista'" class="btn btn-danger btn-circle">
+                  <i class="fa fa-check" (click)="Rechazar(p)">Rechazar</i>
+                </button>
+        </td>
+            <td >
+              <button *ngIf="usuario?.perfil=='paciente' && p.estado=='realizado' && p.comentario" class="btn btn-green btn-circle">
                   <i class="fa fa-check" (click)="Encuestar()">Completar encuesta</i>
 
               </button>
           </td>
           <td >
-            <button *ngIf="usuario?.perfil=='paciente'" class="btn btn-green btn-circle">
+            <button *ngIf="usuario?.perfil=='paciente' && p.estado=='realizado'" class="btn btn-green btn-circle">
                 <i class="fa fa-check" (click)="Calificar()">Calificar atención</i>
             </button>
         </td>
           </tr>
         </tbody>
       </table>
+      <div #modal></div>
+    </div>
     </div>
   </div>
+  <app-turno-finalizar *ngIf="finalizar" [turno]="turnoAtencion"></app-turno-finalizar>
 </div>

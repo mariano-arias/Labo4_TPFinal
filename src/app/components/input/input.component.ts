@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Usuario } from 'src/app/Entities/usuario';
-import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-input',
@@ -22,6 +21,6 @@ export class InputComponent implements OnInit {
 
   Buscar(){
      console.log(this.termino); //NO BORRAR
-    this.onEnterTermino.emit(this.termino);
+    this.onEnterTermino.emit(this.termino.toUpperCase());
   }
 }

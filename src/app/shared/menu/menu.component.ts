@@ -13,6 +13,7 @@ import { Usuario } from 'src/app/Entities/usuario';
 export class MenuComponent implements OnInit {
 
   userLogged : any | null = null;
+  userLoggedName!: string;
 
   collection : string = 'Usuarios';
 
@@ -27,6 +28,9 @@ export class MenuComponent implements OnInit {
         //console.log("usuer logged: ", res);
         this.userLogged = res.email;
         this.GetDataUser(res.uid);
+        if(!this.usuario?.activo && this.usuario?.perfil=="especialista"){
+          this.SalirCuentaNoActiva();
+        }
       }
       else{
         console.log("no user logged");
@@ -37,12 +41,17 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  SalirCuentaNoActiva(){
+    this.authService.Logout().then(
+      () =>  this.interacionService.showError("Su cuenta debe ser activadada por un administrador", "Logout")
+    );
+    this.router.navigate(['login']);
+  }
   Salir(){
     this.authService.Logout().then(
       () =>  this.interacionService.showError("Logout exitoso", "Logout")
     );
     this.router.navigate(['login']);
-
   }
 
 

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Especialidad } from 'src/app/Entities/especialidad';
 import { Usuario } from 'src/app/Entities/usuario';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
@@ -25,11 +26,15 @@ export class EspecialistaSearchComponent implements OnInit {
   
   Buscar( busqueda :any){
     this.termino = busqueda;
+    
     this.firebaseService.GetDocsByFilter<Usuario>("Usuarios", "especialidad", this.termino)
     .subscribe(
       (res)=>{
-        this.especialistas = [];
+        console.log(busqueda);
         console.log(res);
+        
+        this.especialistas = [];
+
         res.forEach((element: any) =>{
           this.especialistas?.push({
             id : element.payload.doc.id,
@@ -37,6 +42,14 @@ export class EspecialistaSearchComponent implements OnInit {
           }
             )
         });
+        console.log(this.especialistas);
+        // this.especialistas.forEach(
+        //   (x)=> {
+        //     this.firebaseService.GetDocFromFirebase<Especialidad>(x.uid,"Especialidades")
+        //     .subscribe((res)=> {
+        //       x.especialidad = res?.nombre!;
+        //     })
+        //   })
       }
     )
   }

@@ -33,7 +33,7 @@
       </ul>
     </div>
     <div *ngIf="userLogged != null  else LoginButton">
-      {{userLogged}}
+      {{usuario?.nombre}} {{usuario?.apellido}}
       <button type="button" class="btn btn-warning" (click)="Salir()">Salir</button>
     </div>
     <ng-template #LoginButton>

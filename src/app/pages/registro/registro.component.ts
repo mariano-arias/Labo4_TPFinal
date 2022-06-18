@@ -252,12 +252,15 @@ export class RegistroComponent implements OnInit {
         if (res.user) 
         {
           this.usuario.uid = res.user.uid;
+          this.usuario.apellido.toUpperCase();
+          this.usuario.nombre.toUpperCase();
           this.usuario.password = '';
           this.usuario.password2 = '';
           this.usuario.photoPerfilURL = "null"
           this.usuario.photoAuxURL = "null";
           this.usuario.activo = this.activo;
           this.usuario.perfil = this.perfil!;
+          this.usuario.especialidad = this.especialidad.nombre;
 
           let fileName = this.usuario.uid + '_' + Date.now();
 

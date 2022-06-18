@@ -4,7 +4,7 @@
     </div>
     <div class="nav">
         <ul class="mx-auto">
-            <li class="active">{{usuario?.nombre}}</li>
+            <li class="active">{{usuarioLogueado?.nombre}}</li>
         </ul>
     </div>
 
@@ -21,9 +21,9 @@
       
         <span id="card-header">Paciente:</span>
 
-        <div class="row row-1" *ngIf="usuario?.perfil !='admin' else SearchComponent">
+        <div class="row row-1" *ngIf="usuarioLogueado?.perfil !='admin' else SearchComponent">
             <div class="col-7">
-                <input type="text" value='{{usuario?.apellido}}, {{usuario?.nombre}}' disabled>
+                <input type="text" value='{{usuarioLogueado?.apellido}}, {{usuarioLogueado?.nombre}}' disabled>
             </div>
         </div>
 
@@ -52,5 +52,6 @@
         </div>
 
         <button class="btn d-flex mx-auto" (click)="Registrar()"><b>Elegir</b></button>
+        <button class="btn d-flex mx-auto" id="cancel" (click)="Cancelar()"><b>Cancelar</b></button>
 
 </div>

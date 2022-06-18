@@ -1,0 +1,21 @@
+<div class="modal-container">
+    <div
+      style="
+        width: 500px;
+        height: auto;
+        border: olive 1px solid;
+        background-color: white;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      ">
+      <h2 class="title">{{ title }}</h2>
+      <p class="body">{{ body }}</p>
+      <div class="btn-container">
+        <button (click)="closeMe()" class="btn">Cerrar</button>
+        <!-- <button (click)="confirm()" class="btn">Guardar</button> -->
+      </div>
+    </div>
+  </div>

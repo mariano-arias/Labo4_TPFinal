@@ -21,7 +21,7 @@ export class TurnoSolicitudComponent implements OnInit {
   turno : Turno  = new Turno;
   perfilPaciente : string = "paciente";
   perfilEspecialista : string = "especialista";
-  usuario : Usuario | undefined;
+  usuarioLogueado : Usuario | undefined;
   especialista : Usuario | undefined;
   pacienteTurno : Usuario | undefined;
   
@@ -87,6 +87,7 @@ export class TurnoSolicitudComponent implements OnInit {
 
   GetEspecialista(e: any){
     this.turno.especialistaId=e;
+  //  this.turno.especialidadNombre = e.apellido + " " + e.nombre
     this.setEspecialistaView(this.turno.especialistaId);
   }
 
@@ -118,21 +119,35 @@ export class TurnoSolicitudComponent implements OnInit {
 
     if(this.turno.fecha && this.turno.startStr)
     {
-      this.turno.pacienteId = this.usuario!.uid;
-      this.turno.estado='solicitado';
-     // console.log("objeto completo",this.turno);
-      this.firebaseService.CreateDoc<Turno>(this.collectionTurnos, this.turno).then(
-      (res)=>
-      {
-        //  console.log(res);
-        this.interactionService.showSuccess("Se ha registrado su turno. Verifique en seccion Mis Turnos", "Turno");
-        this.router.navigate(['']);
+      if(this.turno.especialistaId){
+
+        if(this.usuarioLogueado?.perfil=='admin'){
+          this.turno.pacienteId = this.pacienteTurno?.uid!;
+          this.turno.pacienteNombre= this.pacienteTurno?.apellido + " " + this.pacienteTurno?.nombre;
+        }
+        else{
+          this.turno.pacienteId = this.usuarioLogueado!.uid;
+          this.turno.pacienteNombre= this.usuarioLogueado?.apellido+ " " + this.usuarioLogueado?.nombre;
+        }
+        this.turno.estado='solicitado';
+        this.turno.especialidadNombre=this.especialista?.especialidad!;
+        // console.log("objeto completo",this.turno);
+        this.firebaseService.CreateDoc<Turno>(this.collectionTurnos, this.turno).then(
+          ()=>
+          {
+            this.interactionService.showSuccess("Se ha registrado su turno. Verifique en seccion Mis Turnos", "Turno");
+            this.router.navigate(['home']);
+          }
+          ).catch
+          (
+            ()=> this.interactionService.showError("Hubo un error","Error")
+            //(res) => console.log(res)
+            )
       }
-      ).catch
-      (
-        ()=> this.interactionService.showError("Hubo un error","Error")
-          //(res) => console.log(res)
-      )
+      else
+      {
+        this.interactionService.showError("Falta seleccionar especialista","Error");
+      }
     }
     else
     {
@@ -143,7 +158,7 @@ export class TurnoSolicitudComponent implements OnInit {
   GetDataUser (user : any){
     this.firebaseService.GetDocFromFirebase<Usuario>(user, this.collectionUsuarios)
     .subscribe((res)=> {
-      this.usuario = res;
+      this.usuarioLogueado = res;
     })
   }
 
@@ -158,5 +173,9 @@ export class TurnoSolicitudComponent implements OnInit {
     .subscribe(
       (res) => this.pacienteTurno = res
     )
+  }
+
+  Cancelar(){
+    this.router.navigate(['home']);
   }
 }

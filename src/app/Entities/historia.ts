@@ -1,11 +1,12 @@
 import { Usuario } from "./usuario";
 
-export class Historia {
+export class HistoriaClinica {
     id?: string;
-    profesional!: Usuario; 
-    paciente!: Usuario; 
-    especialidad!: string; 
-    fecha!: Date | number; 
+    turnoId!: string;
+    // profesional!: Usuario; 
+    // paciente!: Usuario; 
+    // especialidad!: string; 
+    // fecha!: Date | number; 
     peso!: number;
     temperatura!: number;
     presion!: number;

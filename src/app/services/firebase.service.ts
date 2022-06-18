@@ -47,8 +47,12 @@ export class FirebaseService {
     return this.firebase.collection<tipo>("Usuarios").doc(id).update(data);
   }
 
-  async CreateDoc<Turno>(collection : string, data : any){
-    return this.firebase.collection<Turno>(collection)
+  UpdateDoc<tipo>(collection: string, id: string, data: any){
+    return this.firebase.collection<tipo>(collection).doc(id).update(data);
+  }
+
+  async CreateDoc<tipo>(collection : string, data : any){
+    return this.firebase.collection<tipo>(collection)
     .doc().set({...data});
   }
 }

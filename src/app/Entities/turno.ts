@@ -1,9 +1,12 @@
 export class Turno {
 
-    uid! : string;
+    id : string ='';
     pacienteId! : string;
+    pacienteNombre!: string;
     especialistaId! : string;
+    especialistaNombre!: string;
     especialidadId!: string;
+    especialidadNombre!:string;
     fecha!: Date;
     startStr! : string;
     endStr! : string;

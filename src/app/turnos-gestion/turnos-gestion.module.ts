@@ -13,9 +13,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { TurnosTablaComponent } from '../components/turnos-tabla/turnos-tabla.component';
 import { TurnosComponent } from '../pages/turnos/turnos.component';
 import { InputComponent } from '../components/input/input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EspecialistaSearchComponent } from '../components/especialista-search/especialista-search.component';
 import { SearchResultTableComponent } from '../components/search-result-table/search-result-table.component';
+import { TurnoFinalizarComponent } from '../components/turno-finalizar/turno-finalizar.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -31,11 +32,13 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CalendarComponent,
     EspecialistaSearchComponent,
     SearchResultTableComponent,
-    InputComponent
+    InputComponent,
+    TurnoFinalizarComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     TurnosRoutingModule,
     FullCalendarModule, // register FullCalendar with you app
     NgxSpinnerModule

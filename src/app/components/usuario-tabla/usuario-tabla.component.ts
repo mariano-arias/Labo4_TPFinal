@@ -89,12 +89,12 @@ export class UsuarioTablaComponent implements OnInit {
   }
 
   Activar(usuario: Usuario){
-console.log(usuario);
+
   if(usuario.activo==true){
     this.interaction.showWarning("Usuario seleccionado ya está activo", "");
   }else{
     usuario.activo=true;
-    console.log(usuario);
+
     this.firebase.Update(usuario.uid, usuario).then(
       ()=> this.interaction.showInfo("Se realizó activación de usuario", "Activacion Usuario")
       )

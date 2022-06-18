@@ -179,3 +179,8 @@ input:focus:-ms-input-placeholder {
     color:transparent; 
 }
 
+#cancel{
+    background-color: rgb(189, 34, 34);
+    border-color: black;
+}
+

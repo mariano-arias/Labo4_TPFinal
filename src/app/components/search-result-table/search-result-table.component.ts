@@ -28,28 +28,50 @@ export class SearchResultTableComponent implements OnInit {
 
   Buscar( busqueda :any){
     console.log(busqueda);
-    
     this.termino = busqueda;
-    // if(this.perfil == 'especialista'){
-      
-    // }
-    this.firebaseService.GetDocsByFilter<Usuario>(this.usuariosCollection, "apellido", this.termino)
-    .subscribe(
-      (res)=>{
-        this.listaUsuarios = [];
-
-        res.forEach((element: any) =>{
-          this.listaUsuarios?.push({
-            id : element.payload.doc.id,
-            ...element.payload.doc.data()
-          }
-            )
-        });
-      }
-    )
+   if(this.perfil == 'especialista')
+   {
+      this.firebaseService.GetDocsByFilter<Usuario>(this.usuariosCollection, "especialidad", this.termino)
+      .subscribe
+      (
+        (res)=>
+        {
+          this.listaUsuarios = [];
+          res.forEach((element: any) =>
+          {
+            this.listaUsuarios?.push({
+              id : element.payload.doc.id,
+              ...element.payload.doc.data()
+            })
+          });
+          this.listaUsuarios= this.listaUsuarios.filter(x=>x.activo==true);
+        }
+      )
+    }
+    else
+    {
+      console.log("entro",busqueda);
+      this.firebaseService.GetDocsByFilter<Usuario>(this.usuariosCollection, "apellido", this.termino)
+      .subscribe
+      (
+        (res)=>
+        {
+          this.listaUsuarios = [];
+          res.forEach((element: any) =>
+          {
+            this.listaUsuarios?.push({
+              id : element.payload.doc.id,
+              ...element.payload.doc.data()
+            })
+          });
+        }
+      )
+    }
   }
-
-  SeleccionEsp(p: string){
+  
+  SeleccionEsp(p: string)
+  {
     this.usuarioSeleccionado.emit(p);
   }
+
 }
