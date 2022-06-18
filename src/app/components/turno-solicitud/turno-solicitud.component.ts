@@ -7,6 +7,7 @@ import esLocale from '@fullcalendar/core/locales/es';
 import { Turno } from 'src/app/Entities/turno';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { Router } from '@angular/router';
+import { Especialidad } from 'src/app/Entities/especialidad';
 
 @Component({
   selector: 'app-turno-solicitud',
@@ -23,12 +24,15 @@ export class TurnoSolicitudComponent implements OnInit {
   perfilEspecialista : string = "especialista";
   usuarioLogueado : Usuario | undefined;
   especialista : Usuario | undefined;
+  especialistas : Usuario[] =[];
   pacienteTurno : Usuario | undefined;
+  especialidades:Especialidad[] | undefined;
   
   Events: any[] = [];
 
   calendarOptions: CalendarOptions = {
-    initialView: 'timeGridDay',
+    initialView: 'timeGridDay',//'timeGridDay',
+  //   dayCount: 14,
     slotMinTime: '09:00:00',
     slotMaxTime: '19:00:00',
     selectable: true,
@@ -38,7 +42,7 @@ export class TurnoSolicitudComponent implements OnInit {
     headerToolbar:{
       left: 'prev,next',
       center: 'title',
-      //right: 'timeGridDay',
+     // right: 'timeGridDay',
       right: ''
     },
     locale: esLocale,
@@ -47,7 +51,8 @@ export class TurnoSolicitudComponent implements OnInit {
       startTime: '09:00',
       endTime: '19:00'
     },
-    allDaySlot: false
+    allDaySlot: false,
+   // fixedWeekCount: false
     // duration: { days: 4 },
     // visibleRange: function(currentDate){
     //   const startDate = new Date(currentDate.valueOf());
@@ -56,7 +61,8 @@ export class TurnoSolicitudComponent implements OnInit {
     //   endDate.setDate(endDate.getDate() + 5); 
   
     //   return { start: startDate, end: endDate };
-    // }
+    // },
+    showNonCurrentDates: false
     
    // dayMaxEvents: 5
   };
@@ -82,7 +88,53 @@ export class TurnoSolicitudComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.firebaseService.GetDocs<Especialidad>("Especialidades")
+    .subscribe
+    (
+      (res)=>{
+        this.especialidades = [];
+        this.especialidades = res;
+        // console.log(this.especialidades);
+        // res.forEach((element: any) =>
+        // {
+        //   this.especialidades?.push({
+        //     uid : element.payload.doc.uid,
+        //     ...element.payload.doc.data()
+        //   })
+        // });
+        console.log(this.especialidades);
+        
+      }
+    )
+  }
 
+  GetEspecialidad(p: Especialidad){
+   // this.turno.especialidadId= p.uid;
+    this.turno.especialidadNombre=p.nombre;
+    console.log(this.turno.especialidadNombre);
+
+    this.firebaseService.GetDocsByFilter<Usuario>('Usuarios', "especialidad", p.nombre)
+    .subscribe
+      (
+        (res)=>
+        {
+          this.especialistas = [];
+          res.forEach((element: any) =>
+          {
+            this.especialistas?.push({
+              id : element.payload.doc.id,
+              ...element.payload.doc.data()
+            })
+          });
+          this.especialistas= this.especialistas.filter(x=>x.activo==true);
+          console.log(this.especialistas);
+          
+        }
+      )
+  }
+
+  Volver(){
+    this.turno.especialidadNombre=null;
   }
 
   GetEspecialista(e: any){
@@ -110,6 +162,7 @@ export class TurnoSolicitudComponent implements OnInit {
   }
 
   handleDateClick(arg: any) {
+ //   this.calendarOptions.initialView = 'timeGridDay',
     this.turno.fecha = arg.dateStr;
   }
 

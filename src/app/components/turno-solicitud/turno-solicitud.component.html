@@ -4,21 +4,91 @@
     </div>
     <div class="nav">
         <ul class="mx-auto">
-            <li class="active">{{usuarioLogueado?.nombre}}</li>
+            <li class="active">Bienvenido {{usuarioLogueado?.nombre}}</li>
         </ul>
     </div>
 
         <ngx-spinner
-        template="<button class='btn btn-primary text-nowrap'>
-      <span class='spinner-border spinner-border-sm mr-2'></span>
-      Enviando datos...</button>"
-        bdColor="rgba(19,52,122,0.8)"
-        type="pacman"
-        size="default"
-        color="#fff"
-        [fullScreen]="false"
-      ></ngx-spinner>
+          template="<button class='btn btn-primary text-nowrap'>
+                    <span class='spinner-border spinner-border-sm mr-2'></span>
+                    Procesando solicitud...</button>"
+          bdColor="rgba(19,52,122,0.8)"
+          type="pacman"
+          size="default"
+          color="#fff"
+          [fullScreen]="false">
+        </ngx-spinner>
       
+      <div *ngIf="usuarioLogueado?.perfil == 'paciente' else Admin">
+        <span id="card-header">Paciente:</span>
+        <div class="row row-1">
+            <div class="col-7">
+                <input type="text" value='{{usuarioLogueado?.apellido | titlecase}}, {{usuarioLogueado?.nombre | titlecase}}' disabled>
+            </div>
+        </div>
+
+        <div *ngIf="!this.turno.especialidadNombre">
+          <h3>Seleccione especialidad</h3>
+          <a *ngFor="let p of especialidades" class="btn btn-info" (click)="GetEspecialidad(p)">
+            {{p.nombre | titlecase}}
+            <img src={{p.imageURL}} width="50" height="50" alt="photo">
+          </a>
+        </div>
+
+        <div *ngIf="this.turno.especialidadNombre && this.especialistas.length >0 && !this.especialista">
+
+          <h3>Seleccione profesional</h3>
+
+          <table class="table table-striped mt-5">
+            <thead>
+              <tr>
+                <th style="display: none"></th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Especialidad</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let u of especialistas" class="linea">
+                <td style="display: none"></td>
+                <td>{{ u.nombre | titlecase}}</td>
+                <td>{{ u.apellido | titlecase}}</td>
+                <td>{{ u.especialidad | titlecase }}</td>
+                <td>
+                  <button class="btn btn-warning" (click)="GetEspecialista(u.uid)">
+                    Elegir
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-warning" (click)="Volver()">
+            Volver
+          </button>
+          
+        </div>
+        <div class="row row-1" *ngIf="especialista">
+          <span id="card-header">Especialista:</span>
+          <div class="col-7">
+              <input type="text" value='{{especialista?.apellido | titlecase}}, {{especialista?.nombre | titlecase}} - {{especialista?.especialidad | titlecase}}' disabled>
+          </div>
+          <div class="container">
+            <full-calendar [options]="calendarOptions"></full-calendar>
+          </div>
+        </div>
+        <!-- <ng-template #NoHayProfesional>
+            <h5>No se encontró profesional disponible para esta especialidad</h5>
+            <button class="btn btn-warning" (click)="Volver()">
+              Volver
+            </button>
+        </ng-template> -->
+      </div>
+
+
+
+
+      <ng-template #Admin>
         <span id="card-header">Paciente:</span>
 
         <div class="row row-1" *ngIf="usuarioLogueado?.perfil !='admin' else SearchComponent">
@@ -50,8 +120,9 @@
 
           <full-calendar [options]="calendarOptions"></full-calendar>
         </div>
-
         <button class="btn d-flex mx-auto" (click)="Registrar()"><b>Elegir</b></button>
         <button class="btn d-flex mx-auto" id="cancel" (click)="Cancelar()"><b>Cancelar</b></button>
+      </ng-template>
+
 
 </div>

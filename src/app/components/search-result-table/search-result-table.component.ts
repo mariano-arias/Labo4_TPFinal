@@ -69,6 +69,7 @@ export class SearchResultTableComponent implements OnInit {
     }
   }
   
+  
   SeleccionEsp(p: string)
   {
     this.usuarioSeleccionado.emit(p);

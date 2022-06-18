@@ -36,11 +36,9 @@ export class FirebaseService {
     return this.firebase.collection(collection).doc(id).delete();
   }
     
-    GetPerfil<Usuario>(id : any){
-
+  GetPerfil<Usuario>(id : any){
       return this.firebase.collection('Usuarios').get(id).subscribe(
         (x)=>console.log(x)
-         
       )
   }
   Update<tipo>(id: string, data: any){
