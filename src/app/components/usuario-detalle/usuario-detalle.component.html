@@ -5,7 +5,9 @@
             <img class="rounded-circle mt-5" width="150px" src='{{userPhoto}}'>
             <span class="font-weight-bold">{{usuario?.apellido}}, {{usuario?.nombre}} </span>
             <span class="text-black-50">{{usuario?.email}}</span>
-            <span class="text-black-75">{{usuario?.perfil}} </span></div>
+            <span class="text-black-75">{{usuario?.perfil}} </span>
+            <button *ngIf="usuario?.perfil=='paciente'" class="btn">Mi Historia Clinica</button>
+        </div>
       </div>
       <div class="col-md-5 border-right">
           <div class="p-3 py-5">

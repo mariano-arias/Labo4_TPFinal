@@ -1,3 +1,6 @@
+import { HistoriaClinica } from "./historiaClinica";
+import { Turno } from "./turno";
+
 export class Usuario {
 
     uid! : string;
@@ -19,4 +22,7 @@ export class Usuario {
 
     photoPerfilURL! : string;
     photoAuxURL! : string;
+
+    //historialClinico! : string[];
+   // historiaClinica!: Turno[];
 }

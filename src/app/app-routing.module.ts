@@ -7,6 +7,7 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { UsuarioDetalleComponent } from './components/usuario-detalle/usuario-detalle.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { PacientesComponent } from './components/pacientes/pacientes.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,9 @@ const routes: Routes = [
       },
       {
         path: 'perfil', component: PerfilComponent
+      },
+      {
+        path: 'pacientes', component: PacientesComponent
       },
       {
         path: 'turnos', 

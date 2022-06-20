@@ -76,6 +76,11 @@ export class LoginComponent implements OnInit {
                     if(r.user.emailVerified)
                     {
                       //this.interactionService.showSuccess("Login exitoso", "Login OK");
+                      const login = {
+                        fecha :  Date.now(),
+                        usuarioId: r.user.uid
+                      }
+                      this.firebaseService.CreateDoc("Login", login);
                       this.router.navigate(['home']);
 
                     }

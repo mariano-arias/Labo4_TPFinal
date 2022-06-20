@@ -53,10 +53,10 @@
                 class="btn btn-primary btn-circle"
                 (click)="Finalizar(p)"
               >
-                <i class="fa fa-check">Finalizar</i>
+              <i class="fa fa-check">Atender</i>
               </button>
 
-              <button *ngIf="p.estado=='realizado' && p.comentario "
+              <button *ngIf="p.estado=='realizado' "
                 type="button"
                 class="btn btn-warning btn-circle"
                 (click)="VerResenia(p)"
@@ -74,7 +74,7 @@
                 </button>
         </td>
             <td >
-              <button *ngIf="usuario?.perfil=='paciente' && p.estado=='realizado' && p.comentario" class="btn btn-green btn-circle">
+              <button *ngIf="usuario?.perfil=='paciente' && p.estado=='realizado'" class="btn btn-green btn-circle">
                   <i class="fa fa-check" (click)="Encuestar()">Completar encuesta</i>
 
               </button>

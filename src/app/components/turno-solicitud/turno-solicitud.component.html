@@ -76,6 +76,8 @@
           <div class="container">
             <full-calendar [options]="calendarOptions"></full-calendar>
           </div>
+          <button class="btn d-flex mx-auto" (click)="Registrar()"><b>Elegir</b></button>
+          <button class="btn d-flex mx-auto" id="cancel" (click)="Cancelar()"><b>Cancelar</b></button>
         </div>
         <!-- <ng-template #NoHayProfesional>
             <h5>No se encontró profesional disponible para esta especialidad</h5>

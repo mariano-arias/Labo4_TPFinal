@@ -24,6 +24,9 @@
         <li class="nav-item" *ngIf="userLogged && perfilUserLogged != 'admin'">
           <a class="nav-link" routerLink="./turnos/mis-turnos">Mis Turnos</a>
         </li>
+        <li class="nav-item" *ngIf="userLogged && perfilUserLogged == 'especialista'">
+          <a class="nav-link" routerLink="./pacientes">Pacientes</a>
+        </li>
         <li class="nav-item" *ngIf="userLogged && perfilUserLogged != 'especialista'">
           <a class="nav-link" routerLink="./turnos/solicitud">Solicitar Turno</a>
         </li>
@@ -33,7 +36,7 @@
       </ul>
     </div>
     <div *ngIf="userLogged != null  else LoginButton">
-      {{usuario?.nombre}} {{usuario?.apellido}}
+      {{usuario?.nombre | titlecase}} {{usuario?.apellido | titlecase}}
       <button type="button" class="btn btn-warning" (click)="Salir()">Salir</button>
     </div>
     <ng-template #LoginButton>

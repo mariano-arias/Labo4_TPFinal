@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { HistoriaClinica } from 'src/app/Entities/historiaClinica';
 import { Turno } from 'src/app/Entities/turno';
 import { Usuario } from 'src/app/Entities/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,13 +21,18 @@ export class TurnosTablaComponent implements OnInit {
 
   turnosCollection : string = "Turnos";
   usuariosCollection : string = 'Usuarios';
+  historiasCollection: string = "Historias";
+
 
   usuario! : Usuario;
   turnos : Turno [] = [];
   turnosAuxiliar: Turno[] = [];
-
+  historias : HistoriaClinica[]=[];
   finalizar: boolean = false;
-  turnoAtencion!: Turno;
+
+  turnoAtencion:Turno | undefined;
+
+  resenia!: string;
 
   constructor(private authService:AuthService, private firebaseService : FirebaseService,
               private interactionService : InteractionService, private router : Router,
@@ -81,8 +87,10 @@ export class TurnosTablaComponent implements OnInit {
                 this.firebaseService.GetDocFromFirebase<Usuario>(x.especialistaId, this.usuariosCollection)
                .subscribe((res)=> {
                  x.especialistaNombre = res?.apellido! + ", " + res?.nombre;
-                })
-              })
+                  }
+                  )
+                }
+            )
           }
         )
       }
@@ -100,6 +108,7 @@ export class TurnosTablaComponent implements OnInit {
                 ...element.payload.doc.data()
                 })
               });
+              
             this.turnos.forEach(
               (x)=> {
                 this.firebaseService.GetDocFromFirebase<Usuario>(x.especialistaId, this.usuariosCollection)
@@ -143,23 +152,36 @@ Aceptar(p: Turno){
 
 Finalizar(p: Turno){
   p.estado='realizado';
-  // this.firebaseService.GetDocFromFirebase<Turno>(p.id, this.turnosCollection)
-  // .subscribe(
-  //   (res)=>{
-  //     console.log(res);
-      
-  //     p=res!;
-  //     res?.estado!=p.estado;
-  this.firebaseService.UpdateDoc<Turno>(this.turnosCollection, p!.id, p);
-  this.finalizar = true;
   this.turnoAtencion=p;
+  //this.firebaseService.UpdateDoc<Turno>(this.turnosCollection, p!.id, p);
+  this.finalizar = true;
 }
 Cancelar(p: Turno){
   p.estado='cancelado';
   this.firebaseService.UpdateDoc<Turno>(this.turnosCollection, p!.id, p);
 }
 VerResenia(p: Turno){
-  this.openModal(p);
+  console.log(p.id);
+  this.resenia = "";
+  this.firebaseService.GetDocsByFilter("Historias", "turnoId", p.id)
+  .subscribe(
+    (res)=>{
+      this.historias = [];
+      res.forEach((element: any) =>{
+        this.historias?.push({
+          id : element.payload.doc.id,
+          ...element.payload.doc.data()
+        }
+          )
+      });
+    }
+  )
+  console.log(this.historias);
+  this.historias.forEach(
+    x=>this.resenia = x.texto
+  )
+
+  this.openModal(this.resenia);
 }
 Rechazar(p: Turno){
   p.estado='rechazado';
@@ -174,23 +196,23 @@ Calificar(){
 
 titulo!: string;
 
-openModal(t :Turno) {
-  if(t.estado=='realizado'){
+openModal(t :string) {
+ // if(t.estado=='realizado'){
    this.titulo = 'Reseña'
    this.sub = this.modalService
-   .openModal(this.entry, this.titulo, t.comentario)
+   .openModal(this.entry, this.titulo,t)
    .subscribe((v) => {
      //
     });
-  }
-  if(t.estado=='cancelado'){
-    this.titulo = 'Motivo cancelacion'
-    this.sub = this.modalService
-    .openModal(this.entry, this.titulo, t.comentario)
-    .subscribe((v) => {
-      //
-     });
-   }
+ // }
+  // if(t.estado=='cancelado'){
+  //   this.titulo = 'Motivo cancelacion'
+  //   this.sub = this.modalService
+  //   .openModal(this.entry, this.titulo, "nada")
+  //   .subscribe((v) => {
+  //     //
+  //    });
+  //  }
 }
 
 ngOnDestroy(): void {

@@ -1,110 +1,150 @@
-<body>
-	<div class="container">
+<div class="container">
+  <h3>Resultado consulta</h3>
 
-		<nav class="accordion arrows">
+  <!-- <nav class="accordion arrows">
 			<header class="box">
 				<label for="acc-close" class="box-title">Turno - {{turno?.fecha | date: "dd-MM-yyyy HH:mm"}} hs.</label>
 		</header>
 		<input type="radio" name="accordion" id="cb1" />
 		<section class="box">
 			<label class="box-title" for="cb1">Profesional</label>
-			<label class="box-close" for="acc-close"></label>
+
 			<div class="box-content">
-				<p>{{turno?.especialistaId}}</p>
+				<p>{{turno?.especialistaNombre}}</p>
                 <p>{{turno?.especialidadId}}</p>
             </div>
 		</section>
 		<input type="radio" name="accordion" id="cb2" />
 		<section class="box">
 			<label class="box-title" for="cb2">Paciente</label>
-			<label class="box-close" for="acc-close"></label>
+
 			<div class="box-content">
-				<p>{{turno?.pacienteId}}</p>
+				<p>{{turno?.pacienteNombre}}</p>
             </div>
 		</section>
 		<input type="radio" name="accordion" id="acc-close" />
-	</nav>
-	<div class="col">
+	</nav> -->
+    <form
+      class="needs-validation"
+      [formGroup]="turnoForm"
+      (ngSubmit)="Registrar()"
+    >
+      <div class="row">
+        Comentario
+        <input type="text" formControlName="texto" />
+      </div>
+      <small
+        class="text-danger"
+        *ngIf="
+          turnoForm.controls['texto'].errors &&
+          turnoForm.controls['texto'].touched
+        "
+      >
+        Dato obligatorio
+      </small>
+      <div class="row">
+        Altura: <input type="number" formControlName="altura" />
+      </div>
+      <small
+        class="text-danger"
+        *ngIf="
+          turnoForm.controls['altura'].errors &&
+          turnoForm.controls['altura'].touched
+        "
+      >
+        Dato obligatorio
+      </small>
+      <div class="row">
+        Peso: <input type="number" formControlName="peso" />
+      </div>
+      <small
+        class="text-danger"
+        *ngIf="
+          turnoForm.controls['peso'].errors &&
+          turnoForm.controls['peso'].touched
+        "
+      >
+        Dato obligatorio
+      </small>
+      <div class="row">
+        Temperatura: <input type="number" formControlName="temperatura" />
+      </div>
+      <small
+        class="text-danger"
+        *ngIf="
+          turnoForm.controls['temperatura'].errors &&
+          turnoForm.controls['temperatura'].touched
+        "
+      >
+        Dato obligatorio
+      </small>
+      <div class="row">
+        Presion: <input type="number" formControlName="presion" />
+      </div>
+      <small
+        class="text-danger"
+        *ngIf="
+          turnoForm.controls['presion'].errors &&
+          turnoForm.controls['presion'].touched
+        "
+      >
+        Dato obligatorio
+      </small>
 
-		<form
-		class="needs-validation"
-		[formGroup]="turnoForm"
-		(ngSubmit)="Registrar()" >
-		<div class="row">
-			Comentario: <input type="text" formControlName="comentario">
-		</div>
-		<small
-		class="text-danger"
-		*ngIf="turnoForm.controls['comentario'].errors  &&
-		turnoForm.controls['comentario'].touched"
-	  >
-		Dato obligatorio
-	  </small>
-		<div class="row">
-			Altura: <input type="number" formControlName="altura">
-		</div>
-		<small
-		class="text-danger"
-		*ngIf="turnoForm.controls['altura'].errors  &&
-		turnoForm.controls['altura'].touched"
-	  >
-		Dato obligatorio
-	  </small>
-		<div class="row">
-			Peso: <input type="number" formControlName="peso">
-		</div>
-		<small
-		class="text-danger"
-		*ngIf="turnoForm.controls['peso'].errors  &&
-		turnoForm.controls['peso'].touched"
-	  >
-		Dato obligatorio
-	  </small>
-		<div class="row">
-			Temperatura: <input type="number" formControlName="temperatura">
-		</div>
-		<small
-		class="text-danger"
-		*ngIf="turnoForm.controls['temperatura'].errors  &&
-		turnoForm.controls['temperatura'].touched"
-	  >
-		Dato obligatorio
-	  </small>
-		<div class="row" >
-			Presion: <input type="number" formControlName="presion">
-		</div>
-		<small
-		class="text-danger"
-		*ngIf="turnoForm.controls['presion'].errors  &&
-		turnoForm.controls['presion'].touched"
-	  >
-		Dato obligatorio
-	  </small>
-		<button
-		type="button"
-		class="btn btn-warning btn-lg m-2"
-		data-mdb-ripple-color="dark">
-		Agregar mas datos
-	  </button>
+      
+    </form>
 
-		<button
-		type="button"
-		class="btn btn-warning btn-lg m-2"
-		data-mdb-ripple-color="dark"
-		type="submit"
-		[disabled]="turnoForm.invalid"> 
-		Guardar
-	  </button>
-
-
-	</form>
+    <h5>Informacion adicional</h5>
+    <div *ngIf="this.datosAdicionales.length>0">
+		<div class="row" *ngFor="let p of  this.datosAdicionales">
+			<div class="col 4 m-1">
+			  <div class="row">Dato:</div>
+			  <div class="row">
+				<input type="text" value={{p.clave}} disabled />
+			  </div>
+			</div>
+			<div class="col 4 m-1">
+			  <div class="row">Valor:</div>
+			  <div class="row">
+				<input type="number" value={{p.valor}} disabled/>
+			  </div>
+			</div>
+		</div>
+	</div>
+    <div class="row" *ngIf="adicionalesCounter<3">
+      <div class="col 4 m-1">
+        <div class="row">Dato:</div>
+        <div class="row">
+          <input type="text" [(ngModel)]="adicional.clave" />
+        </div>
+      </div>
+      <div class="col 4 m-1">
+        <div class="row">Valor:</div>
+        <div class="row">
+          <input type="number" [(ngModel)]="adicional.valor" />
+        </div>
+      </div>
+      <div class="col 4 m-1" >
+        <div class="row" >
+          <div class="btn mb-0 pb-0" (click)="SumarInfoAdicional()">Agregar</div>
+        </div>
+      </div>
+    </div>
 	<button
 	type="button"
-	class="btn btn-warning btn-lg m-2"
+	class="btn btn-danger"
 	data-mdb-ripple-color="dark"
-	(click)="Cancelar()">
+	(click)="Cancelar()"
+  >
 	Cancelar
   </button>
-</div>
-</div>
-</body>
+	<button
+        type="button"
+        class="btn btn-warning"
+        data-mdb-ripple-color="dark"
+        type="submit"
+        [disabled]="turnoForm.invalid"
+      >
+        Guardar
+      </button>
+  </div>

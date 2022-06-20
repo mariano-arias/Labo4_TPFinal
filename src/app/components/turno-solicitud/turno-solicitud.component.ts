@@ -182,11 +182,12 @@ export class TurnoSolicitudComponent implements OnInit {
           this.turno.pacienteId = this.usuarioLogueado!.uid;
           this.turno.pacienteNombre= this.usuarioLogueado?.apellido+ " " + this.usuarioLogueado?.nombre;
         }
+      //  this.turno.comentario=" este es un comentario vacio";
         this.turno.estado='solicitado';
         this.turno.especialidadNombre=this.especialista?.especialidad!;
         // console.log("objeto completo",this.turno);
         this.firebaseService.CreateDoc<Turno>(this.collectionTurnos, this.turno).then(
-          ()=>
+          (res)=>
           {
             this.interactionService.showSuccess("Se ha registrado su turno. Verifique en seccion Mis Turnos", "Turno");
             this.router.navigate(['home']);
