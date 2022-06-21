@@ -7,7 +7,7 @@ export class Turno {
     pacienteNombre!: string;
     especialistaId! : string;
     especialistaNombre!: string;
-    especialidadId!: string;
+    especialidad!: string;
     especialidadNombre!:string | null;
     fecha!: Date;
     startStr! : string;

@@ -42,14 +42,15 @@ adicionalesCounter : number = 0;
  GetTurno(t : Turno){
 this.turno=t;
  }
+
   ngOnInit(): void {
 
     this.turnoForm = this.formBuilder.group(
       {
         texto: ['', [Validators.required]],
-        altura: ['', [Validators.required]],
-        peso: ['', [Validators.required]],
-        temperatura: ['', [Validators.required]],
+        altura: ['', [Validators.required, Validators.min(0), Validators.max(300)]],
+        peso: ['', [Validators.required, Validators.min(0), Validators.max(500)]],
+        temperatura: ['', [Validators.required,  Validators.min(0), Validators.max(50)]],
         presion: ['', [Validators.required]],
       //  adicional: [''],
       }
@@ -60,11 +61,12 @@ this.turno=t;
 
     this.historia = this.turnoForm.value;
     this.historia.turnoId = this.turno?.id!;
+    this.historia.profesionalId = this.turno?.especialistaId!;
+    this.historia.pacienteId = this.turno?.pacienteId!;
+    this.historia.datosAdicionales=this.datosAdicionales;
+    this.historia.fecha=this.turno?.fecha!;
+    this.historia.especialidad=this.turno?.especialidadNombre!;
 
-    console.log(this.turno);
-    
-    
-    console.log("historia: ",this.historia);
     this.firebaseService.UpdateDoc<Turno>(this.turnosCollection, this.turno?.id!, this.turno );
     this.firebaseService.CreateDoc<HistoriaClinica>(this.historiaClinicaCollection, this.historia)
     .then(
@@ -80,7 +82,6 @@ this.turno=t;
   SumarInfoAdicional(){
 
     this.adicionalesCounter++;
-    console.log(this.adicionalesCounter);
     this.datosAdicionales.push(
       {
         clave:this.adicional.clave, 

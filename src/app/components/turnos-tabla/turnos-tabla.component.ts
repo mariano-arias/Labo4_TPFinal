@@ -161,7 +161,7 @@ Cancelar(p: Turno){
   this.firebaseService.UpdateDoc<Turno>(this.turnosCollection, p!.id, p);
 }
 VerResenia(p: Turno){
-  console.log(p.id);
+
   this.resenia = "";
   this.firebaseService.GetDocsByFilter("Historias", "turnoId", p.id)
   .subscribe(
@@ -176,7 +176,7 @@ VerResenia(p: Turno){
       });
     }
   )
-  console.log(this.historias);
+
   this.historias.forEach(
     x=>this.resenia = x.texto
   )
@@ -204,15 +204,7 @@ openModal(t :string) {
    .subscribe((v) => {
      //
     });
- // }
-  // if(t.estado=='cancelado'){
-  //   this.titulo = 'Motivo cancelacion'
-  //   this.sub = this.modalService
-  //   .openModal(this.entry, this.titulo, "nada")
-  //   .subscribe((v) => {
-  //     //
-  //    });
-  //  }
+
 }
 
 ngOnDestroy(): void {

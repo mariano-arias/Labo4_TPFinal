@@ -94,16 +94,6 @@ export class TurnoSolicitudComponent implements OnInit {
       (res)=>{
         this.especialidades = [];
         this.especialidades = res;
-        // console.log(this.especialidades);
-        // res.forEach((element: any) =>
-        // {
-        //   this.especialidades?.push({
-        //     uid : element.payload.doc.uid,
-        //     ...element.payload.doc.data()
-        //   })
-        // });
-        console.log(this.especialidades);
-        
       }
     )
   }
@@ -111,8 +101,6 @@ export class TurnoSolicitudComponent implements OnInit {
   GetEspecialidad(p: Especialidad){
    // this.turno.especialidadId= p.uid;
     this.turno.especialidadNombre=p.nombre;
-    console.log(this.turno.especialidadNombre);
-
     this.firebaseService.GetDocsByFilter<Usuario>('Usuarios', "especialidad", p.nombre)
     .subscribe
       (
@@ -128,7 +116,6 @@ export class TurnoSolicitudComponent implements OnInit {
           });
           this.especialistas= this.especialistas.filter(x=>x.activo==true);
           console.log(this.especialistas);
-          
         }
       )
   }

@@ -5,7 +5,7 @@ export class HistoriaClinica {
     profesionalId!: string; 
     pacienteId!: string; 
     especialidad!: string; 
-    // fecha!: Date | number; 
+    fecha!: Date | number; 
     peso!: number;
     temperatura!: number;
     presion!: number;

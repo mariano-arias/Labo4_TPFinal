@@ -5,8 +5,8 @@
             <img class="rounded-circle mt-5" width="150px" src='{{userPhoto}}'>
             <span class="font-weight-bold">{{usuario?.apellido}}, {{usuario?.nombre}} </span>
             <span class="text-black-50">{{usuario?.email}}</span>
-            <span class="text-black-75">{{usuario?.perfil}} </span>
-            <button *ngIf="usuario?.perfil=='paciente'" class="btn">Mi Historia Clinica</button>
+            <span class="text-black-75">{{usuario?.perfil | titlecase}} </span>
+            <button *ngIf="usuario?.perfil=='paciente'" class="btn" (click)="VerHistoria()">Mi Historia Clinica</button>
         </div>
       </div>
       <div class="col-md-5 border-right">
@@ -15,16 +15,16 @@
                   <h4 class="text-right">Perfil Usuario</h4>
               </div>
               <div class="row mt-2">
-                  <div class="col-md-6"><label class="labels">Nombre</label><input type="text" class="form-control disabled" value="{{usuario?.nombre}}"></div>
-                  <div class="col-md-6"><label class="labels">Apellido</label><input type="text" class="form-control disabled" value="{{usuario?.apellido}}" placeholder="surname"></div>
+                  <div class="col-md-6"><label class="labels">Nombre</label><input type="text" class="form-control disabled" value="{{usuario?.nombre | titlecase}}"></div>
+                  <div class="col-md-6"><label class="labels">Apellido</label><input type="text" class="form-control disabled" value="{{usuario?.apellido | titlecase}}" placeholder="surname"></div>
               </div>
               <div class="row mt-3">
                   <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control disabled" placeholder="enter email id" value="{{usuario?.email}}"></div>
                   <!-- <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div> -->
                   <div class="col-md-12"><label class="labels">DNI</label><input type="text" class="form-control disabled" placeholder="enter address line 1" value="{{usuario?.dni}}"></div>
                   <div class="col-md-12"><label class="labels">Edad</label><input type="text" class="form-control disabled" placeholder="enter address line 2" value="{{usuario?.edad}}"></div>
-                  <div class="col-md-12" *ngIf="usuario?.obraSocial"><label class="labels">Obra Social</label><input type="text" class="form-control disabled" placeholder="enter address line 2" value="{{usuario?.obraSocial}}"></div>
-                  <div class="col-md-12" *ngIf="usuario?.especialidad"><label class="labels">Especialidad</label><input type="text" class="form-control disabled" placeholder="enter address line 2" value="{{usuario?.especialidad}}"></div>
+                  <div class="col-md-12" *ngIf="usuario?.obraSocial"><label class="labels">Obra Social</label><input type="text" class="form-control disabled" placeholder="enter address line 2" value="{{usuario?.obraSocial | titlecase}}"></div>
+                  <div class="col-md-12" *ngIf="usuario?.especialidad"><label class="labels">Especialidad</label><input type="text" class="form-control disabled" placeholder="enter address line 2" value="{{usuario?.especialidad | titlecase}}"></div>
                   <div class="col-md-12" *ngIf="usuario?.especialidad"><label class="labels">Perfil Activo</label><input type="text" class="form-control disabled" placeholder="" value="{{usuario?.activo}}">
                   <!-- <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div> -->
               </div>
@@ -44,6 +44,38 @@
       </div> -->
   </div>
 </div>
+<nav class="accordion arrows" *ngIf="this.historial.length>0">
+    <header class="box">
+        <label class="box-header">Historia Clínica</label>
+    </header>
+    <div *ngFor="let p of historial">
+        <!-- <input type="radio" name="accordion" id="cb1" /> -->
+        <section class="" >
+            <label class="box-title" >Atención día {{p.fecha | date: "dd-MM-yyyy HH:mm"}} hs. - {{p.especialidad}}</label>
+            <div class="">
+                <p>Comentario: {{p.texto}}</p>
+                <p>Peso: {{p?.peso}} kg</p>
+                <p>Altura: {{p?.altura}} cm</p>
+                <p>Presion: {{p?.presion}} mmHg</p>
+                <p>Temperatura: {{p?.temperatura}} °C</p>
+                <p *ngIf="p.datosAdicionales[0]">{{p.datosAdicionales[0].clave}} : {{p.datosAdicionales[0].valor}}</p>
+                <p *ngIf="p.datosAdicionales[1]">{{p.datosAdicionales[1].clave}} : {{p.datosAdicionales[1].valor}}</p>
+                <p *ngIf="p.datosAdicionales[2]">{{p.datosAdicionales[2].clave}} : {{p.datosAdicionales[2].valor}}</p>
+                </div>
+                <!-- <input type="radio" name="accordion" id="acc-close" /> -->
+            </section>
+        </div>
+</nav>
+    <!-- 
+		<input type="radio" name="accordion" id="cb2" />
+		<section class="box">
+			<label class="box-title" for="cb2">Paciente</label>
+
+			<div class="box-content">
+				<p>{{turno?.pacienteNombre}}</p>
+            </div>
+		</section>
+	</nav> -->
 
 <!-- <div class="container">
   <h3>Edicion de usuario</h3>
