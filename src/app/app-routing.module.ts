@@ -14,7 +14,8 @@ const routes: Routes = [
     path: '', component: MenuComponent,
     children: [
       {
-        path: 'usuarios', component: UsuarioComponent
+        path: 'usuarios', 
+        component: UsuarioComponent
       },
       {
         path:"usuario-detalle", component: UsuarioDetalleComponent

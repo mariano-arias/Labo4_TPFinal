@@ -84,8 +84,8 @@
             </ngx-spinner>
           <tr *ngFor="let p of usuarios" class="linea">
             <td style="display: none">{{ p.uid }}</td>
-            <td>{{ p.nombre }}</td>
-            <td>{{ p.apellido }}</td>
+            <td>{{ p.nombre | titlecase }}</td>
+            <td>{{ p.apellido | titlecase }}</td>
             <td>{{ p.dni }}</td>
             <td>{{ p.email }}</td>
             <td><img src='{{p.photoPerfilURL}}' alt="" width="50" height="50"/></td>
@@ -107,8 +107,10 @@
             <td >
               <button *ngIf="p.activo==false" class="btn btn-green btn-circle">
                   <i class="fa fa-check" (click)="Activar(p)">Activar</i>
-
               </button>
+              <button *ngIf="p.perfil=='paciente'" class="btn btn-green btn-circle">
+                <i class="fa fa-check">Historia Clinica</i>
+            </button>
           </td>
           </tr>
         </tbody>

@@ -21,7 +21,6 @@ import { TurnosGestionModule } from './turnos-gestion/turnos-gestion.module';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { RegistroPerfilComponent } from './components/registro-perfil/registro-perfil.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { InputComponent } from './components/input/input.component';
 
 
 @NgModule({
@@ -47,7 +46,7 @@ import { InputComponent } from './components/input/input.component';
     NgxSpinnerModule,
     GestionUsuariosModule,
     TurnosGestionModule,
-    NgxCaptchaModule
+    NgxCaptchaModule,
   ],
   exports:[
     NgxSpinnerModule

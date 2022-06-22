@@ -43,6 +43,11 @@ export class UsuarioTablaComponent implements OnInit {
     )
   }
 
+  VerHistoriaClinica(p: Usuario){
+    
+
+  }
+
   filterTable(){
     this.firebase.GetDocsBy('Usuarios', this.perfil).subscribe(
       (res)=>{

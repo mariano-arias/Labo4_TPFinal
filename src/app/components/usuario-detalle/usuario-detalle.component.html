@@ -3,7 +3,7 @@
       <div class="col-md-3 border-right">
           <div class="d-flex flex-column align-items-center text-center p-3 py-5">
             <img class="rounded-circle mt-5" width="150px" src='{{userPhoto}}'>
-            <span class="font-weight-bold">{{usuario?.apellido}}, {{usuario?.nombre}} </span>
+            <span class="font-weight-bold">{{usuario?.apellido | titlecase}}, {{usuario?.nombre | titlecase}} </span>
             <span class="text-black-50">{{usuario?.email}}</span>
             <span class="text-black-75">{{usuario?.perfil | titlecase}} </span>
             <button *ngIf="usuario?.perfil=='paciente'" class="btn" (click)="VerHistoria()">Mi Historia Clinica</button>

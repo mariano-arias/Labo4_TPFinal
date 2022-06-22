@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import { InteractionService } from '../../services/interaction.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { Usuario } from 'src/app/Entities/usuario';
+import { slideInAnimation } from 'src/app/app.animation';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
+  animations: [slideInAnimation]
 })
 export class MenuComponent implements OnInit {
 
