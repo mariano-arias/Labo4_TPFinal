@@ -19,6 +19,9 @@
           <a class="nav-link" routerLink="./usuarios">Usuarios</a>
         </li>
         <li class="nav-item" *ngIf="perfilUserLogged== 'admin'" >
+          <a class="nav-link" routerLink="./especialidades">Especialidades</a>
+        </li>
+        <li class="nav-item" *ngIf="perfilUserLogged== 'admin'" >
           <a class="nav-link" routerLink="./turnos/mis-turnos">Turnos</a>
         </li>
         <li class="nav-item" *ngIf="userLogged && perfilUserLogged != 'admin'">

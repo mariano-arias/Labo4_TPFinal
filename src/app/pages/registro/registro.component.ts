@@ -168,7 +168,8 @@ export class RegistroComponent implements OnInit {
   CreateEspecialidad( especialidadBusqueda: string){
     this.especialidad = new Especialidad;
     this.especialidad.nombre = especialidadBusqueda.toUpperCase();
-    this.especialidad.imageURL="";
+    // seteo imagen por default para despues editarla desde perfil admin
+    this.especialidad.imageURL="https://firebasestorage.googleapis.com/v0/b/mariano-arias-tpfinal.appspot.com/o/Especialidades%2FSala.jpg?alt=media&token=955d48aa-2801-4949-a508-34a0d99ca45f";
     this.firebaseService.CreateDoc("Especialidades", this.especialidad)
     .then(()=> {
       this.especialidades.push(this.especialidad);

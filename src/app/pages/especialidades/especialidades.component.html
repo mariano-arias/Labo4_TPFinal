@@ -1,0 +1,48 @@
+<div class="container">
+  <h3>Especialidades registradas</h3>
+  <div class="row">
+    <div *ngFor="let p of lista" class="card m-2" style="width: 18rem">
+      <img src="{{ p.imageURL }}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ p.nombre | titlecase }}</h5>
+        <p class="card-text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
+          laudantium nihil sed iure sit omnis quibusdam accusantium molestiae
+          sapiente.
+        </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+      </ul>
+      <div class="card-body">
+        <!-- <a *ngIf="!upload" class="btn" (click)="CambiarFoto()">Cambiar Imagen</a>
+        <div *ngIf="upload"> -->
+          <!-- SUBIDA ARCHIVOS -->
+          <p>Actualizar imagen:</p>
+          <div class="avatar-upload">
+            <div class="mb-4 pb-2">
+              <div class="form-outline">
+                <input
+                  type="file"
+                  class="form-control form-control-lg"
+                  accept=".png, .jpg, .jpeg"
+                  (change)="uploadFile($event)"
+                  multiple
+                />
+                <label class="form-label" for="form3Examplev4">
+                  Adjuntar archivo</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row m-1">
+            <!-- <button class="btn btn-danger m-1" (click)="Cancelar()">Cancelar</button> -->
+            <button class="btn btn-primary m-1" (click)="Guardar(p)">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

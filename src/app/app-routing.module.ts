@@ -8,6 +8,7 @@ import { MenuComponent } from './shared/menu/menu.component';
 import { UsuarioDetalleComponent } from './components/usuario-detalle/usuario-detalle.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { PacientesComponent } from './components/pacientes/pacientes.component';
+import { EspecialidadesComponent } from './pages/especialidades/especialidades.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,9 @@ const routes: Routes = [
       },
       {
         path: 'pacientes', component: PacientesComponent
+      },
+      {
+        path: 'especialidades', component: EspecialidadesComponent
       },
       {
         path: 'turnos', 

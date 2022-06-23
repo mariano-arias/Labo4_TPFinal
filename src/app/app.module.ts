@@ -21,6 +21,7 @@ import { TurnosGestionModule } from './turnos-gestion/turnos-gestion.module';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { RegistroPerfilComponent } from './components/registro-perfil/registro-perfil.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { EspecialidadesComponent } from './pages/especialidades/especialidades.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     RegistroComponent,
     LoginComponent,
     RegistroPerfilComponent,
-    CarouselComponent
+    CarouselComponent,
+    EspecialidadesComponent
   ],
   imports: [
     BrowserModule,

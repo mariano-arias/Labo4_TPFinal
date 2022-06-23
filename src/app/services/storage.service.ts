@@ -47,7 +47,25 @@ export class StorageService {
     // return await aux.ref.getDownloadURL();
 
   }
+  
+  async FileUploadEsp(nameFile: string, imgFile : any) {
 
+     
+    const store = getStorage();
+    const storageRef = ref(store, 'Especialidades/'+nameFile);
+
+    uploadString(storageRef, imgFile, 'data_url').then((snapshot) => {
+      console.log('Uploaded a base64 string!');
+    }).catch(
+      ()=> console.log("Error en metodo FileUpload - StorageSservice")
+    )
+    //  const aux = await this.storageRef.uploadBytes (imgBase64, "data_url")
+    //             .catch( (err)=> {
+    //               console.log(err);
+    //             });
+    // return await aux.ref.getDownloadURL();
+
+  }
  async  GetFile(nameFile : string | undefined) {
 
   console.log(nameFile);
@@ -67,8 +85,28 @@ export class StorageService {
       }
       )
       return this.path;
-      
+  }
 
+  
+ async  GetFileEsp(nameFile : string | undefined) {
+
+  console.log(nameFile);
+  
+    const store = getStorage();
+    const storageRef = ref(store, 'Especialidades/'+nameFile);
+
+    const url = await getDownloadURL(storageRef).then( (url)=>{
+      console.log(url);
+      
+      this.path = url;
+      return this.path;
+    }).catch(
+      ()=>{
+        console.log("Error n getfile");
+        
+      }
+      )
+      return this.path;
   }
 
 }
