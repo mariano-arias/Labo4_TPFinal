@@ -62,11 +62,10 @@
                 (click)="VerResenia(p)"
               >Ver Reseña</button>
             </td>
-         
             <td >
-                  <button *ngIf="p.estado=='solicitado' || p.estado=='aceptado'" class="btn btn-danger btn-circle">
-                      <i class="fa fa-check" (click)="Cancelar(p)">Cancelar</i>
-                    </button>
+                <button *ngIf="p.estado=='solicitado' || p.estado=='aceptado'" class="btn btn-danger btn-circle">
+                  <i class="fa fa-check" (click)="Cancelar(p)">Cancelar</i>
+                </button>
             </td>
             <td >
               <button *ngIf="p.estado=='solicitado'  && usuario.perfil=='especialista'" class="btn btn-danger btn-circle">

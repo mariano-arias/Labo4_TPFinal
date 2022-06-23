@@ -29,6 +29,8 @@ export class TurnosTablaComponent implements OnInit {
   turnosAuxiliar: Turno[] = [];
   historias : HistoriaClinica[]=[];
   finalizar: boolean = false;
+  estoyCancelando: boolean = false;
+  estoyRechazando: boolean = false;
 
   turnoAtencion:Turno | undefined;
 
@@ -155,6 +157,9 @@ Finalizar(p: Turno){
   this.turnoAtencion=p;
   //this.firebaseService.UpdateDoc<Turno>(this.turnosCollection, p!.id, p);
   this.finalizar = true;
+}
+Cancelando(){
+  this.estoyCancelando=true;
 }
 Cancelar(p: Turno){
   p.estado='cancelado';

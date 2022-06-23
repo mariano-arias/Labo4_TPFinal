@@ -5,6 +5,8 @@ import { Usuario } from 'src/app/Entities/usuario';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { StorageService } from 'src/app/services/storage.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-usuario-detalle',
@@ -59,6 +61,18 @@ export class UsuarioDetalleComponent implements OnInit {
            )
   }
 
+  openPDF(){
+    let DATA: any = document.getElementById('data');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 200;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('download.pdf');
+    });
+  }
   GuardarCambios( ){
 // console.log(this.usuario);
 

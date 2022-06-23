@@ -13,7 +13,7 @@ export class Turno {
     startStr! : string;
     endStr! : string;
     estado! : string; // solicitado - aceptado -realizado -cancelado rechazado
-  //  comentario! : string;
+    comentario! : string;
     calificacion!: string;
     resultadoCita! : HistoriaClinica;
    // activo! : boolean;

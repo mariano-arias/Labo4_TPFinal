@@ -28,20 +28,20 @@ export class EspecialidadesComponent implements OnInit {
       (res)=>{
         this.lista=res;
        // console.log(this.lista);
-        this.lista.forEach(
-          (x)=>{
-            this.storageService.GetFileEsp(x.nombre)
-            .then((url)=>{
-              if(url)
-                x.imageURL=url;
-              url='';
-            })
-            .catch()
-            .finally(
+        // this.lista.forEach(
+        //   (x)=>{
+        //     this.storageService.GetFileEsp(x.nombre)
+        //     .then((url)=>{
+        //       if(url)
+        //         x.imageURL=url;
+        //       url='';
+        //     })
+        //     .catch()
+        //     .finally(
              
-            )
-          }
-        )
+        //     )
+        //   }
+        // )
         console.log(this.lista);
         
       }

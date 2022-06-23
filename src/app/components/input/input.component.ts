@@ -20,7 +20,7 @@ export class InputComponent implements OnInit {
   }
 
   Buscar(){
-     console.log(this.termino); //NO BORRAR
+    // console.log(this.termino); //NO BORRAR
     this.onEnterTermino.emit(this.termino.toUpperCase());
   }
 }

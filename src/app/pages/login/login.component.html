@@ -54,7 +54,7 @@
         <div class="form-container">
           <h4>Accesos</h4>
           <a *ngFor="let p of usuarios" class="btn btn-new" (click)="Login(p)">
-            {{p.nombre}} {{p.apellido}} - {{p.perfil | uppercase}} 
+            {{p.nombre | titlecase}} {{p.apellido | titlecase}} - {{p.perfil | uppercase}} 
             <img src={{p.photoPerfilURL}} width="50" height="50" alt="photo">
           </a>
         </div>
