@@ -6,7 +6,6 @@ import { UsuarioTablaComponent } from './components/usuario-tabla/usuario-tabla.
 import { AppRoutingModule } from './app-routing.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PerfilComponent } from './pages/perfil/perfil.component';
-import { InputComponent } from './components/input/input.component';
 import { PacientesComponent } from './components/pacientes/pacientes.component';
 
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { HistoriaClinica } from 'src/app/Entities/historiaClinica';
 import { Turno } from 'src/app/Entities/turno';
 import { Usuario } from 'src/app/Entities/usuario';
@@ -14,12 +14,13 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./usuario-detalle.component.css']
 })
 export class UsuarioDetalleComponent implements OnInit {
-
+  @ViewChild('data') htmlData!: ElementRef;
   @Input() usuario : Usuario | undefined;
   @Input() userPhoto : string | undefined;
   turnos: Turno [] = [];
   historial: HistoriaClinica[] = [];
-  
+  flagPDF:boolean = true;
+
   userUpdated : Usuario | undefined;
   constructor(private storageService : StorageService, private firebaseService : FirebaseService,
               private interactionService: InteractionService) { 
@@ -57,22 +58,27 @@ export class UsuarioDetalleComponent implements OnInit {
                  ...element.payload.doc.data()
                })
              })
+             console.log(this.historial);
+             
              }
            )
   }
 
   openPDF(){
+    this.flagPDF=true;
     let DATA: any = document.getElementById('data');
     html2canvas(DATA).then((canvas) => {
       let fileWidth = 200;
       let fileHeight = (canvas.height * fileWidth) / canvas.width;
-      const FILEURI = canvas.toDataURL('image/png');
+      const FILEURI = canvas.toDataURL( 'image/png');
       let PDF = new jsPDF('p', 'mm', 'a4');
-      let position = 0;
-      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      let position = 5;
+      PDF.addImage(FILEURI, 'PNG', 5, position, fileWidth, fileHeight);
       PDF.save('download.pdf');
     });
+    this.flagPDF=false;
   }
+
   GuardarCambios( ){
 // console.log(this.usuario);
 

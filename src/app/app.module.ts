@@ -22,6 +22,9 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { RegistroPerfilComponent } from './components/registro-perfil/registro-perfil.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { EspecialidadesComponent } from './pages/especialidades/especialidades.component';
+import { MayusculasPipe } from './pipes/mayuscula.pipe';
+import { FooterComponent } from './shared/footer/footer.component';
+import { NamePipe } from './pipes/name.pipe';
 
 
 @NgModule({
@@ -33,7 +36,10 @@ import { EspecialidadesComponent } from './pages/especialidades/especialidades.c
     LoginComponent,
     RegistroPerfilComponent,
     CarouselComponent,
-    EspecialidadesComponent
+    EspecialidadesComponent,
+    MayusculasPipe,
+    NamePipe,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

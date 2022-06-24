@@ -1,0 +1,9 @@
+.footer{
+  background:rgb(208, 210, 233); 
+  color: rgb(130, 131, 141);
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 0;
+}
